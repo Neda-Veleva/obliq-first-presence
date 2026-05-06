@@ -3,72 +3,209 @@ import { AnimatePresence, motion } from 'motion/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { cn } from './ui/utils';
+import { useLocale, type Locale } from '../i18n';
 
-const slides = [
-  {
-    id: 'lips',
-    label: 'Устни',
-    title: 'Форма и баланс',
-    description:
-      'Дискретно подчертаване на естествения обем, с уважение към индивидуалните черти.',
-    image: '/mirror-carousel/lips.png',
-    alt: 'Близък кадър на естествени устни',
-    objectPosition: 'center 52%',
-    scale: 1,
+const mirrorCopy = {
+  bg: {
+    ariaLabel: 'Зони на фокус и желан резултат',
+    eyebrow: 'Интерактивен фокус',
+    zoneLabel: 'Зона:',
+    previousLabel: 'Предишен фокус',
+    nextLabel: 'Следващ фокус',
+    showLabel: 'Покажи',
+    cta: 'Разгледай подходите',
+    slides: [
+      {
+        id: 'lips',
+        label: 'Устни',
+        title: 'Форма и баланс',
+        description:
+          'Дискретно подчертаване на естествения обем, с уважение към индивидуалните черти.',
+        image: '/mirror-carousel/lips.png',
+        alt: 'Близък кадър на естествени устни',
+        objectPosition: 'center 52%',
+        scale: 1,
+      },
+      {
+        id: 'eyes',
+        label: 'Очи',
+        title: 'По-отпочинал поглед',
+        description:
+          'Подход, който намалява усещането за умора и запазва естественото излъчване.',
+        image: '/mirror-carousel/eyes.png',
+        alt: 'Близък кадър на око и зона под него',
+        objectPosition: 'center 44%',
+        scale: 1,
+      },
+      {
+        id: 'forehead',
+        label: 'Чело',
+        title: 'Гладка текстура',
+        description:
+          'Фин баланс между изразителност, мекота и естествено движение.',
+        image: '/mirror-carousel/forehead.png',
+        alt: 'Близък кадър на чело и вежди',
+        objectPosition: 'center 40%',
+        scale: 1,
+      },
+      {
+        id: 'neck',
+        label: 'Шия',
+        title: 'Стегнат контур',
+        description:
+          'Грижа за зона, която често разкрива нуждата от повече внимание.',
+        image: '/mirror-carousel/neck.png',
+        alt: 'Близък кадър на шия',
+        objectPosition: 'center 36%',
+        scale: 1,
+      },
+      {
+        id: 'cheekbones',
+        label: 'Скули',
+        title: 'Фина дефиниция',
+        description:
+          'Подчертаване на структурата на лицето без усещане за прекомерна промяна.',
+        image: '/mirror-carousel/cheekbones.png',
+        alt: 'Близък кадър на скула и текстура на кожа',
+        objectPosition: 'center 44%',
+        scale: 1,
+      },
+    ],
   },
-  {
-    id: 'eyes',
-    label: 'Очи',
-    title: 'По-отпочинал поглед',
-    description:
-      'Подход, който намалява усещането за умора и запазва естественото излъчване.',
-    image: '/mirror-carousel/eyes.png',
-    alt: 'Близък кадър на око и зона под него',
-    objectPosition: 'center 44%',
-    scale: 1,
+  en: {
+    ariaLabel: 'Focus areas and desired result',
+    eyebrow: 'Interactive focus',
+    zoneLabel: 'Area:',
+    previousLabel: 'Previous focus',
+    nextLabel: 'Next focus',
+    showLabel: 'Show',
+    cta: 'Explore approaches',
+    slides: [
+      {
+        id: 'lips',
+        label: 'Lips',
+        title: 'Shape and balance',
+        description: 'A discreet enhancement of natural volume, respecting individual features.',
+        image: '/mirror-carousel/lips.png',
+        alt: 'Close-up of natural lips',
+        objectPosition: 'center 52%',
+        scale: 1,
+      },
+      {
+        id: 'eyes',
+        label: 'Eyes',
+        title: 'A more rested look',
+        description: 'An approach that softens the sense of fatigue while keeping natural expression.',
+        image: '/mirror-carousel/eyes.png',
+        alt: 'Close-up of an eye and under-eye area',
+        objectPosition: 'center 44%',
+        scale: 1,
+      },
+      {
+        id: 'forehead',
+        label: 'Forehead',
+        title: 'Smooth texture',
+        description: 'A subtle balance between expression, softness and natural movement.',
+        image: '/mirror-carousel/forehead.png',
+        alt: 'Close-up of forehead and brows',
+        objectPosition: 'center 40%',
+        scale: 1,
+      },
+      {
+        id: 'neck',
+        label: 'Neck',
+        title: 'Defined contour',
+        description: 'Care for an area that often reveals the need for more attention.',
+        image: '/mirror-carousel/neck.png',
+        alt: 'Close-up of the neck',
+        objectPosition: 'center 36%',
+        scale: 1,
+      },
+      {
+        id: 'cheekbones',
+        label: 'Cheekbones',
+        title: 'Subtle definition',
+        description: 'Highlighting facial structure without the feeling of excessive change.',
+        image: '/mirror-carousel/cheekbones.png',
+        alt: 'Close-up of cheekbone and skin texture',
+        objectPosition: 'center 44%',
+        scale: 1,
+      },
+    ],
   },
-  {
-    id: 'forehead',
-    label: 'Чело',
-    title: 'Гладка текстура',
-    description:
-      'Фин баланс между изразителност, мекота и естествено движение.',
-    image: '/mirror-carousel/forehead.png',
-    alt: 'Близък кадър на чело и вежди',
-    objectPosition: 'center 40%',
-    scale: 1,
+  ru: {
+    ariaLabel: 'Зоны фокуса и желаемый результат',
+    eyebrow: 'Интерактивный фокус',
+    zoneLabel: 'Зона:',
+    previousLabel: 'Предыдущий фокус',
+    nextLabel: 'Следующий фокус',
+    showLabel: 'Показать',
+    cta: 'Посмотреть подходы',
+    slides: [
+      {
+        id: 'lips',
+        label: 'Губы',
+        title: 'Форма и баланс',
+        description: 'Деликатное подчеркивание естественного объема с уважением к индивидуальным чертам.',
+        image: '/mirror-carousel/lips.png',
+        alt: 'Крупный план естественных губ',
+        objectPosition: 'center 52%',
+        scale: 1,
+      },
+      {
+        id: 'eyes',
+        label: 'Глаза',
+        title: 'Более отдохнувший взгляд',
+        description: 'Подход, который смягчает ощущение усталости и сохраняет естественное выражение.',
+        image: '/mirror-carousel/eyes.png',
+        alt: 'Крупный план глаза и зоны под ним',
+        objectPosition: 'center 44%',
+        scale: 1,
+      },
+      {
+        id: 'forehead',
+        label: 'Лоб',
+        title: 'Гладкая текстура',
+        description: 'Тонкий баланс между выразительностью, мягкостью и естественным движением.',
+        image: '/mirror-carousel/forehead.png',
+        alt: 'Крупный план лба и бровей',
+        objectPosition: 'center 40%',
+        scale: 1,
+      },
+      {
+        id: 'neck',
+        label: 'Шея',
+        title: 'Четкий контур',
+        description: 'Забота о зоне, которая часто показывает потребность в большем внимании.',
+        image: '/mirror-carousel/neck.png',
+        alt: 'Крупный план шеи',
+        objectPosition: 'center 36%',
+        scale: 1,
+      },
+      {
+        id: 'cheekbones',
+        label: 'Скулы',
+        title: 'Мягкая дефиниция',
+        description: 'Подчеркивание структуры лица без ощущения чрезмерного изменения.',
+        image: '/mirror-carousel/cheekbones.png',
+        alt: 'Крупный план скулы и текстуры кожи',
+        objectPosition: 'center 44%',
+        scale: 1,
+      },
+    ],
   },
-  {
-    id: 'neck',
-    label: 'Шия',
-    title: 'Стегнат контур',
-    description:
-      'Грижа за зона, която често разкрива нуждата от повече внимание.',
-    image: '/mirror-carousel/neck.png',
-    alt: 'Близък кадър на шия',
-    objectPosition: 'center 36%',
-    scale: 1,
-  },
-  {
-    id: 'cheekbones',
-    label: 'Скули',
-    title: 'Фина дефиниция',
-    description:
-      'Подчертаване на структурата на лицето без усещане за прекомерна промяна.',
-    image: '/mirror-carousel/cheekbones.png',
-    alt: 'Близък кадър на скула и текстура на кожа',
-    objectPosition: 'center 44%',
-    scale: 1,
-  },
-] as const;
+} satisfies Record<Locale, unknown>;
 
 const AUTO_PLAY_MS = 14600000;
 
-function wrapIndex(index: number) {
-  return (index + slides.length) % slides.length;
+function wrapIndex(index: number, length: number) {
+  return (index + length) % length;
 }
 
 export function MirrorCarousel() {
+  const { locale } = useLocale();
+  const copy = mirrorCopy[locale];
+  const slides = copy.slides;
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -78,14 +215,14 @@ export function MirrorCarousel() {
     if (isPaused) return;
 
     const intervalId = window.setInterval(() => {
-      setActiveIndex((current) => wrapIndex(current + 1));
+      setActiveIndex((current) => wrapIndex(current + 1, slides.length));
     }, AUTO_PLAY_MS);
 
     return () => window.clearInterval(intervalId);
-  }, [isPaused]);
+  }, [isPaused, slides.length]);
 
   const goTo = (nextIndex: number) => {
-    setActiveIndex(wrapIndex(nextIndex));
+    setActiveIndex(wrapIndex(nextIndex, slides.length));
   };
 
   const goToPrevious = () => goTo(activeIndex - 1);
@@ -119,7 +256,7 @@ export function MirrorCarousel() {
       id="zones-intro"
       aria-labelledby="zones-intro-title"
       aria-roledescription="carousel"
-      aria-label="Зони на фокус и желан резултат"
+      aria-label={copy.ariaLabel}
       className="relative overflow-hidden bg-[#F2EEEC] py-20 sm:py-24 lg:py-28"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -190,7 +327,7 @@ export function MirrorCarousel() {
 
         <div className="relative z-10">
           <div className="mb-6 flex items-center justify-between gap-4 text-[0.72rem] uppercase tracking-[0.28em] text-[#8D8177]">
-            <span>Интерактивен фокус</span>
+            <span>{copy.eyebrow}</span>
             <span>
               {String(activeIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
             </span>
@@ -198,7 +335,7 @@ export function MirrorCarousel() {
 
           <div className="max-w-xl">
             <p className="mb-3 text-[0.8rem] uppercase tracking-[0.32em] text-[#9A8B80]">
-              Зона: {activeSlide.label}
+              {copy.zoneLabel} {activeSlide.label}
             </p>
 
             <AnimatePresence mode="wait">
@@ -237,7 +374,7 @@ export function MirrorCarousel() {
                   type="button"
                   onClick={goToPrevious}
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-[#CCBDAF] bg-white/35 text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#B9A999] hover:bg-white/50 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]"
-                  aria-label="Предишен фокус"
+                  aria-label={copy.previousLabel}
                 >
                   <ArrowLeft className="h-4 w-4" strokeWidth={1.8} />
                 </button>
@@ -245,7 +382,7 @@ export function MirrorCarousel() {
                   type="button"
                   onClick={goToNext}
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-[#CCBDAF] bg-white/35 text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#B9A999] hover:bg-white/50 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]"
-                  aria-label="Следващ фокус"
+                  aria-label={copy.nextLabel}
                 >
                   <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
                 </button>
@@ -264,7 +401,7 @@ export function MirrorCarousel() {
                         'relative h-2.5 rounded-full transition-[width,background-color,transform] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]',
                         active ? 'w-10 bg-[#635C54]' : 'w-2.5 bg-[#CDBFB1] hover:scale-110 hover:bg-[#B9A999]',
                       )}
-                      aria-label={`Покажи ${slide.label.toLowerCase()}`}
+                      aria-label={`${copy.showLabel} ${slide.label.toLowerCase()}`}
                       aria-current={active ? 'true' : undefined}
                     >
                       <span className="sr-only">{slide.label}</span>
@@ -278,7 +415,7 @@ export function MirrorCarousel() {
               href="#facial-focus"
               className="mt-8 inline-flex min-h-11 items-center justify-center rounded-full border border-[#C9BBAD] bg-[#F6F2EF] px-6 py-3 text-[0.95rem] font-medium text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#B5A595] hover:bg-[#ECE5DF] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]"
             >
-              Разгледай подходите
+              {copy.cta}
             </a>
           </div>
         </div>

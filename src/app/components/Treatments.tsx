@@ -1,29 +1,98 @@
 import { motion } from 'motion/react';
+import { useLocale, type Locale } from '../i18n';
 
-const treatments = [
+const treatmentsCopy: Record<
+  Locale,
   {
-    id: 'mimic',
-    name: 'Модулиране на мимиката',
-    area: 'Прецизна корекция на динамичните линии, естествен израз',
+    eyebrow: string;
+    title: string;
+    treatments: { id: string; name: string; area: string }[];
+  }
+> = {
+  bg: {
+    eyebrow: 'УСЛУГИ',
+    title: 'Премерена намеса.',
+    treatments: [
+      {
+        id: 'mimic',
+        name: 'Модулиране на мимиката',
+        area: 'Прецизна корекция на динамичните линии, естествен израз',
+      },
+      {
+        id: 'fillers',
+        name: 'Контур и обем',
+        area: 'Хиалуронови филъри за пропорция и дефиниция',
+      },
+      {
+        id: 'skin',
+        name: 'Протоколи за кожата',
+        area: 'Текстура, тон и сияние',
+      },
+      {
+        id: 'threads',
+        name: 'Лифтинг с конци',
+        area: 'Повдигане и подкрепа без операция',
+      },
+    ],
   },
-  {
-    id: 'fillers',
-    name: 'Контур и обем',
-    area: 'Хиалуронови филъри за пропорция и дефиниция',
+  en: {
+    eyebrow: 'SERVICES',
+    title: 'Measured intervention.',
+    treatments: [
+      {
+        id: 'mimic',
+        name: 'Mimic modulation',
+        area: 'Precise correction of dynamic lines with natural expression',
+      },
+      {
+        id: 'fillers',
+        name: 'Contour and volume',
+        area: 'Hyaluronic fillers for proportion and definition',
+      },
+      {
+        id: 'skin',
+        name: 'Skin protocols',
+        area: 'Texture, tone and radiance',
+      },
+      {
+        id: 'threads',
+        name: 'Thread lifting',
+        area: 'Lifting and support without surgery',
+      },
+    ],
   },
-  {
-    id: 'skin',
-    name: 'Протоколи за кожата',
-    area: 'Текстура, тон и сияние',
+  ru: {
+    eyebrow: 'УСЛУГИ',
+    title: 'Выверенное вмешательство.',
+    treatments: [
+      {
+        id: 'mimic',
+        name: 'Модуляция мимики',
+        area: 'Точная коррекция динамических линий и естественное выражение',
+      },
+      {
+        id: 'fillers',
+        name: 'Контур и объем',
+        area: 'Гиалуроновые филлеры для пропорции и дефиниции',
+      },
+      {
+        id: 'skin',
+        name: 'Протоколы для кожи',
+        area: 'Текстура, тон и сияние',
+      },
+      {
+        id: 'threads',
+        name: 'Нитевой лифтинг',
+        area: 'Лифтинг и поддержка без операции',
+      },
+    ],
   },
-  {
-    id: 'threads',
-    name: 'Лифтинг с конци',
-    area: 'Повдигане и подкрепа без операция',
-  },
-] as const;
+};
 
 export function Treatments() {
+  const { locale } = useLocale();
+  const copy = treatmentsCopy[locale];
+
   return (
     <section
       id="treatments"
@@ -38,15 +107,15 @@ export function Treatments() {
           className="mb-24"
         >
           <p className="text-black/40 tracking-[0.3em] mb-6" style={{ fontSize: '0.75rem' }}>
-            УСЛУГИ
+            {copy.eyebrow}
           </p>
           <h2 className="tracking-tight" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1.05, fontWeight: 400 }}>
-            Премерена намеса.
+            {copy.title}
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-16">
-          {treatments.map((treatment, index) => (
+          {copy.treatments.map((treatment, index) => (
             <motion.div
               key={treatment.id}
               initial={{ opacity: 0, y: 30 }}

@@ -1,8 +1,41 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useLocale, type Locale } from '../i18n';
+
+const doctorCopy: Record<
+  Locale,
+  { imageAlt: string; eyebrow: string; name: string; body: string; credential: string }
+> = {
+  bg: {
+    imageAlt: 'д-р Михаил Михайлов',
+    eyebrow: 'ОСНОВАТЕЛ',
+    name: 'д-р Михаил Михайлов',
+    body:
+      'Като сертифициран обучител на Merz Aesthetics, д-р Михайлов провежда тренинги по работа с хиалуронови филъри, ботулинов токсин и колагенови стимулатори (Radiesse, Belotero, BoCouture). Той активно популяризира етичната и безопасна практика в естетичната медицина, подчертавайки значението на медицинската квалификация при естетичните процедури.',
+    credential: 'Бордова сертификация • Merz Aesthetics',
+  },
+  en: {
+    imageAlt: 'Dr. Mihail Mihaylov',
+    eyebrow: 'FOUNDER',
+    name: 'Dr. Mihail Mihaylov',
+    body:
+      'As a certified Merz Aesthetics trainer, Dr. Mihaylov leads trainings in hyaluronic fillers, botulinum toxin and collagen stimulators (Radiesse, Belotero, BoCouture). He actively promotes ethical and safe practice in aesthetic medicine, emphasizing the importance of medical qualification in aesthetic procedures.',
+    credential: 'Board certification • Merz Aesthetics',
+  },
+  ru: {
+    imageAlt: 'д-р Михаил Михайлов',
+    eyebrow: 'ОСНОВАТЕЛЬ',
+    name: 'д-р Михаил Михайлов',
+    body:
+      'Как сертифицированный тренер Merz Aesthetics, д-р Михайлов проводит обучения по работе с гиалуроновыми филлерами, ботулиническим токсином и коллагеновыми стимуляторами (Radiesse, Belotero, BoCouture). Он активно поддерживает этичную и безопасную практику в эстетической медицине, подчеркивая значение медицинской квалификации.',
+    credential: 'Бордовая сертификация • Merz Aesthetics',
+  },
+};
 
 export function Doctor() {
+  const { locale } = useLocale();
+  const copy = doctorCopy[locale];
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -38,7 +71,7 @@ export function Doctor() {
           >
             <ImageWithFallback
               src="/doctor-portrait.png"
-              alt="д-р Михаил Михайлов"
+              alt={copy.imageAlt}
               className="h-full w-full object-cover"
             />
           </motion.div>
@@ -56,22 +89,22 @@ export function Doctor() {
           className="flex flex-col justify-center px-8 md:px-16 lg:px-20 py-20"
         >
           <p className="text-white/40 tracking-[0.3em] mb-8" style={{ fontSize: '0.75rem' }}>
-            ОСНОВАТЕЛ
+            {copy.eyebrow}
           </p>
 
           <h2 className="mb-6 tracking-tight" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.1, fontWeight: 400 }}>
-            д-р Михаил Михайлов
+            {copy.name}
           </h2>
 
           <div className="space-y-6 text-white/70 max-w-lg" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
             <p>
-              Като сертифициран обучител на Merz Aesthetics, д-р Михайлов провежда тренинги по работа с хиалуронови филъри, ботулинов токсин и колагенови стимулатори (Radiesse, Belotero, BoCouture). Той активно популяризира етичната и безопасна практика в естетичната медицина, подчертавайки значението на медицинската квалификация при естетичните процедури.
+              {copy.body}
             </p>
           </div>
 
           <div className="mt-12 pt-8 border-t border-white/10">
             <p className="text-white/50" style={{ fontSize: '0.875rem' }}>
-              Бордова сертификация • Merz Aesthetics
+              {copy.credential}
             </p>
           </div>
         </motion.div>

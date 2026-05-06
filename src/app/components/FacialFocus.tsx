@@ -1,25 +1,87 @@
 import { useCallback, useEffect, useState } from 'react';
 import { cn } from './ui/utils';
 import { FacialFocusFaceMap } from './FacialFocusFaceMap';
+import { useLocale, type Locale } from '../i18n';
 
 const STORAGE_KEY = 'obliq-facial-focus';
 
-const options: { id: string; title: string; line: string }[] = [
-  { id: 'skin', title: 'Кожа', line: 'Акне, текстура, пори, сияние' },
+const focusCopy: Record<
+  Locale,
   {
-    id: 'wrinkles',
-    title: 'Бръчки и фини линии',
-    line: 'Фини линии и мимика по челото',
+    eyebrow: string;
+    title: string;
+    body: string;
+    cta: string;
+    options: { id: string; title: string; line: string }[];
+  }
+> = {
+  bg: {
+    eyebrow: 'Фокус',
+    title: 'Какво бихте искали да подобрите?',
+    body: 'Изберете една или повече зони и ще ви насочим към най-подходящия за вас подход.',
+    cta: 'Вижте препоръчаните за вас процедури',
+    options: [
+      { id: 'skin', title: 'Кожа', line: 'Акне, текстура, пори, сияние' },
+      {
+        id: 'wrinkles',
+        title: 'Бръчки и фини линии',
+        line: 'Фини линии и мимика по челото',
+      },
+      { id: 'contour', title: 'Контур и обем на лицето', line: 'Скули, челюстна линия, баланс' },
+      { id: 'undereye', title: 'Околоочен контур', line: 'Тъмни кръгове, вдлъбнатини, торбички' },
+      { id: 'lips', title: 'Устни', line: 'Форма, обем, хидратация' },
+      {
+        id: 'rejuvenation',
+        title: 'Цялостно подмладяване на лицето',
+        line: 'Освежен, отпочинал вид',
+      },
+    ],
   },
-  { id: 'contour', title: 'Контур и обем на лицето', line: 'Скули, челюстна линия, баланс' },
-  { id: 'undereye', title: 'Околоочен контур', line: 'Тъмни кръгове, вдлъбнатини, торбички' },
-  { id: 'lips', title: 'Устни', line: 'Форма, обем, хидратация' },
-  {
-    id: 'rejuvenation',
-    title: 'Цялостно подмладяване на лицето',
-    line: 'Освежен, отпочинал вид',
+  en: {
+    eyebrow: 'Focus',
+    title: 'What would you like to improve?',
+    body: 'Select one or more areas and we will guide you toward the most suitable approach.',
+    cta: 'See procedures recommended for you',
+    options: [
+      { id: 'skin', title: 'Skin', line: 'Acne, texture, pores, radiance' },
+      {
+        id: 'wrinkles',
+        title: 'Wrinkles and fine lines',
+        line: 'Fine lines and forehead expression',
+      },
+      { id: 'contour', title: 'Facial contour and volume', line: 'Cheekbones, jawline, balance' },
+      { id: 'undereye', title: 'Eye contour', line: 'Dark circles, hollows, puffiness' },
+      { id: 'lips', title: 'Lips', line: 'Shape, volume, hydration' },
+      {
+        id: 'rejuvenation',
+        title: 'Full-face rejuvenation',
+        line: 'A fresher, more rested look',
+      },
+    ],
   },
-];
+  ru: {
+    eyebrow: 'Фокус',
+    title: 'Что вы хотели бы улучшить?',
+    body: 'Выберите одну или несколько зон, и мы направим вас к наиболее подходящему подходу.',
+    cta: 'Посмотреть рекомендованные процедуры',
+    options: [
+      { id: 'skin', title: 'Кожа', line: 'Акне, текстура, поры, сияние' },
+      {
+        id: 'wrinkles',
+        title: 'Морщины и тонкие линии',
+        line: 'Тонкие линии и мимика лба',
+      },
+      { id: 'contour', title: 'Контур и объем лица', line: 'Скулы, линия челюсти, баланс' },
+      { id: 'undereye', title: 'Зона вокруг глаз', line: 'Темные круги, впадины, отечность' },
+      { id: 'lips', title: 'Губы', line: 'Форма, объем, гидратация' },
+      {
+        id: 'rejuvenation',
+        title: 'Комплексное омоложение лица',
+        line: 'Свежий, отдохнувший вид',
+      },
+    ],
+  },
+};
 
 /** Плаващо позициониране около лицето (само lg+; асиметрично, без решетка). */
 const floatById: Record<string, string> = {
@@ -37,7 +99,7 @@ const floatById: Record<string, string> = {
     'right-0 bottom-[10%] w-[12.5rem] translate-x-0 rotate-[1.3deg] sm:translate-x-0.5',
 };
 
-const OPTION_IDS = new Set(options.map((o) => o.id));
+const OPTION_IDS = new Set(focusCopy.bg.options.map((o) => o.id));
 
 function loadStored(): string[] {
   if (typeof window === 'undefined') return [];
@@ -117,6 +179,9 @@ function FloatingFocusCard({
 }
 
 export function FacialFocus() {
+  const { locale } = useLocale();
+  const copy = focusCopy[locale];
+  const options = copy.options;
   const [selected, setSelected] = useState<Set<string>>(() => new Set());
   const [hoveredOptionId, setHoveredOptionId] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
@@ -163,19 +228,19 @@ export function FacialFocus() {
       <div className="mx-auto max-w-7xl px-5 sm:px-7 md:px-10">
         <header className="mx-auto mb-14 max-w-2xl text-center md:mb-20">
           <p className="mb-4 text-[0.65rem] font-light uppercase tracking-[0.42em] text-stone-500/80">
-            Фокус
+            {copy.eyebrow}
           </p>
           <h2
             className="mb-5 font-extralight leading-[1.12] text-stone-800/90"
             style={{ fontSize: 'clamp(1.85rem, 4.2vw, 2.65rem)' }}
           >
-            Какво бихте искали да подобрите?
+            {copy.title}
           </h2>
           <p
             className="mx-auto max-w-xl text-balance font-light leading-relaxed text-stone-600/95"
             style={{ fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)' }}
           >
-            Изберете една или повече зони и ще ви насочим към най-подходящия за вас подход.
+            {copy.body}
           </p>
         </header>
 
@@ -255,7 +320,7 @@ export function FacialFocus() {
                 : 'cursor-not-allowed bg-stone-200/50 text-stone-400',
             )}
           >
-            Вижте препоръчаните за вас процедури
+            {copy.cta}
           </button>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronsLeftRight } from 'lucide-react';
+import { useLocale, type Locale } from '../i18n';
 
 const INTENT_THRESHOLD = 7;
 
@@ -12,12 +13,32 @@ type BeforeAfterCompareProps = {
   className?: string;
 };
 
+const beforeAfterCopy: Record<Locale, { ariaLabel: string; before: string; after: string }> = {
+  bg: {
+    ariaLabel: 'Сравнение преди и след, плъзнете хоризонтално',
+    before: 'Преди',
+    after: 'След',
+  },
+  en: {
+    ariaLabel: 'Before and after comparison, drag horizontally',
+    before: 'Before',
+    after: 'After',
+  },
+  ru: {
+    ariaLabel: 'Сравнение до и после, потяните горизонтально',
+    before: 'До',
+    after: 'После',
+  },
+};
+
 export function BeforeAfterCompare({
   beforeImage,
   afterImage,
   isActive,
   className = '',
 }: BeforeAfterCompareProps) {
+  const { locale } = useLocale();
+  const copy = beforeAfterCopy[locale];
   const [pct, setPct] = useState(50);
   const [containerW, setContainerW] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -109,7 +130,7 @@ export function BeforeAfterCompare({
       }}
       role="slider"
       tabIndex={0}
-      aria-label="Сравнение преди и след, плъзнете хоризонтално"
+      aria-label={copy.ariaLabel}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={Math.round(pct)}
@@ -149,10 +170,10 @@ export function BeforeAfterCompare({
         <ChevronsLeftRight className="h-4 w-4" strokeWidth={1.5} />
       </div>
       <div className="pointer-events-none absolute top-2 left-2 z-[5] rounded-sm bg-stone-900/60 px-2 py-1 text-xs font-medium text-white/95 backdrop-blur-sm">
-        Преди
+        {copy.before}
       </div>
       <div className="pointer-events-none absolute top-2 right-2 z-[5] rounded-sm bg-stone-900/60 px-2 py-1 text-xs font-medium text-white/95 backdrop-blur-sm">
-        След
+        {copy.after}
       </div>
     </div>
   );

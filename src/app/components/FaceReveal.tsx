@@ -1,8 +1,26 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useLocale, type Locale } from '../i18n';
+
+const faceRevealCopy: Record<Locale, { alt: string; caption: string }> = {
+  bg: {
+    alt: 'Клинична естетична процедура — прецизна инжекция в зоната на лицето',
+    caption: 'ПРЕЦИЗНОСТТА Е ИЗКУСТВО',
+  },
+  en: {
+    alt: 'Clinical aesthetic procedure — precise injection in the facial area',
+    caption: 'PRECISION IS ART',
+  },
+  ru: {
+    alt: 'Клиническая эстетическая процедура — точная инъекция в зоне лица',
+    caption: 'ТОЧНОСТЬ — ЭТО ИСКУССТВО',
+  },
+};
 
 export function FaceReveal() {
+  const { locale } = useLocale();
+  const copy = faceRevealCopy[locale];
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -31,7 +49,7 @@ export function FaceReveal() {
           <motion.div style={{ clipPath }} className="absolute inset-0">
             <ImageWithFallback
               src="/section-2-clinical-closeup.png"
-              alt="Клинична естетична процедура — прецизна инжекция в зоната на лицето"
+              alt={copy.alt}
               className="h-full w-full object-cover object-[45%_center] sm:object-center"
             />
           </motion.div>
@@ -44,7 +62,7 @@ export function FaceReveal() {
             className="pointer-events-none absolute right-4 top-1/2 z-10 max-w-[45%] -translate-y-1/2 text-right text-stone-800/95 sm:right-8 md:right-12"
             style={{ writingMode: 'vertical-rl', fontSize: '0.875rem', letterSpacing: '0.3em', fontWeight: 500 }}
           >
-            <span className="drop-shadow-[0_1px_8px_rgba(242,238,236,0.6)]">ПРЕЦИЗНОСТТА Е ИЗКУСТВО</span>
+            <span className="drop-shadow-[0_1px_8px_rgba(242,238,236,0.6)]">{copy.caption}</span>
           </motion.div>
         </motion.div>
       </div>

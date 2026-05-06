@@ -4,6 +4,7 @@ import { ChevronRight } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { cn } from './ui/utils';
 import { BrandLogo } from './BrandLogo';
+import { localeLabels, localeNames, locales, useLocale, type Locale } from '../i18n';
 
 type MegaCategory = {
   id: string;
@@ -15,66 +16,233 @@ type MegaCategory = {
   links: { href: string; label: string }[];
 };
 
-const baseMegaCategories: MegaCategory[] = [
+const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
+  bg: [
+    {
+      id: 'sculpt',
+      label: 'Скулптура и контур на лицето',
+      labelShort: 'Контур',
+      description:
+        'Фино изграждане на пропорции и естествена дефиниция — без хирургия, с контролирана намеса.',
+      image: '/facial-focus-face.jpg',
+      imageAlt: 'Детайл от зоната на лицето и шията',
+      links: [
+        { href: '#facial-focus', label: 'Интерактивен фокус върху лицето' },
+        { href: '#treatments', label: 'Инжекционни и обемни решения' },
+        { href: '#treatments', label: 'Прецизни корекции на мимиката' },
+        { href: '#top', label: 'Начало' },
+      ],
+    },
+    {
+      id: 'skin',
+      label: 'Подмладяване на кожата и лазер',
+      labelShort: 'Кожа',
+      description:
+        'Текстура, сияние и равен тон чрез съвременни протоколи за обновяване на кожата.',
+      image: '/hero-exosome-treatment.png',
+      imageAlt: 'Клинична естетична грижа за кожата',
+      links: [
+        { href: '/conditions', label: 'Кожни състояния и фокус' },
+        { href: '/procedures', label: 'Лазерни и енергийни терапии' },
+        { href: '/journal', label: 'Журнал и насоки' },
+      ],
+    },
+    {
+      id: 'clinic',
+      label: 'Философия и екип',
+      labelShort: 'Клиника',
+      description:
+        'Кой сме ние, как работим и защо прецизността и спокойствието са в основата на всеки план.',
+      image: '/doctor-portrait.png',
+      imageAlt: 'Екип на клиниката',
+      links: [
+        { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
+        { href: '#founder', label: 'Лекар основател' },
+        { href: '#results', label: 'Отзиви и преди / след' },
+        { href: '/journal', label: 'Журнал' },
+      ],
+    },
+    {
+      id: 'booking',
+      label: 'Час и контакт',
+      labelShort: 'Час',
+      description:
+        'Запазете консултация — отговор до един работен ден, без ангажимент и с ясни следващи стъпки.',
+      image: '/precision-art-hero.png',
+      imageAlt: 'Obliq — прецизна естетика',
+      links: [
+        { href: '/#contact', label: 'Форма за консултация' },
+        { href: '/contact', label: 'Адрес и телефон' },
+        { href: '#top', label: 'Към началото' },
+      ],
+    },
+  ],
+  en: [
+    {
+      id: 'sculpt',
+      label: 'Facial sculpting and contour',
+      labelShort: 'Contour',
+      description:
+        'Subtle proportion and natural definition without surgery, guided by controlled intervention.',
+      image: '/facial-focus-face.jpg',
+      imageAlt: 'Detail of the face and neck area',
+      links: [
+        { href: '#facial-focus', label: 'Interactive facial focus' },
+        { href: '#treatments', label: 'Injectable and volumizing solutions' },
+        { href: '#treatments', label: 'Precise mimic correction' },
+        { href: '#top', label: 'Home' },
+      ],
+    },
+    {
+      id: 'skin',
+      label: 'Skin rejuvenation and laser',
+      labelShort: 'Skin',
+      description:
+        'Texture, glow and even tone through contemporary protocols for skin renewal.',
+      image: '/hero-exosome-treatment.png',
+      imageAlt: 'Clinical aesthetic skin care',
+      links: [
+        { href: '/conditions', label: 'Skin conditions and focus' },
+        { href: '/procedures', label: 'Laser and energy therapies' },
+        { href: '/journal', label: 'Journal and guidance' },
+      ],
+    },
+    {
+      id: 'clinic',
+      label: 'Philosophy and team',
+      labelShort: 'Clinic',
+      description:
+        'Who we are, how we work and why precision and calm shape every plan.',
+      image: '/doctor-portrait.png',
+      imageAlt: 'Clinic team',
+      links: [
+        { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
+        { href: '#founder', label: 'Founder doctor' },
+        { href: '#results', label: 'Reviews and before / after' },
+        { href: '/journal', label: 'Journal' },
+      ],
+    },
+    {
+      id: 'booking',
+      label: 'Booking and contact',
+      labelShort: 'Book',
+      description:
+        'Book a consultation with a reply within one business day, clear next steps and no pressure.',
+      image: '/precision-art-hero.png',
+      imageAlt: 'Obliq — precise aesthetics',
+      links: [
+        { href: '/#contact', label: 'Consultation form' },
+        { href: '/contact', label: 'Address and phone' },
+        { href: '#top', label: 'Back to top' },
+      ],
+    },
+  ],
+  ru: [
+    {
+      id: 'sculpt',
+      label: 'Скульптура и контур лица',
+      labelShort: 'Контур',
+      description:
+        'Тонкое выстраивание пропорций и естественной выразительности без хирургии.',
+      image: '/facial-focus-face.jpg',
+      imageAlt: 'Деталь зоны лица и шеи',
+      links: [
+        { href: '#facial-focus', label: 'Интерактивный фокус на лице' },
+        { href: '#treatments', label: 'Инъекционные и объемные решения' },
+        { href: '#treatments', label: 'Точная коррекция мимики' },
+        { href: '#top', label: 'Главная' },
+      ],
+    },
+    {
+      id: 'skin',
+      label: 'Омоложение кожи и лазер',
+      labelShort: 'Кожа',
+      description:
+        'Текстура, сияние и ровный тон через современные протоколы обновления кожи.',
+      image: '/hero-exosome-treatment.png',
+      imageAlt: 'Клинический эстетический уход за кожей',
+      links: [
+        { href: '/conditions', label: 'Состояния кожи и фокус' },
+        { href: '/procedures', label: 'Лазерные и энергетические терапии' },
+        { href: '/journal', label: 'Журнал и рекомендации' },
+      ],
+    },
+    {
+      id: 'clinic',
+      label: 'Философия и команда',
+      labelShort: 'Клиника',
+      description:
+        'Кто мы, как работаем и почему точность и спокойствие лежат в основе каждого плана.',
+      image: '/doctor-portrait.png',
+      imageAlt: 'Команда клиники',
+      links: [
+        { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
+        { href: '#founder', label: 'Врач-основатель' },
+        { href: '#results', label: 'Отзывы и до / после' },
+        { href: '/journal', label: 'Журнал' },
+      ],
+    },
+    {
+      id: 'booking',
+      label: 'Запись и контакт',
+      labelShort: 'Запись',
+      description:
+        'Запишитесь на консультацию: ответ в течение одного рабочего дня и понятные следующие шаги.',
+      image: '/precision-art-hero.png',
+      imageAlt: 'Obliq — точная эстетика',
+      links: [
+        { href: '/#contact', label: 'Форма консультации' },
+        { href: '/contact', label: 'Адрес и телефон' },
+        { href: '#top', label: 'Наверх' },
+      ],
+    },
+  ],
+};
+
+const headerCopy: Record<
+  Locale,
   {
-    id: 'sculpt',
-    label: 'Скулптура и контур на лицето',
-    labelShort: 'Контур',
-    description:
-      'Фино изграждане на пропорции и естествена дефиниция — без хирургия, с контролирана намеса.',
-    image: '/facial-focus-face.jpg',
-    imageAlt: 'Детайл от зоната на лицето и шията',
-    links: [
-      { href: '#facial-focus', label: 'Интерактивен фокус върху лицето' },
-      { href: '#treatments', label: 'Инжекционни и обемни решения' },
-      { href: '#treatments', label: 'Прецизни корекции на мимиката' },
-      { href: '#top', label: 'Начало' },
-    ],
+    openMenu: string;
+    closeMenu: string;
+    dialogLabel: string;
+    categoryNavLabel: string;
+    categoryEyebrow: string;
+    consultationFull: string;
+    consultationShort: string;
+    languageNavLabel: string;
+  }
+> = {
+  bg: {
+    openMenu: 'Отвори меню',
+    closeMenu: 'Затвори меню',
+    dialogLabel: 'Навигация и процедури',
+    categoryNavLabel: 'Категории меню',
+    categoryEyebrow: 'Процедури и фокус',
+    consultationFull: 'Запази консултация',
+    consultationShort: 'Консултация',
+    languageNavLabel: 'Избор на език',
   },
-  {
-    id: 'skin',
-    label: 'Подмладяване на кожата и лазер',
-    labelShort: 'Кожа',
-    description:
-      'Текстура, сияние и равен тон чрез съвременни протоколи за обновяване на кожата.',
-    image: '/hero-exosome-treatment.png',
-    imageAlt: 'Клинична естетична грижа за кожата',
-    links: [
-      { href: '#treatments', label: 'Протоколи за подмладяване' },
-      { href: '#treatments', label: 'Лазерни и енергийни терапии' },
-      { href: '#results', label: 'Резултати и доверие' },
-    ],
+  en: {
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    dialogLabel: 'Navigation and procedures',
+    categoryNavLabel: 'Menu categories',
+    categoryEyebrow: 'Procedures and focus',
+    consultationFull: 'Book consultation',
+    consultationShort: 'Book',
+    languageNavLabel: 'Language selection',
   },
-  {
-    id: 'clinic',
-    label: 'Философия и екип',
-    labelShort: 'Клиника',
-    description:
-      'Кой сме ние, как работим и защо прецизността и спокойствието са в основата на всеки план.',
-    image: '/doctor-portrait.png',
-    imageAlt: 'Екип на клиниката',
-    links: [
-      { href: '#philosophy', label: 'Философия' },
-      { href: '#founder', label: 'Лекар основател' },
-      { href: '#results', label: 'Отзиви и преди / след' },
-      { href: '#philosophy', label: 'За подхода ни' },
-    ],
+  ru: {
+    openMenu: 'Открыть меню',
+    closeMenu: 'Закрыть меню',
+    dialogLabel: 'Навигация и процедуры',
+    categoryNavLabel: 'Категории меню',
+    categoryEyebrow: 'Процедуры и фокус',
+    consultationFull: 'Записаться',
+    consultationShort: 'Запись',
+    languageNavLabel: 'Выбор языка',
   },
-  {
-    id: 'booking',
-    label: 'Час и контакт',
-    labelShort: 'Час',
-    description:
-      'Запазете консултация — отговор до един работен ден, без ангажимент и с ясни следващи стъпки.',
-    image: '/precision-art-hero.png',
-    imageAlt: 'Obliq — прецизна естетика',
-    links: [
-      { href: '/#contact', label: 'Форма за консултация' },
-      { href: '/contact', label: 'Адрес и телефон' },
-      { href: '#top', label: 'Към началото' },
-    ],
-  },
-];
+};
 
 const SCROLL_DELTA = 4;
 const TOP_THRESHOLD = 64;
@@ -82,28 +250,20 @@ const TOP_THRESHOLD = 64;
 const PAGE_TOP_PX = 24;
 
 export function SiteHeader() {
-  const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
-  const isHomePage = pathname === '/';
+  const { locale, localizeHref, switchLocaleHref } = useLocale();
+  const copy = headerCopy[locale];
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeMegaId, setActiveMegaId] = useState(baseMegaCategories[0].id);
+  const [activeMegaId, setActiveMegaId] = useState(megaCategoriesByLocale[locale][0].id);
   const [barHidden, setBarHidden] = useState(false);
   const [atPageTop, setAtPageTop] = useState(true);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
 
   const resolveHref = (href: string) => {
-    if (href === '#top') {
-      return isHomePage ? '#top' : '/#top';
-    }
-
-    if (href.startsWith('#')) {
-      return isHomePage ? href : `/${href}`;
-    }
-
-    return href;
+    return localizeHref(href);
   };
 
-  const megaCategories = baseMegaCategories.map((category) => ({
+  const megaCategories = megaCategoriesByLocale[locale].map((category) => ({
     ...category,
     links: category.links.map((link) => ({
       ...link,
@@ -153,7 +313,7 @@ export function SiteHeader() {
   const showBar = !barHidden || menuOpen;
   const solidBar = !atPageTop;
   const logoHref = resolveHref('#top');
-  const consultationHref = '/#contact';
+  const consultationHref = resolveHref('/#contact');
 
   return (
     <>
@@ -180,7 +340,7 @@ export function SiteHeader() {
                 type="button"
                 onClick={() => setMenuOpen((o) => !o)}
                 className="flex h-12 w-12 flex-shrink-0 items-center justify-center text-white outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-                aria-label={menuOpen ? 'Затвори меню' : 'Отвори меню'}
+                aria-label={menuOpen ? copy.closeMenu : copy.openMenu}
                 aria-expanded={menuOpen}
               >
                 <span className="relative block h-4 w-6">
@@ -213,14 +373,39 @@ export function SiteHeader() {
               />
             </a>
 
-            <a
-              href={consultationHref}
-              onClick={closeMenu}
-              className="justify-self-end rounded-none border border-white/30 bg-white px-3 py-2.5 text-center text-[11px] font-medium uppercase leading-none tracking-wider text-black transition-colors hover:bg-white/90 min-[400px]:px-5 min-[400px]:py-3 min-[400px]:text-sm"
-            >
-              <span className="hidden min-[400px]:inline">Запази консултация</span>
-              <span className="min-[400px]:hidden">Консултация</span>
-            </a>
+            <div className="flex items-center justify-end gap-2">
+              <nav
+                aria-label={copy.languageNavLabel}
+                className="hidden items-center border border-white/24 text-[0.65rem] font-medium uppercase leading-none tracking-[0.14em] text-white/72 min-[360px]:flex"
+              >
+                {locales.map((targetLocale) => {
+                  const active = targetLocale === locale;
+                  return (
+                    <a
+                      key={targetLocale}
+                      href={switchLocaleHref(targetLocale)}
+                      aria-label={localeNames[targetLocale]}
+                      aria-current={active ? 'page' : undefined}
+                      className={cn(
+                        'px-2.5 py-2 transition-colors',
+                        active ? 'bg-white text-black' : 'hover:bg-white/12 hover:text-white',
+                      )}
+                    >
+                      {localeLabels[targetLocale]}
+                    </a>
+                  );
+                })}
+              </nav>
+
+              <a
+                href={consultationHref}
+                onClick={closeMenu}
+                className="justify-self-end rounded-none border border-white/30 bg-white px-3 py-2.5 text-center text-[11px] font-medium uppercase leading-none tracking-wider text-black transition-colors hover:bg-white/90 min-[400px]:px-5 min-[400px]:py-3 min-[400px]:text-sm"
+              >
+                <span className="hidden min-[400px]:inline">{copy.consultationFull}</span>
+                <span className="min-[400px]:hidden">{copy.consultationShort}</span>
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -235,12 +420,12 @@ export function SiteHeader() {
             className="fixed inset-0 z-[45]"
             role="dialog"
             aria-modal="true"
-            aria-label="Навигация и процедури"
+            aria-label={copy.dialogLabel}
           >
             <button
               type="button"
               className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
-              aria-label="Затвори меню"
+              aria-label={copy.closeMenu}
               onClick={closeMenu}
             />
             <motion.div
@@ -253,11 +438,11 @@ export function SiteHeader() {
             >
               <div className="flex h-full min-h-0 flex-col lg:grid lg:grid-cols-12">
                 <nav
-                  aria-label="Категории меню"
+                  aria-label={copy.categoryNavLabel}
                   className="flex flex-shrink-0 flex-row gap-1.5 overflow-x-auto border-b border-stone-700/10 px-4 py-3 lg:col-span-3 lg:flex-col lg:gap-0 lg:overflow-y-auto lg:border-b-0 lg:border-r lg:border-stone-700/10 lg:px-6 lg:py-9"
                 >
                   <p className="mb-0 hidden min-w-0 text-[0.625rem] font-medium uppercase tracking-[0.32em] text-stone-600/90 lg:mb-6 lg:block">
-                    Процедури и фокус
+                    {copy.categoryEyebrow}
                   </p>
                   {megaCategories.map((cat) => {
                     const active = cat.id === activeMegaId;

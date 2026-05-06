@@ -2,32 +2,142 @@ import { motion } from 'motion/react';
 import { Facebook, Instagram } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { BrandLogo } from './BrandLogo';
+import { useLocale, type Locale } from '../i18n';
 
-const menuLinks = [
-  { href: '#top', label: 'Начало' },
-  { href: '#philosophy', label: 'За нас' },
-  { href: '#treatments', label: 'Процедури' },
-  { href: '#results', label: 'Отзиви' },
-  { href: '#results', label: 'Преди и след' },
-  { href: '/contact', label: 'Контакти' },
-  { href: '#top', label: 'Блог' },
-  { href: '#top', label: 'Преса' },
-] as const;
-
-const procedureLinks = [
-  'Консултация и персонален план',
-  'Ботокс и ботулинов токсин',
-  'Хиалуронови филъри',
-  'Мезотерапия на лице и тяло',
-  'Биоревитализация и PRP',
-  'Лазерно подмладяване (фракционен лазер)',
-  'RF стягане и контур',
-  'Химични пилинги',
-  'Микронидлинг и дермапен',
-  'Нишков лифт (PDO конци)',
-  'Лазерна епилация',
-  'Терапии за коса и скалп',
-] as const;
+const footerCopy: Record<
+  Locale,
+  {
+    clinicLabel: string;
+    clinicText: string;
+    menuLabel: string;
+    proceduresLabel: string;
+    contactLabel: string;
+    socialLabel: string;
+    address: string;
+    rights: string;
+    privacy: string;
+    terms: string;
+    cookies: string;
+    medicalNote: string;
+    menuLinks: { href: string; label: string }[];
+    procedureLinks: string[];
+  }
+> = {
+  bg: {
+    clinicLabel: 'Клиника',
+    clinicText:
+      'Прецизна естетика. Тиха увереност. Резултати, които изглеждат естествено — и остават такива.',
+    menuLabel: 'Меню',
+    proceduresLabel: 'Процедури',
+    contactLabel: 'Контакт',
+    socialLabel: 'Социални мрежи',
+    address: 'бул. „Витоша“ 48\n1000 София, България',
+    rights: 'Всички права запазени.',
+    privacy: 'Политика за поверителност',
+    terms: 'Дисклеймър и общи условия',
+    cookies: 'Бисквитки',
+    medicalNote: 'Медицински услуги се предоставят след индивидуална оценка.',
+    menuLinks: [
+      { href: '/#top', label: 'Начало' },
+      { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
+      { href: '/procedures', label: 'Процедури' },
+      { href: '/conditions', label: 'Състояния' },
+      { href: '/#results', label: 'Отзиви' },
+      { href: '/journal', label: 'Журнал' },
+      { href: '/contact', label: 'Контакти' },
+    ],
+    procedureLinks: [
+      'Консултация и персонален план',
+      'Ботокс и ботулинов токсин',
+      'Хиалуронови филъри',
+      'Мезотерапия на лице и тяло',
+      'Биоревитализация и PRP',
+      'Лазерно подмладяване (фракционен лазер)',
+      'RF стягане и контур',
+      'Химични пилинги',
+      'Микронидлинг и дермапен',
+      'Нишков лифт (PDO конци)',
+      'Лазерна епилация',
+      'Терапии за коса и скалп',
+    ],
+  },
+  en: {
+    clinicLabel: 'Clinic',
+    clinicText:
+      'Precise aesthetics. Quiet confidence. Results that look natural and stay that way.',
+    menuLabel: 'Menu',
+    proceduresLabel: 'Procedures',
+    contactLabel: 'Contact',
+    socialLabel: 'Social',
+    address: '48 Vitosha Blvd\n1000 Sofia, Bulgaria',
+    rights: 'All rights reserved.',
+    privacy: 'Privacy policy',
+    terms: 'Disclaimer and terms',
+    cookies: 'Cookies',
+    medicalNote: 'Medical services are provided after an individual assessment.',
+    menuLinks: [
+      { href: '/#top', label: 'Home' },
+      { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
+      { href: '/procedures', label: 'Procedures' },
+      { href: '/conditions', label: 'Conditions' },
+      { href: '/#results', label: 'Reviews' },
+      { href: '/journal', label: 'Journal' },
+      { href: '/contact', label: 'Contact' },
+    ],
+    procedureLinks: [
+      'Consultation and personal plan',
+      'Botox and botulinum toxin',
+      'Hyaluronic fillers',
+      'Face and body mesotherapy',
+      'Biorevitalization and PRP',
+      'Laser rejuvenation',
+      'RF tightening and contour',
+      'Chemical peels',
+      'Microneedling and dermapen',
+      'Thread lift',
+      'Laser hair removal',
+      'Hair and scalp therapies',
+    ],
+  },
+  ru: {
+    clinicLabel: 'Клиника',
+    clinicText:
+      'Точная эстетика. Спокойная уверенность. Результаты, которые выглядят естественно и остаются такими.',
+    menuLabel: 'Меню',
+    proceduresLabel: 'Процедуры',
+    contactLabel: 'Контакт',
+    socialLabel: 'Социальные сети',
+    address: 'бул. Витоша 48\n1000 София, Болгария',
+    rights: 'Все права защищены.',
+    privacy: 'Политика конфиденциальности',
+    terms: 'Дисклеймер и условия',
+    cookies: 'Cookies',
+    medicalNote: 'Медицинские услуги предоставляются после индивидуальной оценки.',
+    menuLinks: [
+      { href: '/#top', label: 'Главная' },
+      { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
+      { href: '/procedures', label: 'Процедуры' },
+      { href: '/conditions', label: 'Состояния' },
+      { href: '/#results', label: 'Отзывы' },
+      { href: '/journal', label: 'Журнал' },
+      { href: '/contact', label: 'Контакты' },
+    ],
+    procedureLinks: [
+      'Консультация и персональный план',
+      'Ботокс и ботулинический токсин',
+      'Гиалуроновые филлеры',
+      'Мезотерапия лица и тела',
+      'Биоревитализация и PRP',
+      'Лазерное омоложение',
+      'RF-лифтинг и контур',
+      'Химические пилинги',
+      'Микронидлинг и дермапен',
+      'Нитевой лифтинг',
+      'Лазерная эпиляция',
+      'Терапии для волос и кожи головы',
+    ],
+  },
+};
 
 const obliqTitleVariants = {
   hidden: {
@@ -47,6 +157,9 @@ const obliqTitleVariants = {
 } as const;
 
 export function ConsultationFooter() {
+  const { locale, localizeHref } = useLocale();
+  const copy = footerCopy[locale];
+
   return (
     <section className="relative overflow-hidden text-white">
       <div className="pointer-events-none absolute inset-0">
@@ -81,23 +194,22 @@ export function ConsultationFooter() {
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-10">
             <div className="space-y-4 sm:col-span-2 xl:col-span-1">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
-                Клиника
+                {copy.clinicLabel}
               </p>
               <p className="max-w-xs text-[0.9375rem] leading-relaxed text-white/65">
-                Прецизна естетика. Тиха увереност. Резултати, които изглеждат естествено — и остават
-                такива.
+                {copy.clinicText}
               </p>
             </div>
 
             <nav aria-label="Основно меню" className="space-y-4">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
-                Меню
+                {copy.menuLabel}
               </p>
               <ul className="space-y-2.5">
-                {menuLinks.map((link) => (
+                {copy.menuLinks.map((link) => (
                   <li key={`${link.href}-${link.label}`}>
                     <a
-                      href={link.href}
+                      href={localizeHref(link.href)}
                       className="text-[0.9375rem] text-white/80 transition-colors hover:text-white"
                     >
                       {link.label}
@@ -109,13 +221,13 @@ export function ConsultationFooter() {
 
             <nav aria-label="Процедури" className="space-y-4 sm:col-span-2 lg:col-span-1 xl:col-span-1">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
-                Процедури
+                {copy.proceduresLabel}
               </p>
               <ul className="columns-1 gap-x-8 gap-y-2 sm:columns-2 lg:columns-1 xl:columns-1">
-                {procedureLinks.map((label) => (
+                {copy.procedureLinks.map((label) => (
                   <li key={label} className="break-inside-avoid pb-2">
                     <a
-                      href="#treatments"
+                      href={localizeHref('/procedures')}
                       className="text-[0.875rem] leading-snug text-white/70 transition-colors hover:text-white/95"
                     >
                       {label}
@@ -127,12 +239,15 @@ export function ConsultationFooter() {
 
             <div className="space-y-4">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
-                Контакт
+                {copy.contactLabel}
               </p>
               <address className="not-italic text-[0.9375rem] leading-relaxed text-white/75">
-                бул. „Витоша“ 48
-                <br />
-                1000 София, България
+                {copy.address.split('\n').map((line) => (
+                  <span key={line}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
               </address>
               <p className="text-[0.9375rem] text-white/80">
                 <a href="tel:+359888000000" className="transition-colors hover:text-white">
@@ -143,7 +258,7 @@ export function ConsultationFooter() {
 
             <div className="space-y-5">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
-                Социални мрежи
+                {copy.socialLabel}
               </p>
               <div className="flex gap-3">
                 <a
@@ -173,28 +288,28 @@ export function ConsultationFooter() {
           <div className="mx-auto max-w-7xl px-5 py-7 sm:px-8 md:px-12 lg:px-16">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
               <p className="text-[0.7rem] leading-relaxed text-white/50 sm:max-w-[min(100%,24rem)]">
-                © {new Date().getFullYear()} Obliq. Всички права запазени.
+                © {new Date().getFullYear()} Obliq. {copy.rights}
               </p>
               <div className="flex flex-wrap items-center gap-x-1 gap-y-1 text-[0.7rem] text-white/55 sm:justify-end">
                 <a href="#" className="transition-colors hover:text-white/90">
-                  Политика за поверителност
+                  {copy.privacy}
                 </a>
                 <span className="text-white/35" aria-hidden>
                   |
                 </span>
                 <a href="#" className="transition-colors hover:text-white/90">
-                  Дисклеймър и общи условия
+                  {copy.terms}
                 </a>
                 <span className="text-white/35" aria-hidden>
                   |
                 </span>
                 <a href="#" className="transition-colors hover:text-white/90">
-                  Бисквитки
+                  {copy.cookies}
                 </a>
               </div>
             </div>
             <p className="mt-4 max-w-3xl text-[0.65rem] leading-relaxed text-white/35 sm:text-right sm:ml-auto">
-              Медицински услуги се предоставят след индивидуална оценка.
+              {copy.medicalNote}
             </p>
           </div>
         </div>

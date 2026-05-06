@@ -1,6 +1,7 @@
 import { useId, useState } from 'react';
 import { cn } from './ui/utils';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useLocale, type Locale } from '../i18n';
 
 export type FaceZoneId =
   | 'forehead'
@@ -83,6 +84,59 @@ const ZONE_ORDER: FaceZoneId[] = [
   'lips',
 ];
 
+const faceMapCopy: Record<
+  Locale,
+  {
+    eyebrow: string;
+    photoAlt: string;
+    ariaLabel: string;
+    zones: Record<FaceZoneId, { label: string; tooltip: string }>;
+  }
+> = {
+  bg: {
+    eyebrow: 'Интерактивна зона',
+    photoAlt: 'Портрет, лице отпред, неутрален фон',
+    ariaLabel: 'Снимка с интерактивни зони',
+    zones: {
+      full_face: { label: 'Цяло лице', tooltip: 'Цялостно подмладяване' },
+      forehead: { label: 'Чело', tooltip: 'Фини линии, мимика' },
+      eyes: { label: 'Околоочна зона', tooltip: 'Сияние, отпочинал вид' },
+      cheeks: { label: 'Буза / кожа', tooltip: 'Текстура, хидратация, пори' },
+      jawline: { label: 'Контур', tooltip: 'Обем, скули, линия' },
+      chin: { label: 'Брадичка', tooltip: 'Баланс, обем' },
+      lips: { label: 'Устни', tooltip: 'Форма, обем, хидратация' },
+    },
+  },
+  en: {
+    eyebrow: 'Interactive area',
+    photoAlt: 'Front-facing portrait on a neutral background',
+    ariaLabel: 'Photo with interactive areas',
+    zones: {
+      full_face: { label: 'Full face', tooltip: 'Full-face rejuvenation' },
+      forehead: { label: 'Forehead', tooltip: 'Fine lines, expression' },
+      eyes: { label: 'Eye area', tooltip: 'Radiance, rested look' },
+      cheeks: { label: 'Cheek / skin', tooltip: 'Texture, hydration, pores' },
+      jawline: { label: 'Contour', tooltip: 'Volume, cheekbones, jawline' },
+      chin: { label: 'Chin', tooltip: 'Balance, volume' },
+      lips: { label: 'Lips', tooltip: 'Shape, volume, hydration' },
+    },
+  },
+  ru: {
+    eyebrow: 'Интерактивная зона',
+    photoAlt: 'Портрет анфас на нейтральном фоне',
+    ariaLabel: 'Фото с интерактивными зонами',
+    zones: {
+      full_face: { label: 'Все лицо', tooltip: 'Комплексное омоложение' },
+      forehead: { label: 'Лоб', tooltip: 'Тонкие линии, мимика' },
+      eyes: { label: 'Зона вокруг глаз', tooltip: 'Сияние, отдохнувший вид' },
+      cheeks: { label: 'Щека / кожа', tooltip: 'Текстура, гидратация, поры' },
+      jawline: { label: 'Контур', tooltip: 'Объем, скулы, линия' },
+      chin: { label: 'Подбородок', tooltip: 'Баланс, объем' },
+      lips: { label: 'Губы', tooltip: 'Форма, объем, гидратация' },
+    },
+  },
+};
+
 function getZonesOrdered() {
   const map = new Map(FACE_ZONES.map((z) => [z.id, z]));
   return ZONE_ORDER.map((id) => map.get(id)!);
@@ -142,6 +196,8 @@ export function FacialFocusFaceMap({
   optionHoverLabel,
   className,
 }: Props) {
+  const { locale } = useLocale();
+  const copy = faceMapCopy[locale];
   const [facePointerZone, setFacePointerZone] = useState<FaceZoneId | null>(null);
   const idBase = useId();
   const ordered = getZonesOrdered();
@@ -152,7 +208,7 @@ export function FacialFocusFaceMap({
   };
 
   const tooltipText = facePointerZone
-    ? FACE_ZONES.find((z) => z.id === facePointerZone)?.tooltip ?? null
+    ? copy.zones[facePointerZone].tooltip
     : hoveredOptionId
       ? optionHoverLabel(hoveredOptionId)
       : null;
@@ -162,7 +218,7 @@ export function FacialFocusFaceMap({
       className={cn('flex w-full max-w-md flex-col items-stretch sm:max-w-lg lg:max-w-xl', className)}
     >
       <p className="mb-4 text-center text-[0.6rem] font-light tracking-[0.32em] text-stone-400/70">
-        Интерактивна зона
+        {copy.eyebrow}
       </p>
       <div
         className="relative w-full aspect-[5/7] max-h-[min(78vh,46rem)] overflow-hidden rounded-[1.5rem] bg-[#E8E3DA] shadow-[0_8px_48px_-20px_rgba(35,28,20,0.12),0_2px_0_0_rgba(242,238,236,0.2)_inset]"
@@ -171,7 +227,7 @@ export function FacialFocusFaceMap({
       >
         <ImageWithFallback
           src={FACE_PHOTO_SRC}
-          alt="Портрет, лице отпред, неутрален фон"
+          alt={copy.photoAlt}
           className="absolute inset-0 h-full w-full origin-center scale-105 object-cover object-center"
         />
         <div
@@ -188,7 +244,7 @@ export function FacialFocusFaceMap({
           className="absolute inset-0 h-full w-full [touch-action:none]"
           preserveAspectRatio="xMidYMid slice"
           role="img"
-          aria-label="Снимка с интерактивни зони"
+          aria-label={copy.ariaLabel}
         >
           <defs>
             <filter
@@ -261,7 +317,7 @@ export function FacialFocusFaceMap({
                 }}
                 tabIndex={0}
                 role="button"
-                aria-label={z.label}
+                aria-label={copy.zones[z.id].label}
                 aria-pressed={isOn}
               />
             );

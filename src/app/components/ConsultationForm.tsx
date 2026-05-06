@@ -1,11 +1,82 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'motion/react';
 import { cn } from './ui/utils';
+import { useLocale, type Locale } from '../i18n';
 
 const inputClass =
   'w-full rounded-lg border border-stone-200/90 bg-white px-4 py-3 text-[0.9375rem] text-stone-900 shadow-sm transition-[border-color,box-shadow] placeholder:text-stone-400 focus:border-stone-500 focus:outline-none focus:ring-2 focus:ring-stone-900/10';
 
+const formCopy: Record<
+  Locale,
+  {
+    eyebrow: string;
+    title: string;
+    body: string;
+    thankYou: string;
+    name: string;
+    phone: string;
+    email: string;
+    comment: string;
+    privacyPrefix: string;
+    privacyLink: string;
+    privacySuffix: string;
+    marketing: string;
+    submit: string;
+  }
+> = {
+  bg: {
+    eyebrow: 'Частна клиника',
+    title: 'Запазете консултация',
+    body:
+      'Ще се свържем с вас в рамките на един работен ден. Без ангажимент — само ясен разговор, индивидуален подход и спокойно планиране на следващата стъпка.',
+    thankYou: 'Благодарим ви за доверието. Екипът ни ще потвърди часа по телефон или имейл.',
+    name: 'Име',
+    phone: 'Телефон',
+    email: 'Имейл',
+    comment: 'Коментар (по желание)',
+    privacyPrefix: 'Съгласен/а съм с обработката на личните ми данни за отговор на това запитване, съгласно',
+    privacyLink: 'политиката за поверителност',
+    privacySuffix: '.',
+    marketing: 'Желая да получавам дискретни съобщения за нови процедури и свободни часове.',
+    submit: 'Изпрати запитване',
+  },
+  en: {
+    eyebrow: 'Private clinic',
+    title: 'Book a consultation',
+    body:
+      'We will contact you within one business day. No obligation, just a clear conversation, an individual approach and calm planning for the next step.',
+    thankYou: 'Thank you for your trust. Our team will confirm the appointment by phone or email.',
+    name: 'Name',
+    phone: 'Phone',
+    email: 'Email',
+    comment: 'Comment (optional)',
+    privacyPrefix: 'I agree to the processing of my personal data for a response to this inquiry, according to the',
+    privacyLink: 'privacy policy',
+    privacySuffix: '.',
+    marketing: 'I would like to receive discreet updates about new procedures and available appointments.',
+    submit: 'Send inquiry',
+  },
+  ru: {
+    eyebrow: 'Частная клиника',
+    title: 'Запишитесь на консультацию',
+    body:
+      'Мы свяжемся с вами в течение одного рабочего дня. Без обязательств — только ясный разговор, индивидуальный подход и спокойное планирование следующего шага.',
+    thankYou: 'Спасибо за доверие. Наша команда подтвердит время по телефону или email.',
+    name: 'Имя',
+    phone: 'Телефон',
+    email: 'Email',
+    comment: 'Комментарий (по желанию)',
+    privacyPrefix: 'Я согласен/согласна на обработку моих персональных данных для ответа на этот запрос согласно',
+    privacyLink: 'политике конфиденциальности',
+    privacySuffix: '.',
+    marketing: 'Я хочу получать дискретные сообщения о новых процедурах и свободных часах.',
+    submit: 'Отправить запрос',
+  },
+};
+
 export function ConsultationForm() {
+  const { locale } = useLocale();
+  const copy = formCopy[locale];
   const [sent, setSent] = useState(false);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -26,7 +97,7 @@ export function ConsultationForm() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 lg:items-start">
             <div className="space-y-5">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.35em] text-stone-500">
-                Частна клиника
+                {copy.eyebrow}
               </p>
               <h2
                 className="text-balance text-stone-900"
@@ -37,11 +108,10 @@ export function ConsultationForm() {
                   lineHeight: 1.12,
                 }}
               >
-                Запазете консултация
+                {copy.title}
               </h2>
               <p className="max-w-md text-[1.0625rem] leading-relaxed text-stone-600">
-                Ще се свържем с вас в рамките на един работен ден. Без ангажимент — само ясен
-                разговор, индивидуален подход и спокойно планиране на следващата стъпка.
+                {copy.body}
               </p>
             </div>
 
@@ -51,7 +121,7 @@ export function ConsultationForm() {
                   className="rounded-lg border border-stone-200/80 bg-stone-50 px-6 py-10 text-center text-stone-700"
                   role="status"
                 >
-                  Благодарим ви за доверието. Екипът ни ще потвърди часа по телефон или имейл.
+                  {copy.thankYou}
                 </p>
               ) : (
                 <form className="space-y-5" onSubmit={onSubmit} noValidate>
@@ -61,8 +131,8 @@ export function ConsultationForm() {
                       type="text"
                       required
                       autoComplete="name"
-                      placeholder="Име"
-                      aria-label="Име"
+                      placeholder={copy.name}
+                      aria-label={copy.name}
                       className={inputClass}
                     />
                     <input
@@ -70,8 +140,8 @@ export function ConsultationForm() {
                       type="tel"
                       required
                       autoComplete="tel"
-                      placeholder="Телефон"
-                      aria-label="Телефон"
+                      placeholder={copy.phone}
+                      aria-label={copy.phone}
                       className={inputClass}
                     />
                   </div>
@@ -80,15 +150,15 @@ export function ConsultationForm() {
                     type="email"
                     required
                     autoComplete="email"
-                    placeholder="Имейл"
-                    aria-label="Имейл"
+                    placeholder={copy.email}
+                    aria-label={copy.email}
                     className={inputClass}
                   />
                   <textarea
                     name="comment"
                     rows={4}
-                    placeholder="Коментар (по желание)"
-                    aria-label="Коментар"
+                    placeholder={copy.comment}
+                    aria-label={copy.comment}
                     className={cn(inputClass, 'min-h-[7.5rem] resize-y')}
                   />
                   <div className="space-y-3">
@@ -100,15 +170,14 @@ export function ConsultationForm() {
                         className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-stone-900 focus:ring-stone-900/20"
                       />
                       <span>
-                        Съгласен/а съм с обработката на личните ми данни за отговор на това запитване,
-                        съгласно{' '}
+                        {copy.privacyPrefix}{' '}
                         <a
                           href="#"
                           className="text-stone-900 underline decoration-stone-300 underline-offset-2 hover:decoration-stone-600"
                         >
-                          политиката за поверителност
+                          {copy.privacyLink}
                         </a>
-                        .
+                        {copy.privacySuffix}
                       </span>
                     </label>
                     <label className="flex cursor-pointer items-start gap-3 text-left text-[0.8125rem] leading-snug text-stone-500">
@@ -117,14 +186,14 @@ export function ConsultationForm() {
                         type="checkbox"
                         className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-stone-900 focus:ring-stone-900/20"
                       />
-                      <span>Желая да получавам дискретни съобщения за нови процедури и свободни часове.</span>
+                      <span>{copy.marketing}</span>
                     </label>
                   </div>
                   <button
                     type="submit"
                     className="w-full rounded-lg bg-stone-900 py-3.5 text-[0.9375rem] font-medium tracking-wide text-white shadow-sm transition-[background-color,transform] hover:bg-stone-800 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/30"
                   >
-                    Изпрати запитване
+                    {copy.submit}
                   </button>
                 </form>
               )}

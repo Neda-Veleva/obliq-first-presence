@@ -4,6 +4,7 @@ import type { EmblaCarouselType } from 'embla-carousel';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { BeforeAfterCompare } from './BeforeAfterCompare';
 import { cn } from './ui/utils';
+import { useLocale, type Locale } from '../i18n';
 
 export type BeforeAfterSlide = {
   id: string;
@@ -15,6 +16,33 @@ type BeforeAfterCaseSliderProps = {
   slides: readonly BeforeAfterSlide[];
   className?: string;
   labelHint?: string;
+};
+
+const sliderCopy: Record<
+  Locale,
+  { mobileHint: string; previous: string; next: string; examples: string; example: string }
+> = {
+  bg: {
+    mobileHint: 'Свайп нагоре/надолу за още',
+    previous: 'Предишен пример',
+    next: 'Следващ пример',
+    examples: 'Примери',
+    example: 'Пример',
+  },
+  en: {
+    mobileHint: 'Swipe up/down for more',
+    previous: 'Previous example',
+    next: 'Next example',
+    examples: 'Examples',
+    example: 'Example',
+  },
+  ru: {
+    mobileHint: 'Свайп вверх/вниз для еще',
+    previous: 'Предыдущий пример',
+    next: 'Следующий пример',
+    examples: 'Примеры',
+    example: 'Пример',
+  },
 };
 
 function applySlideOpacity(embla: EmblaCarouselType) {
@@ -38,6 +66,8 @@ function applySlideOpacity(embla: EmblaCarouselType) {
  * Втори аргумент: само празен plugins масив [].
  */
 export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAfterCaseSliderProps) {
+  const { locale } = useLocale();
+  const copy = sliderCopy[locale];
   const n = slides.length;
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -86,7 +116,7 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
         <p className="mb-2 text-center text-xs tracking-[0.2em] text-stone-500">{labelHint}</p>
       ) : null}
 
-      <p className="mb-1 text-center text-[0.7rem] text-stone-400 md:hidden">Свайп нагоре/надолу за още</p>
+      <p className="mb-1 text-center text-[0.7rem] text-stone-400 md:hidden">{copy.mobileHint}</p>
 
       <div className="relative">
         <div
@@ -119,7 +149,7 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
               type="button"
               onClick={scrollPrev}
               className="absolute left-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-stone-200/70 bg-white/90 p-2 text-stone-800 shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-white md:left-2"
-              aria-label="Предишен пример"
+              aria-label={copy.previous}
             >
               <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
             </button>
@@ -127,7 +157,7 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
               type="button"
               onClick={scrollNext}
               className="absolute right-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-stone-200/70 bg-white/90 p-2 text-stone-800 shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-white md:right-2"
-              aria-label="Следващ пример"
+              aria-label={copy.next}
             >
               <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
             </button>
@@ -136,7 +166,7 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
       </div>
 
       {n > 1 ? (
-        <div className="mt-3 flex justify-center gap-1.5" role="tablist" aria-label="Примери">
+        <div className="mt-3 flex justify-center gap-1.5" role="tablist" aria-label={copy.examples}>
           {Array.from({ length: snapCount || n }).map((_, i) => (
             <button
               key={i}
@@ -148,7 +178,7 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
                   ? 'w-4 bg-stone-800'
                   : 'w-1.5 bg-stone-300/90 hover:bg-stone-400',
               )}
-              aria-label={`Пример ${i + 1}`}
+              aria-label={`${copy.example} ${i + 1}`}
               aria-current={selected === i ? 'true' : undefined}
             />
           ))}

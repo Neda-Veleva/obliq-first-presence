@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { SiteHeader } from './SiteHeader';
+import { useLocale, type Locale } from '../i18n';
 
 const clinicAddress = 'ул. „Стефан Стамболов“ 6, ет. 1, София';
 const mapsQuery = 'Medical Center OBLIQ, ul. Stefan Stambolov 6, Sofia';
@@ -23,39 +24,256 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
   mapsQuery,
 )}&z=16&output=embed`;
 const doctorReviewsMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  'Skin Line - Clinic for Laser and Aesthetic Dermatology Sofia',
-)}#reviews`;
+  mapsQuery,
+)}`;
 const bookingUrl = '/#contact';
 
-const contactDetails = [
+type ContactDetail = {
+  icon: typeof MapPinned;
+  label: string;
+  value: string;
+  actionLabel?: string;
+  href?: string;
+  secondaryValue?: string;
+};
+
+const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
+  bg: [
+    {
+      icon: MapPinned,
+      label: 'Адрес',
+      value: clinicAddress,
+      actionLabel: 'Отвори в Google Maps',
+      href: mapsUrl,
+    },
+    {
+      icon: Phone,
+      label: 'Телефон',
+      value: '+359 888 000 000',
+      actionLabel: 'Запази час',
+      href: 'tel:+359888000000',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      value: 'contact@obliq.bg',
+      actionLabel: 'Изпрати имейл',
+      href: 'mailto:contact@obliq.bg',
+    },
+    {
+      icon: Clock3,
+      label: 'Работно време',
+      value: 'Понеделник – Петък · 10:00 – 18:00',
+      secondaryValue: 'С предварително запазен час',
+    },
+  ],
+  en: [
+    {
+      icon: MapPinned,
+      label: 'Address',
+      value: '6 Stefan Stambolov St, floor 1, Sofia',
+      actionLabel: 'Open in Google Maps',
+      href: mapsUrl,
+    },
+    {
+      icon: Phone,
+      label: 'Phone',
+      value: '+359 888 000 000',
+      actionLabel: 'Book appointment',
+      href: 'tel:+359888000000',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      value: 'contact@obliq.bg',
+      actionLabel: 'Send email',
+      href: 'mailto:contact@obliq.bg',
+    },
+    {
+      icon: Clock3,
+      label: 'Working hours',
+      value: 'Monday – Friday · 10:00 – 18:00',
+      secondaryValue: 'By appointment',
+    },
+  ],
+  ru: [
+    {
+      icon: MapPinned,
+      label: 'Адрес',
+      value: 'ул. Стефан Стамболов 6, эт. 1, София',
+      actionLabel: 'Открыть в Google Maps',
+      href: mapsUrl,
+    },
+    {
+      icon: Phone,
+      label: 'Телефон',
+      value: '+359 888 000 000',
+      actionLabel: 'Записаться',
+      href: 'tel:+359888000000',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      value: 'contact@obliq.bg',
+      actionLabel: 'Отправить email',
+      href: 'mailto:contact@obliq.bg',
+    },
+    {
+      icon: Clock3,
+      label: 'Часы работы',
+      value: 'Понедельник – Пятница · 10:00 – 18:00',
+      secondaryValue: 'По предварительной записи',
+    },
+  ],
+};
+
+const contactCopy: Record<
+  Locale,
   {
-    icon: MapPinned,
-    label: 'Адрес',
-    value: clinicAddress,
-    actionLabel: 'Отвори в Google Maps',
-    href: mapsUrl,
+    heroTitle: string;
+    heroBody: string;
+    bookingButton: string;
+    mapsButton: string;
+    infoEyebrow: string;
+    infoTitle: string;
+    infoBody: string;
+    mapBadge: string;
+    mapEyebrow: string;
+    mapBody: string;
+    mapCta: string;
+    socialEyebrow: string;
+    socialTitle: string;
+    socialBody: string;
+    socialProfileStatus: string;
+    reviewsEyebrow: string;
+    reviewsTitle: string;
+    reviewsBody: string;
+    reviewsNote: string;
+    reviewsCta: string;
+    reviewCardLink: string;
+    finalEyebrow: string;
+    finalTitle: string;
+    finalBody: string;
+    finalBooking: string;
+    finalPhone: string;
+    footerText: string;
+    footerHome: string;
+    footerContact: string;
+    footerConsultation: string;
+    footerAddress: string;
+  }
+> = {
+  bg: {
+    heroTitle: 'Посетете OBLIQ.',
+    heroBody:
+      'Пространство за естетична дерматология, в което грижата започва с внимание, спокойствие и индивидуален подход.',
+    bookingButton: 'Запази консултация',
+    mapsButton: 'Отвори в Google Maps',
+    infoEyebrow: 'Контакт и посещение',
+    infoTitle: 'Пространство, създадено за спокойно доверие.',
+    infoBody:
+      'Всеки детайл е подреден така, че да влезете в ритъм на внимание, яснота и дискретна грижа още от първия контакт.',
+    mapBadge: 'Sofia center',
+    mapEyebrow: 'Маршрут и достъп',
+    mapBody:
+      'Топъл, спокоен маршрут към пространство, в което вниманието започва още с пристигането.',
+    mapCta: 'Виж маршрута',
+    socialEyebrow: 'Social presence',
+    socialTitle: 'Останете близо до OBLIQ.',
+    socialBody:
+      'Следвайте ни за атмосфера от клиниката, експертно съдържание и моменти от ежедневната грижа.',
+    socialProfileStatus: 'Профил в подготовка',
+    reviewsEyebrow: 'Google reviews',
+    reviewsTitle: 'Доверие, споделено от нашите пациенти.',
+    reviewsBody: 'Реални впечатления от хора, които са преминали през своя път на грижа с OBLIQ.',
+    reviewsNote: 'Публични Google review excerpts, които споменават д-р Михайлов',
+    reviewsCta: 'Прочетете още отзиви в Google',
+    reviewCardLink: 'Виж в Google Maps',
+    finalEyebrow: 'Final consultation',
+    finalTitle: 'Първата стъпка започва с консултация.',
+    finalBody: 'Ще ви насочим спокойно, ясно и с внимание към вашите индивидуални нужди.',
+    finalBooking: 'Запази консултация',
+    finalPhone: 'Свържи се с нас',
+    footerText:
+      'Aesthetic Dermatology by Dr. Mihaylov. Спокойна прецизност, индивидуален подход и премерен ритъм на грижа.',
+    footerHome: 'Начало',
+    footerContact: 'Контакти',
+    footerConsultation: 'Консултация',
+    footerAddress: clinicAddress,
   },
-  {
-    icon: Phone,
-    label: 'Телефон',
-    value: '+359 888 000 000',
-    actionLabel: 'Запази час',
-    href: 'tel:+359888000000',
+  en: {
+    heroTitle: 'Visit OBLIQ.',
+    heroBody:
+      'An aesthetic dermatology space where care begins with attention, calm and an individual approach.',
+    bookingButton: 'Book consultation',
+    mapsButton: 'Open in Google Maps',
+    infoEyebrow: 'Contact and visit',
+    infoTitle: 'A space created for calm trust.',
+    infoBody:
+      'Every detail is arranged so you enter a rhythm of attention, clarity and discreet care from the first contact.',
+    mapBadge: 'Sofia center',
+    mapEyebrow: 'Route and access',
+    mapBody: 'A calm route to a space where attention begins the moment you arrive.',
+    mapCta: 'View route',
+    socialEyebrow: 'Social presence',
+    socialTitle: 'Stay close to OBLIQ.',
+    socialBody: 'Follow us for clinic atmosphere, expert content and moments from everyday care.',
+    socialProfileStatus: 'Profile in preparation',
+    reviewsEyebrow: 'Google reviews',
+    reviewsTitle: 'Trust shared by our patients.',
+    reviewsBody: 'Real impressions from people who have experienced their care journey with OBLIQ.',
+    reviewsNote: 'Public Google review excerpts mentioning Dr. Mihaylov',
+    reviewsCta: 'Read more reviews on Google',
+    reviewCardLink: 'View on Google Maps',
+    finalEyebrow: 'Final consultation',
+    finalTitle: 'The first step begins with a consultation.',
+    finalBody: 'We will guide you calmly, clearly and with attention to your individual needs.',
+    finalBooking: 'Book consultation',
+    finalPhone: 'Contact us',
+    footerText:
+      'Aesthetic Dermatology by Dr. Mihaylov. Calm precision, an individual approach and a measured rhythm of care.',
+    footerHome: 'Home',
+    footerContact: 'Contact',
+    footerConsultation: 'Consultation',
+    footerAddress: '6 Stefan Stambolov St, floor 1, Sofia',
   },
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'contact@obliq.bg',
-    actionLabel: 'Изпрати имейл',
-    href: 'mailto:contact@obliq.bg',
+  ru: {
+    heroTitle: 'Посетите OBLIQ.',
+    heroBody:
+      'Пространство эстетической дерматологии, где забота начинается с внимания, спокойствия и индивидуального подхода.',
+    bookingButton: 'Записаться на консультацию',
+    mapsButton: 'Открыть в Google Maps',
+    infoEyebrow: 'Контакт и визит',
+    infoTitle: 'Пространство, созданное для спокойного доверия.',
+    infoBody:
+      'Каждая деталь выстроена так, чтобы с первого контакта вы вошли в ритм внимания, ясности и дискретной заботы.',
+    mapBadge: 'Центр Софии',
+    mapEyebrow: 'Маршрут и доступ',
+    mapBody: 'Спокойный маршрут к пространству, где внимание начинается уже с прибытия.',
+    mapCta: 'Посмотреть маршрут',
+    socialEyebrow: 'Social presence',
+    socialTitle: 'Оставайтесь ближе к OBLIQ.',
+    socialBody: 'Следите за атмосферой клиники, экспертным содержанием и моментами ежедневной заботы.',
+    socialProfileStatus: 'Профиль готовится',
+    reviewsEyebrow: 'Google reviews',
+    reviewsTitle: 'Доверие, которым делятся наши пациенты.',
+    reviewsBody: 'Реальные впечатления людей, прошедших свой путь заботы с OBLIQ.',
+    reviewsNote: 'Публичные выдержки из Google reviews, где упоминается д-р Михайлов',
+    reviewsCta: 'Прочитать больше отзывов в Google',
+    reviewCardLink: 'Посмотреть в Google Maps',
+    finalEyebrow: 'Final consultation',
+    finalTitle: 'Первый шаг начинается с консультации.',
+    finalBody: 'Мы направим вас спокойно, ясно и с вниманием к вашим индивидуальным потребностям.',
+    finalBooking: 'Записаться на консультацию',
+    finalPhone: 'Связаться с нами',
+    footerText:
+      'Aesthetic Dermatology by Dr. Mihaylov. Спокойная точность, индивидуальный подход и выверенный ритм заботы.',
+    footerHome: 'Главная',
+    footerContact: 'Контакты',
+    footerConsultation: 'Консультация',
+    footerAddress: 'ул. Стефан Стамболов 6, эт. 1, София',
   },
-  {
-    icon: Clock3,
-    label: 'Работно време',
-    value: 'Понеделник – Петък · 10:00 – 18:00',
-    secondaryValue: 'С предварително запазен час',
-  },
-] as const;
+};
 
 const ellipseDesktopClasses = [
   'left-0 top-0 w-[33%]',
@@ -64,29 +282,85 @@ const ellipseDesktopClasses = [
   'left-[66.9%] top-0 w-[33%]',
 ] as const;
 
-const socialCards = [
-  {
-    icon: Instagram,
-    title: 'Instagram',
-    description: 'Визуални истории, процедури и атмосфера.',
-    eyebrow: 'Editorial moments',
-    accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
-  },
-  {
-    icon: Facebook,
-    title: 'Facebook',
-    description: 'Новини, полезна информация и актуални съобщения.',
-    eyebrow: 'Clinic updates',
-    accent: 'linear-gradient(90deg, #ACB2CA 0%, #BAB0A8 100%)',
-  },
-  {
-    icon: Youtube,
-    title: 'YouTube',
-    description: 'Видео присъствие и експертни насоки, когато каналът е активен.',
-    eyebrow: 'Long-form care',
-    accent: 'linear-gradient(90deg, #8C8E77 0%, #977460 100%)',
-  },
-] as const;
+type SocialCardData = {
+  icon: typeof Instagram;
+  title: string;
+  description: string;
+  eyebrow: string;
+  accent: string;
+};
+
+const socialCardsByLocale: Record<Locale, SocialCardData[]> = {
+  bg: [
+    {
+      icon: Instagram,
+      title: 'Instagram',
+      description: 'Визуални истории, процедури и атмосфера.',
+      eyebrow: 'Editorial moments',
+      accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
+    },
+    {
+      icon: Facebook,
+      title: 'Facebook',
+      description: 'Новини, полезна информация и актуални съобщения.',
+      eyebrow: 'Clinic updates',
+      accent: 'linear-gradient(90deg, #ACB2CA 0%, #BAB0A8 100%)',
+    },
+    {
+      icon: Youtube,
+      title: 'YouTube',
+      description: 'Видео присъствие и експертни насоки, когато каналът е активен.',
+      eyebrow: 'Long-form care',
+      accent: 'linear-gradient(90deg, #8C8E77 0%, #977460 100%)',
+    },
+  ],
+  en: [
+    {
+      icon: Instagram,
+      title: 'Instagram',
+      description: 'Visual stories, procedures and atmosphere.',
+      eyebrow: 'Editorial moments',
+      accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
+    },
+    {
+      icon: Facebook,
+      title: 'Facebook',
+      description: 'News, useful information and current updates.',
+      eyebrow: 'Clinic updates',
+      accent: 'linear-gradient(90deg, #ACB2CA 0%, #BAB0A8 100%)',
+    },
+    {
+      icon: Youtube,
+      title: 'YouTube',
+      description: 'Video presence and expert guidance when the channel is active.',
+      eyebrow: 'Long-form care',
+      accent: 'linear-gradient(90deg, #8C8E77 0%, #977460 100%)',
+    },
+  ],
+  ru: [
+    {
+      icon: Instagram,
+      title: 'Instagram',
+      description: 'Визуальные истории, процедуры и атмосфера.',
+      eyebrow: 'Editorial moments',
+      accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
+    },
+    {
+      icon: Facebook,
+      title: 'Facebook',
+      description: 'Новости, полезная информация и актуальные сообщения.',
+      eyebrow: 'Clinic updates',
+      accent: 'linear-gradient(90deg, #ACB2CA 0%, #BAB0A8 100%)',
+    },
+    {
+      icon: Youtube,
+      title: 'YouTube',
+      description: 'Видео и экспертные рекомендации, когда канал активен.',
+      eyebrow: 'Long-form care',
+      accent: 'linear-gradient(90deg, #8C8E77 0%, #977460 100%)',
+    },
+  ],
+};
 
 const reviewCards = [
   {
@@ -225,6 +499,9 @@ function HeroVisual() {
 }
 
 function ContactInfoCard() {
+  const { locale, localizeHref } = useLocale();
+  const copy = contactCopy[locale];
+
   return (
     <motion.div
       {...editorialFade}
@@ -238,7 +515,7 @@ function ContactInfoCard() {
 
       <div className="relative">
         <p className="text-[0.72rem] uppercase tracking-[0.26em] text-[#BAB0A8]">
-          Контакт и посещение
+          {copy.infoEyebrow}
         </p>
         <h2
           className="mt-4 max-w-sm text-[#F2EEEC]"
@@ -249,11 +526,10 @@ function ContactInfoCard() {
             letterSpacing: '-0.03em',
           }}
         >
-          Пространство, създадено за спокойно доверие.
+          {copy.infoTitle}
         </h2>
         <p className="mt-5 max-w-md text-[1rem] leading-relaxed text-[#F2EEEC]/72">
-          Всеки детайл е подреден така, че да влезете в ритъм на внимание, яснота и дискретна
-          грижа още от първия контакт.
+          {copy.infoBody}
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -263,13 +539,13 @@ function ContactInfoCard() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F2EEEC]/16 bg-[#F2EEEC]/10 px-5 py-3 text-[0.8rem] uppercase tracking-[0.2em] text-[#F2EEEC] transition-colors hover:bg-[#F2EEEC]/14"
           >
-            Отвори в Google Maps
+            {copy.mapsButton}
           </a>
           <a
-            href={bookingUrl}
+            href={localizeHref(bookingUrl)}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(90deg,#977460_0%,#876856_100%)] px-5 py-3 text-[0.8rem] uppercase tracking-[0.2em] text-[#F2EEEC] shadow-[0_18px_30px_-20px_rgba(151,116,96,0.7)] transition-transform duration-300 hover:-translate-y-0.5"
           >
-            Запази час
+            {copy.bookingButton}
           </a>
         </div>
       </div>
@@ -278,6 +554,8 @@ function ContactInfoCard() {
 }
 
 function ContactDetailEllipses() {
+  const { locale } = useLocale();
+  const contactDetails = contactDetailsByLocale[locale];
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const inactiveGradient =
     'linear-gradient(90deg, rgba(135,104,86,0.82) 0%, rgba(186,176,168,0.58) 100%)';
@@ -510,6 +788,9 @@ function ContactDetailEllipses() {
 }
 
 function MapPanel() {
+  const { locale } = useLocale();
+  const copy = contactCopy[locale];
+
   return (
     <motion.a
       {...editorialFade}
@@ -534,14 +815,14 @@ function MapPanel() {
       <div className="absolute left-[50%] top-[41%] z-30 -translate-x-1/2 -translate-y-1/2">
         <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-[#F2EEEC]/42 bg-[linear-gradient(180deg,#38322C_0%,#635C54_100%)] text-[#F2EEEC] shadow-[0_26px_36px_-22px_rgba(56,50,44,0.8)]">
           <span className="absolute inset-0 rounded-full border border-[#F2EEEC]/16" />
-          <BrandLogo alt="OBLIQ pin" inverted className="w-8" />
+          <BrandLogo alt="OBLIQ pin" inverted className="w-12" />
         </div>
         <div className="mx-auto h-5 w-5 -translate-y-2 rotate-45 rounded-[0.5rem] bg-[#635C54]" />
       </div>
 
       <div className="absolute inset-x-6 top-6 z-30 flex items-start justify-end gap-4">
         <div className="rounded-full bg-[#38322C]/72 px-4 py-2 text-[0.72rem] uppercase tracking-[0.2em] text-[#F2EEEC]/82 backdrop-blur-md">
-          Sofia center
+          {copy.mapBadge}
         </div>
       </div>
 
@@ -549,14 +830,14 @@ function MapPanel() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#BAB0A8]">
-              Маршрут и достъп
+              {copy.mapEyebrow}
             </p>
             <p className="mt-2 max-w-md text-[1rem] leading-relaxed text-[#F2EEEC]/86">
-              Топъл, спокоен маршрут към пространство, в което вниманието започва още с пристигането.
+              {copy.mapBody}
             </p>
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-[#F2EEEC]/16 bg-[#F2EEEC]/10 px-4 py-3 text-[0.78rem] uppercase tracking-[0.18em] text-[#F2EEEC] backdrop-blur-md transition-transform duration-300 group-hover:-translate-y-0.5">
-            Виж маршрута
+            {copy.mapCta}
             <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.6} />
           </div>
         </div>
@@ -571,7 +852,8 @@ function SocialCard({
   description,
   eyebrow,
   accent,
-}: (typeof socialCards)[number]) {
+  status,
+}: SocialCardData & { status: string }) {
   return (
     <motion.div
       {...editorialFade}
@@ -601,7 +883,7 @@ function SocialCard({
       </div>
 
       <div className="relative mt-8 inline-flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.18em] text-[#977460]">
-        Профил в подготовка
+        {status}
         <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
       </div>
     </motion.div>
@@ -613,6 +895,9 @@ function ReviewCard({
   author,
   index,
 }: (typeof reviewCards)[number] & { index: number }) {
+  const { locale } = useLocale();
+  const copy = contactCopy[locale];
+
   return (
     <motion.article
       {...editorialFade}
@@ -642,7 +927,7 @@ function ReviewCard({
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.18em] text-[#F2EEEC]/78 transition-colors hover:text-[#F2EEEC]"
           >
-            Виж в Google Maps
+            {copy.reviewCardLink}
           </a>
         </div>
       </div>
@@ -651,6 +936,9 @@ function ReviewCard({
 }
 
 function ContactPageFooter() {
+  const { locale, localizeHref } = useLocale();
+  const copy = contactCopy[locale];
+
   return (
     <footer className="bg-[#38322C] text-[#F2EEEC]">
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-8">
@@ -658,26 +946,25 @@ function ContactPageFooter() {
           <div>
             <BrandLogo alt="Obliq" inverted className="w-[10rem]" />
             <p className="mt-4 max-w-md text-[0.96rem] leading-relaxed text-[#F2EEEC]/68">
-              Aesthetic Dermatology by Dr. Mihaylov. Спокойна прецизност, индивидуален подход и
-              премерен ритъм на грижа.
+              {copy.footerText}
             </p>
           </div>
 
           <div className="flex flex-col gap-4 text-[0.78rem] uppercase tracking-[0.18em] text-[#BAB0A8] sm:flex-row sm:items-center sm:gap-6">
-            <a href="/" className="transition-colors hover:text-[#F2EEEC]">
-              Начало
+            <a href={localizeHref('/')} className="transition-colors hover:text-[#F2EEEC]">
+              {copy.footerHome}
             </a>
-            <a href="/contact" className="transition-colors hover:text-[#F2EEEC]">
-              Контакти
+            <a href={localizeHref('/contact')} className="transition-colors hover:text-[#F2EEEC]">
+              {copy.footerContact}
             </a>
-            <a href={bookingUrl} className="transition-colors hover:text-[#F2EEEC]">
-              Консултация
+            <a href={localizeHref(bookingUrl)} className="transition-colors hover:text-[#F2EEEC]">
+              {copy.footerConsultation}
             </a>
           </div>
         </div>
 
         <div className="mt-8 border-t border-[#BAB0A8]/14 pt-6 text-[0.82rem] leading-relaxed text-[#F2EEEC]/52">
-          © {new Date().getFullYear()} OBLIQ. {clinicAddress}
+          © {new Date().getFullYear()} OBLIQ. {copy.footerAddress}
         </div>
       </div>
     </footer>
@@ -685,8 +972,12 @@ function ContactPageFooter() {
 }
 
 export function ContactPage() {
+  const { locale, localizeHref } = useLocale();
+  const copy = contactCopy[locale];
+  const socialCards = socialCardsByLocale[locale];
+
   return (
-    <div className="min-h-screen bg-[#F2EEEC] text-[#38322C]">
+    <div className="min-h-screen bg-[#977460] text-[#8c8e77]">
       <SiteHeader />
 
       <main>
@@ -708,19 +999,18 @@ export function ContactPage() {
                     letterSpacing: '-0.05em',
                   }}
                 >
-                  Посетете OBLIQ.
+                  {copy.heroTitle}
                 </h1>
                 <p className="mt-6 max-w-xl text-[1.12rem] leading-relaxed text-[#F2EEEC]/76 sm:text-[1.18rem]">
-                  Пространство за естетична дерматология, в което грижата започва с внимание,
-                  спокойствие и индивидуален подход.
+                  {copy.heroBody}
                 </p>
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                   <a
-                    href={bookingUrl}
+                    href={localizeHref(bookingUrl)}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F2EEEC] px-6 py-4 text-[0.8rem] uppercase tracking-[0.22em] text-[#38322C] shadow-[0_20px_30px_-20px_rgba(242,238,236,0.7)] transition-transform duration-300 hover:-translate-y-0.5"
                   >
-                    Запази консултация
+                    {copy.bookingButton}
                   </a>
                   <a
                     href={mapsUrl}
@@ -728,7 +1018,7 @@ export function ContactPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F2EEEC]/18 bg-[#F2EEEC]/8 px-6 py-4 text-[0.8rem] uppercase tracking-[0.22em] text-[#F2EEEC] backdrop-blur-md transition-colors hover:bg-[#F2EEEC]/12"
                   >
-                    Отвори в Google Maps
+                    {copy.mapsButton}
                     <ExternalLink className="h-4 w-4" strokeWidth={1.6} />
                   </a>
                 </div>
@@ -770,7 +1060,7 @@ export function ContactPage() {
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
             <motion.div {...editorialFade} className="max-w-2xl">
               <p className="text-[0.74rem] uppercase tracking-[0.26em] text-[#876856]">
-                Social presence
+                {copy.socialEyebrow}
               </p>
               <h2
                 className="mt-5 text-[#38322C]"
@@ -781,17 +1071,16 @@ export function ContactPage() {
                   letterSpacing: '-0.04em',
                 }}
               >
-                Останете близо до OBLIQ.
+                {copy.socialTitle}
               </h2>
               <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-[#635C54]">
-                Следвайте ни за атмосфера от клиниката, експертно съдържание и моменти от
-                ежедневната грижа.
+                {copy.socialBody}
               </p>
             </motion.div>
 
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
               {socialCards.map((card) => (
-                <SocialCard key={card.title} {...card} />
+                <SocialCard key={card.title} {...card} status={copy.socialProfileStatus} />
               ))}
             </div>
           </div>
@@ -810,7 +1099,7 @@ export function ContactPage() {
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
             <motion.div {...editorialFade} className="max-w-3xl">
               <p className="text-[0.74rem] uppercase tracking-[0.26em] text-[#BAB0A8]">
-                Google reviews
+                {copy.reviewsEyebrow}
               </p>
               <h2
                 className="mt-5 text-[#F2EEEC]"
@@ -821,13 +1110,13 @@ export function ContactPage() {
                   letterSpacing: '-0.04em',
                 }}
               >
-                Доверие, споделено от нашите пациенти.
+                {copy.reviewsTitle}
               </h2>
               <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-[#F2EEEC]/74">
-                Реални впечатления от хора, които са преминали през своя път на грижа с OBLIQ.
+                {copy.reviewsBody}
               </p>
               <p className="mt-4 inline-flex rounded-full border border-[#BAB0A8]/18 bg-[#F2EEEC]/8 px-4 py-2 text-[0.72rem] uppercase tracking-[0.2em] text-[#BAB0A8] backdrop-blur-md">
-                Публични Google review excerpts, които споменават д-р Михайлов
+                {copy.reviewsNote}
               </p>
             </motion.div>
 
@@ -844,7 +1133,7 @@ export function ContactPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 rounded-full border border-[#F2EEEC]/16 bg-[#F2EEEC]/10 px-6 py-4 text-[0.8rem] uppercase tracking-[0.2em] text-[#F2EEEC] backdrop-blur-md transition-transform duration-300 hover:-translate-y-0.5"
               >
-                Прочетете още отзиви в Google
+                {copy.reviewsCta}
                 <ExternalLink className="h-4 w-4" strokeWidth={1.6} />
               </a>
             </motion.div>
@@ -868,7 +1157,7 @@ export function ContactPage() {
               <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
                 <div className="max-w-2xl">
                   <p className="text-[0.74rem] uppercase tracking-[0.26em] text-[#876856]">
-                    Final consultation
+                    {copy.finalEyebrow}
                   </p>
                   <h2
                     className="mt-5 text-[#38322C]"
@@ -879,25 +1168,25 @@ export function ContactPage() {
                       letterSpacing: '-0.04em',
                     }}
                   >
-                    Първата стъпка започва с консултация.
+                    {copy.finalTitle}
                   </h2>
                   <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-[#635C54]">
-                    Ще ви насочим спокойно, ясно и с внимание към вашите индивидуални нужди.
+                    {copy.finalBody}
                   </p>
                 </div>
 
                 <div className="flex flex-col gap-4 sm:flex-row lg:flex-col">
                   <a
-                    href={bookingUrl}
+                    href={localizeHref(bookingUrl)}
                     className="inline-flex items-center justify-center rounded-full bg-[#38322C] px-6 py-4 text-[0.8rem] uppercase tracking-[0.2em] text-[#F2EEEC] shadow-[0_24px_38px_-24px_rgba(56,50,44,0.62)] transition-transform duration-300 hover:-translate-y-0.5"
                   >
-                    Запази консултация
+                    {copy.finalBooking}
                   </a>
                   <a
                     href="tel:+359888000000"
                     className="inline-flex items-center justify-center rounded-full border border-[#38322C]/12 bg-[#F2EEEC]/72 px-6 py-4 text-[0.8rem] uppercase tracking-[0.2em] text-[#38322C] backdrop-blur-md transition-colors hover:bg-[#F2EEEC]"
                   >
-                    Свържи се с нас
+                    {copy.finalPhone}
                   </a>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { BadgeCheck, History } from 'lucide-react';
 import { BeforeAfterCaseSlider, type BeforeAfterSlide } from './BeforeAfterCaseSlider';
+import { useLocale, type Locale } from '../i18n';
 
 const FACE_CASE_BEFORE =
   'https://eng.banobagi.com/wp-content/uploads/2024/02/asset-face-cheeckbone-reduction-103.jpeg.webp';
@@ -25,7 +26,57 @@ const RESULT_SLIDES: readonly BeforeAfterSlide[] = [
   },
 ];
 
+const resultsCopy: Record<
+  Locale,
+  {
+    title: string;
+    body: string;
+    satisfactionTitle: string;
+    satisfactionBody: string;
+    longevityTitle: string;
+    longevityBody: string;
+    sliderHint: string;
+  }
+> = {
+  bg: {
+    title: 'Доказани резултати',
+    body:
+      'Ние не обещаваме невъзможното. Ние показваме реални промени, постигнати чрез търпение и професионализъм.',
+    satisfactionTitle: '98% удовлетвореност',
+    satisfactionBody: 'Нашите клиенти се връщат при нас заради консистентното качество.',
+    longevityTitle: 'Дълготраен ефект',
+    longevityBody:
+      'Фокусираме се върху здравето на кожата, което гарантира трайност на естетичните корекции.',
+    sliderHint: 'плъзнете, за да сравните',
+  },
+  en: {
+    title: 'Proven results',
+    body:
+      'We do not promise the impossible. We show real changes achieved through patience and professionalism.',
+    satisfactionTitle: '98% satisfaction',
+    satisfactionBody: 'Our clients return because of consistent quality.',
+    longevityTitle: 'Long-lasting effect',
+    longevityBody:
+      'We focus on skin health, supporting the longevity of aesthetic corrections.',
+    sliderHint: 'drag to compare',
+  },
+  ru: {
+    title: 'Доказанные результаты',
+    body:
+      'Мы не обещаем невозможного. Мы показываем реальные изменения, достигнутые через терпение и профессионализм.',
+    satisfactionTitle: '98% удовлетворенности',
+    satisfactionBody: 'Наши клиенты возвращаются благодаря стабильному качеству.',
+    longevityTitle: 'Долговременный эффект',
+    longevityBody:
+      'Мы фокусируемся на здоровье кожи, что поддерживает стойкость эстетических коррекций.',
+    sliderHint: 'потяните, чтобы сравнить',
+  },
+};
+
 export function ProvenResults() {
+  const { locale } = useLocale();
+  const copy = resultsCopy[locale];
+
   return (
     <section
       id="results"
@@ -43,14 +94,13 @@ export function ProvenResults() {
               className="mb-6 max-w-lg tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.1, fontWeight: 400 }}
             >
-              Доказани резултати
+              {copy.title}
             </h2>
             <p
               className="mb-10 max-w-lg text-pretty text-stone-600"
               style={{ fontSize: '1.125rem', lineHeight: 1.7 }}
             >
-              Ние не обещаваме невъзможното. Ние показваме реални промени, постигнати чрез
-              търпение и професионализъм.
+              {copy.body}
             </p>
             <div className="space-y-4 md:space-y-6">
               <div className="flex items-start gap-4 rounded-sm border border-stone-200/90 bg-white p-6 shadow-sm">
@@ -60,10 +110,10 @@ export function ProvenResults() {
                 />
                 <div>
                   <p className="mb-1.5 font-medium" style={{ fontSize: '1.125rem' }}>
-                    98% удовлетвореност
+                    {copy.satisfactionTitle}
                   </p>
                   <p className="text-sm text-stone-600">
-                    Нашите клиенти се връщат при нас заради консистентното качество.
+                    {copy.satisfactionBody}
                   </p>
                 </div>
               </div>
@@ -74,11 +124,10 @@ export function ProvenResults() {
                 />
                 <div>
                   <p className="mb-1.5 font-medium" style={{ fontSize: '1.125rem' }}>
-                    Дълготраен ефект
+                    {copy.longevityTitle}
                   </p>
                   <p className="text-sm text-stone-600">
-                    Фокусираме се върху здравето на кожата, което гарантира трайност на
-                    естетичните корекции.
+                    {copy.longevityBody}
                   </p>
                 </div>
               </div>
@@ -94,7 +143,7 @@ export function ProvenResults() {
           >
             <BeforeAfterCaseSlider
               slides={RESULT_SLIDES}
-              labelHint="плъзнете, за да сравните"
+              labelHint={copy.sliderHint}
             />
           </motion.div>
         </div>

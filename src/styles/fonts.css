@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Matt';
+  src: url('/fonts/Matt-Variable-Roman.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Matt';
+  src: url('/fonts/Matt-Variable-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}

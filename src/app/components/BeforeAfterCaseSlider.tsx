@@ -1,0 +1,159 @@
+import { useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import type { EmblaCarouselType } from 'embla-carousel';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { BeforeAfterCompare } from './BeforeAfterCompare';
+import { cn } from './ui/utils';
+
+export type BeforeAfterSlide = {
+  id: string;
+  before: string;
+  after: string;
+};
+
+type BeforeAfterCaseSliderProps = {
+  slides: readonly BeforeAfterSlide[];
+  className?: string;
+  labelHint?: string;
+};
+
+function applySlideOpacity(embla: EmblaCarouselType) {
+  const nodes = embla.slideNodes();
+  const inView = embla.slidesInView();
+  const selected = embla.selectedScrollSnap();
+  nodes.forEach((node, i) => {
+    if (!node) return;
+    const isActive = i === selected;
+    const isPeek = inView.includes(i) && !isActive;
+    node.style.transition = 'opacity 0.28s ease';
+    node.style.willChange = 'opacity';
+    if (isActive) node.style.opacity = '1';
+    else if (isPeek) node.style.opacity = '0.42';
+    else node.style.opacity = '0.2';
+  });
+}
+
+/**
+ * Вертикален Embla: по-висок (портретен) преглед, подравнено по център, слаби съседи с opacity.
+ * Втори аргумент: само празен plugins масив [].
+ */
+export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAfterCaseSliderProps) {
+  const n = slides.length;
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      axis: 'y',
+      loop: false,
+      align: 'center',
+      containScroll: 'trimSnaps',
+      duration: 32,
+      /** Мишката не върти слайдовете (конкурира split-а); на touch остава свайп за слайд. */
+      watchDrag: (_embla, evt) => evt.pointerType !== 'mouse',
+    },
+    [],
+  );
+
+  const [selected, setSelected] = useState(0);
+  const [snapCount, setSnapCount] = useState(0);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const run = () => {
+      setSelected(emblaApi.selectedScrollSnap());
+      setSnapCount(emblaApi.scrollSnapList().length);
+      applySlideOpacity(emblaApi);
+    };
+    run();
+    const onScroll = () => applySlideOpacity(emblaApi);
+    emblaApi.on('reInit', run);
+    emblaApi.on('select', run);
+    emblaApi.on('scroll', onScroll);
+    return () => {
+      emblaApi.off('reInit', run);
+      emblaApi.off('select', run);
+      emblaApi.off('scroll', onScroll);
+    };
+  }, [emblaApi]);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback((i: number) => emblaApi?.scrollTo(i), [emblaApi]);
+
+  if (n === 0) return null;
+
+  return (
+    <div className={cn('relative w-full', className)}>
+      {labelHint ? (
+        <p className="mb-2 text-center text-xs tracking-[0.2em] text-stone-500">{labelHint}</p>
+      ) : null}
+
+      <p className="mb-1 text-center text-[0.7rem] text-stone-400 md:hidden">Свайп нагоре/надолу за още</p>
+
+      <div className="relative">
+        <div
+          ref={emblaRef}
+          className="mx-auto w-full max-w-md cursor-ew-resize overflow-hidden [touch-pan-y] md:ml-auto md:max-w-lg"
+          style={{ height: 'min(38rem, 92vw)' }}
+        >
+          <div className="flex h-full min-h-0 w-full flex-col">
+            {slides.map((s, i) => (
+              <div
+                key={s.id}
+                className="min-h-0 w-full shrink-0 [flex:0_0_26rem] py-1 sm:[flex:0_0_29rem]"
+              >
+                <div className="h-full min-h-0 w-full">
+                  <BeforeAfterCompare
+                    isActive={selected === i}
+                    beforeImage={s.before}
+                    afterImage={s.after}
+                    className="h-full w-full rounded-sm"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {n > 1 ? (
+          <>
+            <button
+              type="button"
+              onClick={scrollPrev}
+              className="absolute left-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-stone-200/70 bg-white/90 p-2 text-stone-800 shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-white md:left-2"
+              aria-label="Предишен пример"
+            >
+              <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
+            </button>
+            <button
+              type="button"
+              onClick={scrollNext}
+              className="absolute right-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-stone-200/70 bg-white/90 p-2 text-stone-800 shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-white md:right-2"
+              aria-label="Следващ пример"
+            >
+              <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
+            </button>
+          </>
+        ) : null}
+      </div>
+
+      {n > 1 ? (
+        <div className="mt-3 flex justify-center gap-1.5" role="tablist" aria-label="Примери">
+          {Array.from({ length: snapCount || n }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollTo(i)}
+              className={cn(
+                'h-1.5 rounded-full transition-[width,background-color,opacity] duration-300',
+                selected === i
+                  ? 'w-4 bg-stone-800'
+                  : 'w-1.5 bg-stone-300/90 hover:bg-stone-400',
+              )}
+              aria-label={`Пример ${i + 1}`}
+              aria-current={selected === i ? 'true' : undefined}
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}

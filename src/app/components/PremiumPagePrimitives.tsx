@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { cn } from './ui/utils';
 import { useLocale } from '../i18n';
 
@@ -22,35 +22,115 @@ type HeroAction = {
   secondary?: boolean;
 };
 
+export type HeroMediaSide = 'left' | 'right';
+
 type CinematicHeroProps = {
   id?: string;
   eyebrow?: string;
   title: string;
   subtitle: string;
   videoSrc: string;
+  mediaSide?: HeroMediaSide;
   primaryAction: HeroAction;
   secondaryAction?: HeroAction;
+  backgroundGradient?: string;
   backgroundClassName?: string;
   className?: string;
 };
 
-function VideoEllipse({ src }: { src: string }) {
+export function useHeroVideoPlayback() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const hasStartedInitialPlaybackRef = useRef(false);
+
+  const playVideoFromStart = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.currentTime = 0;
+
+    const playPromise = video.play();
+    if (playPromise) {
+      playPromise.catch(() => {});
+    }
+  };
+
+  const freezeVideoOnLastFrame = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.pause();
+
+    if (Number.isFinite(video.duration) && video.duration > 0) {
+      video.currentTime = Math.max(video.duration - 0.05, 0);
+    }
+  };
+
+  const startInitialPlayback = () => {
+    if (hasStartedInitialPlaybackRef.current) return;
+
+    hasStartedInitialPlaybackRef.current = true;
+    playVideoFromStart();
+  };
+
+  const replayVideoOnHover = () => {
+    const video = videoRef.current;
+    if (!video || !video.paused) return;
+
+    const isStoppedAtEnd =
+      Number.isFinite(video.duration) &&
+      video.duration > 0 &&
+      video.currentTime >= Math.max(video.duration - 0.1, 0);
+
+    if (!isStoppedAtEnd) return;
+
+    playVideoFromStart();
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      startInitialPlayback();
+      return;
+    }
+
+    video.addEventListener('loadeddata', startInitialPlayback, { once: true });
+
+    return () => {
+      video.removeEventListener('loadeddata', startInitialPlayback);
+    };
+  }, []);
+
+  return {
+    videoRef,
+    freezeVideoOnLastFrame,
+    replayVideoOnHover,
+  };
+}
+
+function VideoEllipse({ src }: { src: string }) {
+  const { videoRef, freezeVideoOnLastFrame, replayVideoOnHover } = useHeroVideoPlayback();
 
   return (
-    <motion.div {...editorialFade} className="relative mx-auto w-full max-w-[40rem] pt-6">
-      <div className="relative aspect-[1.12/1] rounded-[50%] border border-[#F2EEEC]/14 bg-[linear-gradient(180deg,rgba(242,238,236,0.12)_0%,rgba(242,238,236,0.05)_100%)] p-[0.8rem] shadow-[0_0_0_1px_rgba(242,238,236,0.05),0_34px_80px_-42px_rgba(56,50,44,0.72),inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-18px_32px_rgba(255,255,255,0.04)] backdrop-blur-[14px] sm:aspect-[1.38/1] sm:p-[0.95rem]">
+    <motion.div {...editorialFade} className="relative mx-auto w-full max-w-[46rem] pt-6 xl:max-w-[50rem]">
+      <div
+        className="relative aspect-[1.12/1] rounded-[50%] border border-[#F2EEEC]/14 bg-[linear-gradient(180deg,rgba(242,238,236,0.12)_0%,rgba(242,238,236,0.05)_100%)] p-[0.8rem] shadow-[0_0_0_1px_rgba(242,238,236,0.05),0_34px_80px_-42px_rgba(56,50,44,0.72),inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-18px_32px_rgba(255,255,255,0.04)] backdrop-blur-[14px] sm:aspect-[1.38/1] sm:p-[0.95rem]"
+        onMouseEnter={replayVideoOnHover}
+      >
         <div className="relative h-full w-full overflow-hidden rounded-[50%] bg-[#F2EEEC]/6">
           <video
             ref={videoRef}
             autoPlay
-            loop
             muted
             defaultMuted
             playsInline
             preload="auto"
             aria-hidden="true"
             disablePictureInPicture
+            onEnded={freezeVideoOnLastFrame}
             className="pointer-events-none h-full w-full object-cover object-center"
           >
             <source src={src} type="video/mp4" />
@@ -101,9 +181,11 @@ export function CinematicHero({
   title,
   subtitle,
   videoSrc,
+  mediaSide = 'right',
   primaryAction,
   secondaryAction,
-  backgroundClassName = 'bg-[linear-gradient(180deg,#38322C_0%,#635C54_76%,#8C8E77_100%)]',
+  backgroundGradient = 'linear-gradient(180deg,#38322C 0%,#635C54 76%,#8C8E77 100%)',
+  backgroundClassName = 'bg-[#38322C]',
   className,
 }: CinematicHeroProps) {
   return (
@@ -114,6 +196,7 @@ export function CinematicHero({
         backgroundClassName,
         className,
       )}
+      style={{ backgroundImage: backgroundGradient }}
     >
       <AtmosphereOrbs
         orbs={[
@@ -124,8 +207,11 @@ export function CinematicHero({
       />
 
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:px-8 lg:pb-24 lg:pt-16">
-        <div className="grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,32rem)] lg:gap-12 xl:gap-18">
-          <motion.div {...editorialFade} className="max-w-2xl">
+        <div className="grid items-center gap-16 lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.2fr)] lg:gap-12 xl:gap-18">
+          <motion.div
+            {...editorialFade}
+            className={cn('max-w-[34rem]', mediaSide === 'left' ? 'lg:order-2' : 'lg:order-1')}
+          >
             {eyebrow ? (
               <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#D8CDC0]">{eyebrow}</p>
             ) : null}
@@ -142,7 +228,7 @@ export function CinematicHero({
               {title}
             </h1>
 
-            <p className="mt-6 max-w-xl text-[1.08rem] leading-relaxed text-[#F2EEEC]/76 sm:text-[1.18rem]">
+            <p className="mt-6 max-w-[30rem] text-[1.08rem] leading-relaxed text-[#F2EEEC]/76 sm:text-[1.18rem]">
               {subtitle}
             </p>
 
@@ -152,7 +238,9 @@ export function CinematicHero({
             </div>
           </motion.div>
 
-          <VideoEllipse src={videoSrc} />
+          <div className={cn(mediaSide === 'left' ? 'lg:order-1' : 'lg:order-2', 'w-full')}>
+            <VideoEllipse src={videoSrc} />
+          </div>
         </div>
       </div>
     </section>

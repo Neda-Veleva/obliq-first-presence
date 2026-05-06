@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { useLocale, type Locale } from '../i18n';
+import { useHeroVideoPlayback } from './PremiumPagePrimitives';
 
 const heroCopy: Record<Locale, { headline: [string, string]; byline: string }> = {
   bg: {
@@ -19,6 +20,7 @@ const heroCopy: Record<Locale, { headline: [string, string]; byline: string }> =
 export function Hero() {
   const { locale } = useLocale();
   const copy = heroCopy[locale];
+  const { videoRef, freezeVideoOnLastFrame, replayVideoOnHover } = useHeroVideoPlayback();
 
   return (
     <section id="top" className="relative h-screen w-full overflow-hidden bg-black">
@@ -27,13 +29,18 @@ export function Hero() {
         animate={{ scale: 1 }}
         transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
         className="absolute inset-0"
+        onMouseEnter={replayVideoOnHover}
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
+          defaultMuted
           playsInline
           preload="auto"
           aria-hidden="true"
+          disablePictureInPicture
+          onEnded={freezeVideoOnLastFrame}
           className="h-full w-full object-cover object-center opacity-60"
         >
           <source src="/hero-video.mp4" type="video/mp4" />

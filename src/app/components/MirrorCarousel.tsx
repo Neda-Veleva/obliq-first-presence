@@ -9,7 +9,7 @@ const mirrorCopy = {
   bg: {
     ariaLabel: 'Зони на фокус и желан резултат',
     eyebrow: 'Интерактивен фокус',
-    zoneLabel: 'Зона:',
+    zoneLabel: 'Зона',
     previousLabel: 'Предишен фокус',
     nextLabel: 'Следващ фокус',
     showLabel: 'Покажи',
@@ -275,8 +275,6 @@ export function MirrorCarousel() {
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 md:px-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-14 lg:px-16">
         <div className="relative">
-          <div className="absolute left-8 top-8 h-24 w-24 rounded-full border border-[#D9CBBB]/70 bg-white/25 sm:left-10 sm:top-10 sm:h-28 sm:w-28" />
-
           <div className="relative mx-auto max-w-[17.5rem] sm:max-w-[21rem] lg:max-w-[25rem]">
             <div className="relative isolate aspect-[544/1086]">
               <div
@@ -326,17 +324,8 @@ export function MirrorCarousel() {
         </div>
 
         <div className="relative z-10">
-          <div className="mb-6 flex items-center justify-between gap-4 text-[0.72rem] uppercase tracking-[0.28em] text-[#8D8177]">
-            <span>{copy.eyebrow}</span>
-            <span>
-              {String(activeIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
-            </span>
-          </div>
 
           <div className="max-w-xl">
-            <p className="mb-3 text-[0.8rem] uppercase tracking-[0.32em] text-[#9A8B80]">
-              {copy.zoneLabel} {activeSlide.label}
-            </p>
 
             <AnimatePresence mode="wait">
               <motion.div

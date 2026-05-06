@@ -11,6 +11,7 @@ import { Doctor } from './components/Doctor';
 import { ConsultationForm } from './components/ConsultationForm';
 import { ConsultationFooter } from './components/ConsultationFooter';
 import { ContactPage } from './components/ContactPage';
+import { HomePageV2 } from './components/HomePageV2';
 import { ObliqApproachPage } from './components/ObliqApproachPage';
 import {
   ConditionsPage,
@@ -47,6 +48,10 @@ export default function App() {
   const page = (() => {
     if (route.routeKey === 'contact') {
       return <ContactPage />;
+    }
+
+    if (route.routeKey === 'homeV2') {
+      return <HomePageV2 />;
     }
 
     if (route.routeKey === 'approach') {

@@ -349,9 +349,8 @@ export function SiteHeader() {
                     style={menuOpen ? { transform: 'translateY(7px) rotate(45deg)' } : undefined}
                   />
                   <span
-                    className={`absolute left-0 top-[7px] block h-0.5 w-6 bg-current transition-opacity duration-200 ${
-                      menuOpen ? 'opacity-0' : 'opacity-100'
-                    }`}
+                    className={`absolute left-0 top-[7px] block h-0.5 w-6 bg-current transition-opacity duration-200 ${menuOpen ? 'opacity-0' : 'opacity-100'
+                      }`}
                   />
                   <span
                     className="absolute left-0 top-3.5 block h-0.5 w-6 bg-current transition-transform duration-300 ease-out"
@@ -374,6 +373,15 @@ export function SiteHeader() {
             </a>
 
             <div className="flex items-center justify-end gap-2">
+              <a
+                href={consultationHref}
+                onClick={closeMenu}
+                className="justify-self-end rounded-none border border-white/30 bg-white px-3 py-2.5 text-center text-[11px] font-medium uppercase leading-none tracking-wider text-black transition-colors hover:bg-white/90 min-[400px]:px-5 min-[400px]:py-3 min-[400px]:text-sm"
+              >
+                <span className="hidden min-[400px]:inline">{copy.consultationFull}</span>
+                <span className="min-[400px]:hidden">{copy.consultationShort}</span>
+              </a>
+
               <nav
                 aria-label={copy.languageNavLabel}
                 className="hidden items-center border border-white/24 text-[0.65rem] font-medium uppercase leading-none tracking-[0.14em] text-white/72 min-[360px]:flex"
@@ -397,14 +405,6 @@ export function SiteHeader() {
                 })}
               </nav>
 
-              <a
-                href={consultationHref}
-                onClick={closeMenu}
-                className="justify-self-end rounded-none border border-white/30 bg-white px-3 py-2.5 text-center text-[11px] font-medium uppercase leading-none tracking-wider text-black transition-colors hover:bg-white/90 min-[400px]:px-5 min-[400px]:py-3 min-[400px]:text-sm"
-              >
-                <span className="hidden min-[400px]:inline">{copy.consultationFull}</span>
-                <span className="min-[400px]:hidden">{copy.consultationShort}</span>
-              </a>
             </div>
           </div>
         </div>

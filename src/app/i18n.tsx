@@ -5,6 +5,7 @@ export type Locale = (typeof locales)[number];
 
 export type RouteKey =
   | 'home'
+  | 'homeV2'
   | 'approach'
   | 'contact'
   | 'conditions'
@@ -33,6 +34,7 @@ const defaultLocale: Locale = 'bg';
 
 const routePaths: Record<RouteKey, string> = {
   home: '/',
+  homeV2: '/homepage-v2',
   approach: '/the-obliq-approach',
   contact: '/contact',
   conditions: '/conditions',
@@ -42,6 +44,7 @@ const routePaths: Record<RouteKey, string> = {
 
 const routeAliases: Record<string, RouteKey> = {
   '/': 'home',
+  '/homepage-v2': 'homeV2',
   '/approach': 'approach',
   '/the-obliq-approach': 'approach',
   '/contact': 'contact',

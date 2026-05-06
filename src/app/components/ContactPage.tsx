@@ -14,6 +14,7 @@ import {
   Youtube,
 } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { ConsultationFooter } from './ConsultationFooter';
 import { SiteHeader } from './SiteHeader';
 import { useLocale, type Locale } from '../i18n';
 
@@ -469,7 +470,7 @@ function HeroVisual() {
   return (
     <motion.div
       {...editorialFade}
-      className="relative mx-auto w-full max-w-[40rem] pt-6"
+      className="relative mx-auto w-full max-w-[46rem] pt-6 xl:max-w-[50rem]"
     >
       <div
         className="relative aspect-[1.12/1] rounded-[50%] border border-[#F2EEEC]/14 bg-[linear-gradient(180deg,rgba(242,238,236,0.12)_0%,rgba(242,238,236,0.05)_100%)] p-[0.8rem] shadow-[0_0_0_1px_rgba(242,238,236,0.05),0_34px_80px_-42px_rgba(56,50,44,0.72),inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-18px_32px_rgba(255,255,255,0.04)] backdrop-blur-[14px] sm:aspect-[1.38/1] sm:p-[0.95rem]"
@@ -506,21 +507,22 @@ function ContactInfoCard() {
     <motion.div
       {...editorialFade}
       id="contact-details"
-      className="relative rounded-[2.25rem] border border-[#BAB0A8]/18 bg-[#38322C] p-8 text-[#F2EEEC] shadow-[0_32px_80px_-40px_rgba(56,50,44,0.72)] sm:p-10"
+      className="relative min-h-[28rem] overflow-hidden rounded-[9999px] border border-[#BAB0A8]/18 bg-[#38322C] px-10 py-12 text-[#F2EEEC] shadow-[0_32px_80px_-40px_rgba(56,50,44,0.72)] sm:px-14 sm:py-14 lg:min-h-[29rem] lg:px-16 xl:px-20"
     >
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2.25rem]">
-        <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#977460]/22 blur-3xl" />
-        <div className="absolute bottom-2 left-2 h-28 w-56 rounded-full bg-[#ACB2CA]/12 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[9999px]">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(56,50,44,0.98)_0%,rgba(99,92,84,0.94)_100%)]" />
+        <div className="absolute inset-x-[7%] top-[0.08rem] h-[42%] rounded-[9999px] bg-[linear-gradient(180deg,rgba(242,238,236,0.1)_0%,rgba(242,238,236,0.035)_45%,rgba(242,238,236,0)_100%)]" />
+        <div className="absolute bottom-8 right-8 h-32 w-56 rounded-full bg-[#977460]/18 blur-3xl" />
       </div>
 
-      <div className="relative">
+      <div className="relative mx-auto flex h-full max-w-md flex-col justify-center">
         <p className="text-[0.72rem] uppercase tracking-[0.26em] text-[#BAB0A8]">
           {copy.infoEyebrow}
         </p>
         <h2
           className="mt-4 max-w-sm text-[#F2EEEC]"
           style={{
-            fontSize: 'clamp(2.1rem, 4vw, 3.4rem)',
+            fontSize: 'clamp(2rem, 3.8vw, 3.35rem)',
             lineHeight: 1.04,
             fontWeight: 400,
             letterSpacing: '-0.03em',
@@ -609,7 +611,7 @@ function ContactDetailEllipses() {
                 style={{ opacity: isActive ? 0.9 : 0.3 }}
               />
 
-              <div className="relative flex h-full items-center gap-7 px-10 py-8">
+              <div className="relative flex flex-col h-full items-center gap-7 px-10 py-8">
                 <div
                   className={`flex h-[3.65rem] w-[3.65rem] shrink-0 items-center justify-center rounded-full border transition-[background-color,color,border-color] duration-700 ${
                     isActive
@@ -797,13 +799,13 @@ function MapPanel() {
       href={mapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block overflow-hidden rounded-[2rem] border border-[#BAB0A8]/22 bg-[#F2EEEC] shadow-[0_34px_80px_-44px_rgba(56,50,44,0.38)]"
+      className="group relative block min-h-[28rem] overflow-hidden rounded-[9999px] border border-[#BAB0A8]/22 bg-[#F2EEEC] shadow-[0_34px_80px_-44px_rgba(56,50,44,0.38)] lg:min-h-[29rem]"
     >
       <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(242,238,236,0.1)_0%,rgba(216,205,192,0.4)_100%)]" />
       <iframe
         title="OBLIQ Google Maps"
         src={mapsEmbedUrl}
-        className="pointer-events-none h-[34rem] w-full"
+        className="pointer-events-none absolute inset-0 h-full w-full"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         style={{
@@ -820,13 +822,13 @@ function MapPanel() {
         <div className="mx-auto h-5 w-5 -translate-y-2 rotate-45 rounded-[0.5rem] bg-[#635C54]" />
       </div>
 
-      <div className="absolute inset-x-6 top-6 z-30 flex items-start justify-end gap-4">
+      <div className="absolute inset-x-[9%] top-8 z-30 flex items-start justify-end gap-4">
         <div className="rounded-full bg-[#38322C]/72 px-4 py-2 text-[0.72rem] uppercase tracking-[0.2em] text-[#F2EEEC]/82 backdrop-blur-md">
           {copy.mapBadge}
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 z-30 bg-[linear-gradient(180deg,rgba(56,50,44,0)_0%,rgba(56,50,44,0.82)_100%)] px-6 pb-6 pt-16 text-[#F2EEEC] transition-opacity duration-300 group-hover:opacity-100">
+      <div className="absolute inset-x-0 bottom-0 z-30 bg-[linear-gradient(180deg,rgba(56,50,44,0)_0%,rgba(56,50,44,0.84)_100%)] px-[8%] pb-9 pt-20 text-[#F2EEEC] transition-opacity duration-300 group-hover:opacity-100">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#BAB0A8]">
@@ -935,42 +937,6 @@ function ReviewCard({
   );
 }
 
-function ContactPageFooter() {
-  const { locale, localizeHref } = useLocale();
-  const copy = contactCopy[locale];
-
-  return (
-    <footer className="bg-[#38322C] text-[#F2EEEC]">
-      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <BrandLogo alt="Obliq" inverted className="w-[10rem]" />
-            <p className="mt-4 max-w-md text-[0.96rem] leading-relaxed text-[#F2EEEC]/68">
-              {copy.footerText}
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4 text-[0.78rem] uppercase tracking-[0.18em] text-[#BAB0A8] sm:flex-row sm:items-center sm:gap-6">
-            <a href={localizeHref('/')} className="transition-colors hover:text-[#F2EEEC]">
-              {copy.footerHome}
-            </a>
-            <a href={localizeHref('/contact')} className="transition-colors hover:text-[#F2EEEC]">
-              {copy.footerContact}
-            </a>
-            <a href={localizeHref(bookingUrl)} className="transition-colors hover:text-[#F2EEEC]">
-              {copy.footerConsultation}
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-8 border-t border-[#BAB0A8]/14 pt-6 text-[0.82rem] leading-relaxed text-[#F2EEEC]/52">
-          © {new Date().getFullYear()} OBLIQ. {copy.footerAddress}
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 export function ContactPage() {
   const { locale, localizeHref } = useLocale();
   const copy = contactCopy[locale];
@@ -988,8 +954,8 @@ export function ContactPage() {
           {/* <LayeredOrbs /> */}
 
           <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:px-8 lg:pb-24 lg:pt-16">
-            <div className="grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,32rem)] lg:gap-12 xl:gap-18">
-              <motion.div {...editorialFade} className="max-w-2xl">
+            <div className="grid items-center gap-16 lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.2fr)] lg:gap-12 xl:gap-18">
+              <motion.div {...editorialFade} className="max-w-[34rem]">
                 <h1
                   className="mt-6 text-[#F2EEEC]"
                   style={{
@@ -1040,7 +1006,7 @@ export function ContactPage() {
           </div>
 
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
-            <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.92fr)_minmax(0,1.18fr)] lg:gap-8">
+            <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(18rem,0.92fr)_minmax(0,1.18fr)] lg:gap-8">
               <ContactInfoCard />
               <MapPanel />
             </div>
@@ -1195,7 +1161,7 @@ export function ContactPage() {
         </section>
       </main>
 
-      <ContactPageFooter />
+      <ConsultationFooter />
     </div>
   );
 }

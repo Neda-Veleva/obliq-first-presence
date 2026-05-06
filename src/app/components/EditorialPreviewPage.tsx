@@ -2,13 +2,21 @@ import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { ConsultationFooter } from './ConsultationFooter';
 import { SiteHeader } from './SiteHeader';
-import { AtmosphereOrbs, CinematicHero, SectionHeading, editorialFade } from './PremiumPagePrimitives';
+import {
+  AtmosphereOrbs,
+  CinematicHero,
+  SectionHeading,
+  editorialFade,
+  type HeroMediaSide,
+} from './PremiumPagePrimitives';
 import { useLocale, type Locale } from '../i18n';
 
 type PreviewPageProps = {
   title: string;
   subtitle: string;
   heroVideoSrc: string;
+  heroBackgroundGradient: string;
+  heroMediaSide: HeroMediaSide;
   previewLabel: string;
   previewItems: string[];
   message: string;
@@ -61,6 +69,8 @@ const pageCopy: Record<
     conditions: {
       title: 'Състояния',
       subtitle: 'Разбиране на кожните състояния чрез персонален подход и мислене, водено от наука.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#635C54 62%,#8C8E77 100%)',
+      heroMediaSide: 'right',
       previewLabel: 'Преглед на състоянията',
       previewItems: ['Акне', 'Пигментация', 'Зачервяване', 'Текстура', 'Фини линии'],
       message: 'Подготвяме по-задълбочена библиотека от знания.',
@@ -71,6 +81,8 @@ const pageCopy: Record<
       title: 'Процедури',
       subtitle:
         'Съвременни естетични процедури с фокус върху естествено изглеждащи резултати и дългосрочно качество на кожата.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#6F6259 56%,#977460 100%)',
+      heroMediaSide: 'left',
       previewLabel: 'Преглед на процедурите',
       previewItems: ['Инжекционни процедури', 'Лазерни терапии', 'Качество на кожата', 'Регенеративна естетика'],
       message: 'Подготвя се внимателно курирано преживяване около процедурите.',
@@ -81,6 +93,8 @@ const pageCopy: Record<
       title: 'Journal',
       subtitle:
         'Мисли, наблюдения и гледни точки за здравето на кожата, естетиката и съвременната грижа.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
+      heroMediaSide: 'right',
       previewLabel: 'Редакционни preview текстове',
       previewItems: [],
       articleCards: [
@@ -109,6 +123,8 @@ const pageCopy: Record<
     conditions: {
       title: 'Conditions',
       subtitle: 'Understanding skin conditions through a personal, science-led approach.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#635C54 62%,#8C8E77 100%)',
+      heroMediaSide: 'right',
       previewLabel: 'Conditions overview',
       previewItems: ['Acne', 'Pigmentation', 'Redness', 'Texture', 'Fine lines'],
       message: 'We are preparing a deeper knowledge library.',
@@ -119,6 +135,8 @@ const pageCopy: Record<
       title: 'Procedures',
       subtitle:
         'Contemporary aesthetic procedures focused on natural-looking results and long-term skin quality.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#6F6259 56%,#977460 100%)',
+      heroMediaSide: 'left',
       previewLabel: 'Procedure overview',
       previewItems: ['Injectables', 'Laser therapies', 'Skin quality', 'Regenerative aesthetics'],
       message: 'A carefully curated procedure experience is being prepared.',
@@ -128,6 +146,8 @@ const pageCopy: Record<
     journal: {
       title: 'Journal',
       subtitle: 'Thoughts, observations and perspectives on skin health, aesthetics and modern care.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
+      heroMediaSide: 'right',
       previewLabel: 'Editorial previews',
       previewItems: [],
       articleCards: [
@@ -156,6 +176,8 @@ const pageCopy: Record<
     conditions: {
       title: 'Состояния',
       subtitle: 'Понимание состояний кожи через персональный подход и научное мышление.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#635C54 62%,#8C8E77 100%)',
+      heroMediaSide: 'right',
       previewLabel: 'Обзор состояний',
       previewItems: ['Акне', 'Пигментация', 'Покраснение', 'Текстура', 'Тонкие линии'],
       message: 'Мы готовим более глубокую библиотеку знаний.',
@@ -166,6 +188,8 @@ const pageCopy: Record<
       title: 'Процедуры',
       subtitle:
         'Современные эстетические процедуры с фокусом на естественный результат и долгосрочное качество кожи.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#6F6259 56%,#977460 100%)',
+      heroMediaSide: 'left',
       previewLabel: 'Обзор процедур',
       previewItems: ['Инъекционные процедуры', 'Лазерные терапии', 'Качество кожи', 'Регенеративная эстетика'],
       message: 'Готовится тщательно продуманный опыт вокруг процедур.',
@@ -175,6 +199,8 @@ const pageCopy: Record<
     journal: {
       title: 'Journal',
       subtitle: 'Мысли, наблюдения и взгляды на здоровье кожи, эстетику и современный уход.',
+      heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
+      heroMediaSide: 'right',
       previewLabel: 'Редакционные preview тексты',
       previewItems: [],
       articleCards: [
@@ -257,6 +283,8 @@ export function EditorialPreviewPage({
   title,
   subtitle,
   heroVideoSrc,
+  heroBackgroundGradient,
+  heroMediaSide,
   previewLabel,
   previewItems,
   message,
@@ -277,6 +305,8 @@ export function EditorialPreviewPage({
           title={title}
           subtitle={subtitle}
           videoSrc={heroVideoSrc}
+          mediaSide={heroMediaSide}
+          backgroundGradient={heroBackgroundGradient}
           primaryAction={{ href: ctaHref, label: ctaLabel }}
           secondaryAction={{ href: '/the-obliq-approach', label: copy.secondaryActionLabel }}
         />
@@ -342,7 +372,7 @@ export function ConditionsPage() {
   return (
     <EditorialPreviewPage
       {...copy}
-      heroVideoSrc="/contact-hero-clip-1.mp4"
+      heroVideoSrc="/conditions-hero.mp4"
     />
   );
 }
@@ -354,7 +384,7 @@ export function ProceduresPage() {
   return (
     <EditorialPreviewPage
       {...copy}
-      heroVideoSrc="/contact-hero-clip.mp4"
+      heroVideoSrc="/procedures-hero.mp4"
     />
   );
 }
@@ -366,7 +396,7 @@ export function JournalPage() {
   return (
     <EditorialPreviewPage
       {...copy}
-      heroVideoSrc="/hero-video.mp4"
+      heroVideoSrc="/journal-hero.mp4"
     />
   );
 }

@@ -31,14 +31,14 @@ const journeyMoments = [
     eyebrow: 'Консултация',
     title: 'Първата среща започва със слушане.',
     body: 'Всяка консултация е замислена като спокоен разговор, а не като търговски момент. Притесненията, навиците, предишните процедури и естетичните цели се разбират в контекст, за да започне планът с нюанс, а не с предположения.',
-    image: '/doctor-portrait.png',
+    image: '/doctor-portrait-1.png',
     alt: 'Лекар в спокойна консултативна атмосфера',
   },
   {
     eyebrow: 'Оценка',
     title: 'Разбиране на кожата преди решението за процедура.',
     body: 'Текстурата, тонът, движението, структурният баланс и устойчивостта на кожата се разглеждат заедно. Целта е лицето и кожата да бъдат прочетени като цялостна система, а не като отделни проблеми за бързо коригиране.',
-    image: '/section-2-clinical-closeup.png',
+    image: '/section-2-clinical-closeup-1.png',
     alt: 'Клиничен близък кадър на оценка на кожата',
   },
   {
@@ -58,11 +58,11 @@ const journeyMoments = [
 ] as const;
 
 const atmosphereFrames = [
-  { src: '/precision-art-hero.png', alt: 'Изискано клинично пространство', className: 'md:col-span-2 md:row-span-2' },
-  { src: '/doctor-portrait-1.png', alt: 'Портрет в естествена дневна светлина', className: 'md:col-span-1 md:row-span-1' },
-  { src: '/section-2-clinical-closeup.png', alt: 'Детайл на кожа и сянка', className: 'md:col-span-1 md:row-span-1' },
-  { src: '/facial-focus-face.jpg', alt: 'Органична текстура на кожата', className: 'md:col-span-1 md:row-span-2' },
-  { src: '/hero-exosome-treatment.png', alt: 'Технология и отражения', className: 'md:col-span-2 md:row-span-1' },
+  { src: '/clinic-space/reception.jpg', alt: 'Изисканата рецепция в OBLIQ', className: 'md:col-span-2 md:row-span-2' },
+  { src: '/clinic-space/consultation-detail.jpg', alt: 'Сертификати и консултативна атмосфера', className: 'md:col-span-1 md:row-span-1' },
+  { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Технология и мека светлина в процедурната стая', className: 'md:col-span-1 md:row-span-1' },
+  { src: '/clinic-space/consultation-wide.jpg', alt: 'Консултативен кабинет с дневна светлина', className: 'md:col-span-1 md:row-span-2' },
+  { src: '/clinic-space/treatment-room-shelves.jpg', alt: 'Топли материали и премерено осветление', className: 'md:col-span-2 md:row-span-1' },
 ] as const;
 
 const expertiseBlocks = [
@@ -164,7 +164,7 @@ const approachCopy = {
           title: 'The first meeting begins with listening.',
           body:
             'Every consultation is shaped as a calm conversation, not a sales moment. Concerns, habits, previous procedures and aesthetic goals are understood in context, so the plan begins with nuance rather than assumptions.',
-          image: '/doctor-portrait.png',
+          image: '/doctor-portrait-1.png',
           alt: 'Doctor in a calm consultation atmosphere',
         },
         {
@@ -172,7 +172,7 @@ const approachCopy = {
           title: 'Understanding the skin before deciding on a procedure.',
           body:
             'Texture, tone, movement, structural balance and skin resilience are considered together. The goal is to read the face and skin as one system, not as isolated issues for quick correction.',
-          image: '/section-2-clinical-closeup.png',
+          image: '/section-2-clinical-closeup-1.png',
           alt: 'Clinical close-up of skin assessment',
         },
         {
@@ -198,11 +198,11 @@ const approachCopy = {
       title: 'Quiet elegance, daylight, texture and a feeling of calm precision.',
       body: 'The environment is part of the care: minimal, intentional and emotionally reassuring.',
       frames: [
-        { src: '/precision-art-hero.png', alt: 'Refined clinical space', className: 'md:col-span-2 md:row-span-2' },
-        { src: '/doctor-portrait-1.png', alt: 'Portrait in natural daylight', className: 'md:col-span-1 md:row-span-1' },
-        { src: '/section-2-clinical-closeup.png', alt: 'Detail of skin and shadow', className: 'md:col-span-1 md:row-span-1' },
-        { src: '/facial-focus-face.jpg', alt: 'Organic skin texture', className: 'md:col-span-1 md:row-span-2' },
-        { src: '/hero-exosome-treatment.png', alt: 'Technology and reflections', className: 'md:col-span-2 md:row-span-1' },
+        { src: '/clinic-space/reception.jpg', alt: 'Refined reception space', className: 'md:col-span-2 md:row-span-2' },
+        { src: '/clinic-space/consultation-detail.jpg', alt: 'Certificates and consultation atmosphere', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Technology and soft light in the treatment room', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/consultation-wide.jpg', alt: 'Consultation room in daylight', className: 'md:col-span-1 md:row-span-2' },
+        { src: '/clinic-space/treatment-room-shelves.jpg', alt: 'Warm materials and calm lighting', className: 'md:col-span-2 md:row-span-1' },
       ],
     },
     science: {
@@ -276,7 +276,7 @@ const approachCopy = {
           title: 'Первая встреча начинается со слушания.',
           body:
             'Каждая консультация задумана как спокойный разговор, а не коммерческий момент. Запросы, привычки, предыдущие процедуры и эстетические цели рассматриваются в контексте.',
-          image: '/doctor-portrait.png',
+          image: '/doctor-portrait-1.png',
           alt: 'Врач в спокойной консультационной атмосфере',
         },
         {
@@ -284,7 +284,7 @@ const approachCopy = {
           title: 'Понимание кожи до решения о процедуре.',
           body:
             'Текстура, тон, движение, структурный баланс и устойчивость кожи рассматриваются вместе. Цель — видеть лицо и кожу как единую систему.',
-          image: '/section-2-clinical-closeup.png',
+          image: '/section-2-clinical-closeup-1.png',
           alt: 'Клинический близкий кадр оценки кожи',
         },
         {
@@ -310,11 +310,11 @@ const approachCopy = {
       title: 'Тихая элегантность, дневной свет, текстура и ощущение спокойной точности.',
       body: 'Среда является частью заботы: минималистичная, продуманная и эмоционально успокаивающая.',
       frames: [
-        { src: '/precision-art-hero.png', alt: 'Изысканное клиническое пространство', className: 'md:col-span-2 md:row-span-2' },
-        { src: '/doctor-portrait-1.png', alt: 'Портрет в естественном дневном свете', className: 'md:col-span-1 md:row-span-1' },
-        { src: '/section-2-clinical-closeup.png', alt: 'Деталь кожи и тени', className: 'md:col-span-1 md:row-span-1' },
-        { src: '/facial-focus-face.jpg', alt: 'Органическая текстура кожи', className: 'md:col-span-1 md:row-span-2' },
-        { src: '/hero-exosome-treatment.png', alt: 'Технология и отражения', className: 'md:col-span-2 md:row-span-1' },
+        { src: '/clinic-space/reception.jpg', alt: 'Изысканное пространство рецепции', className: 'md:col-span-2 md:row-span-2' },
+        { src: '/clinic-space/consultation-detail.jpg', alt: 'Сертификаты и атмосфера консультации', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Технология и мягкий свет в процедурной комнате', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/consultation-wide.jpg', alt: 'Консультационный кабинет при дневном свете', className: 'md:col-span-1 md:row-span-2' },
+        { src: '/clinic-space/treatment-room-shelves.jpg', alt: 'Теплые материалы и спокойный свет', className: 'md:col-span-2 md:row-span-1' },
       ],
     },
     science: {
@@ -615,7 +615,8 @@ export function ObliqApproachPage() {
           eyebrow={copy.eyebrow}
           title={copy.title}
           subtitle={copy.subtitle}
-          videoSrc="/hero-video.mp4"
+          videoSrc="/obliq-approach-hero.mp4"
+          backgroundGradient="linear-gradient(180deg,#38322C 0%,#635C54 76%,#8C8E77 100%)"
           primaryAction={{ href: '/#contact', label: copy.primaryLabel }}
           secondaryAction={{ href: '/contact', label: copy.secondaryLabel }}
         />

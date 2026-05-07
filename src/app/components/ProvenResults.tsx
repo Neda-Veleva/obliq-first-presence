@@ -80,7 +80,7 @@ export function ProvenResults() {
   return (
     <section
       id="results"
-      className="overflow-hidden bg-stone-100 py-24 text-stone-900 md:py-32"
+      className="overflow-hidden bg-[#F2EEEC] py-24 text-[#38322C] md:py-32"
     >
       <div className="mx-auto max-w-7xl px-8">
         <div className="grid items-center gap-16 md:grid-cols-2 md:gap-20">
@@ -97,36 +97,36 @@ export function ProvenResults() {
               {copy.title}
             </h2>
             <p
-              className="mb-10 max-w-lg text-pretty text-stone-600"
+              className="mb-10 max-w-lg text-pretty text-[#635C54]"
               style={{ fontSize: '1.125rem', lineHeight: 1.7 }}
             >
               {copy.body}
             </p>
             <div className="space-y-4 md:space-y-6">
-              <div className="flex items-start gap-4 rounded-sm border border-stone-200/90 bg-white p-6 shadow-sm">
+              <div className="flex items-start gap-4 rounded-sm border border-[#D8CDC0]/90 bg-[#F2EEEC] p-6 shadow-sm">
                 <BadgeCheck
-                  className="mt-0.5 h-6 w-6 shrink-0 text-amber-800/80"
+                  className="mt-0.5 h-6 w-6 shrink-0 text-[#977460]"
                   strokeWidth={1.5}
                 />
                 <div>
                   <p className="mb-1.5 font-medium" style={{ fontSize: '1.125rem' }}>
                     {copy.satisfactionTitle}
                   </p>
-                  <p className="text-sm text-stone-600">
+                  <p className="text-sm text-[#635C54]">
                     {copy.satisfactionBody}
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 rounded-sm border border-stone-200/90 bg-white p-6 shadow-sm">
+              <div className="flex items-start gap-4 rounded-sm border border-[#D8CDC0]/90 bg-[#F2EEEC] p-6 shadow-sm">
                 <History
-                  className="mt-0.5 h-6 w-6 shrink-0 text-amber-800/80"
+                  className="mt-0.5 h-6 w-6 shrink-0 text-[#8C8E77]"
                   strokeWidth={1.5}
                 />
                 <div>
                   <p className="mb-1.5 font-medium" style={{ fontSize: '1.125rem' }}>
                     {copy.longevityTitle}
                   </p>
-                  <p className="text-sm text-stone-600">
+                  <p className="text-sm text-[#635C54]">
                     {copy.longevityBody}
                   </p>
                 </div>

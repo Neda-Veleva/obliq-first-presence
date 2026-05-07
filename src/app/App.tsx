@@ -11,8 +11,12 @@ import { Doctor } from './components/Doctor';
 import { ConsultationForm } from './components/ConsultationForm';
 import { ConsultationFooter } from './components/ConsultationFooter';
 import { ContactPage } from './components/ContactPage';
+import { ContactPageV2 } from './components/ContactPageV2';
+import { BrandColorsPage } from './components/BrandColorsPage';
 import { HomePageV2 } from './components/HomePageV2';
+import { HomePageV3 } from './components/HomePageV3';
 import { ObliqApproachPage } from './components/ObliqApproachPage';
+import { FloatingConsultationCta } from './components/FloatingConsultationCta';
 import {
   ConditionsPage,
   JournalPage,
@@ -50,12 +54,24 @@ export default function App() {
       return <ContactPage />;
     }
 
+    if (route.routeKey === 'contactV2') {
+      return <ContactPageV2 />;
+    }
+
     if (route.routeKey === 'homeV2') {
       return <HomePageV2 />;
     }
 
+    if (route.routeKey === 'homeV3') {
+      return <HomePageV3 />;
+    }
+
     if (route.routeKey === 'approach') {
       return <ObliqApproachPage />;
+    }
+
+    if (route.routeKey === 'brandColors') {
+      return <BrandColorsPage />;
     }
 
     if (route.routeKey === 'conditions') {
@@ -73,5 +89,10 @@ export default function App() {
     return <HomePage />;
   })();
 
-  return <LocaleProvider route={route}>{page}</LocaleProvider>;
+  return (
+    <LocaleProvider route={route}>
+      {page}
+      <FloatingConsultationCta />
+    </LocaleProvider>
+  );
 }

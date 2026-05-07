@@ -217,13 +217,13 @@ export function FacialFocusFaceMap({
     <div
       className={cn('flex w-full max-w-md flex-col items-stretch sm:max-w-lg lg:max-w-xl', className)}
     >
-      <p className="mb-4 text-center text-[0.6rem] font-light tracking-[0.32em] text-stone-400/70">
+      <p className="mb-4 text-center text-[0.6rem] font-light tracking-[0.32em] text-[#876856]/72">
         {copy.eyebrow}
       </p>
       <div
-        className="relative w-full aspect-[5/7] max-h-[min(78vh,46rem)] overflow-hidden rounded-[1.5rem] bg-[#E8E3DA] shadow-[0_8px_48px_-20px_rgba(35,28,20,0.12),0_2px_0_0_rgba(242,238,236,0.2)_inset]"
+        className="relative w-full aspect-[5/7] max-h-[min(78vh,46rem)] overflow-hidden rounded-[1.5rem] bg-[#D8CDC0] shadow-[0_8px_48px_-20px_rgba(56,50,44,0.12),0_2px_0_0_rgba(242,238,236,0.2)_inset]"
         onPointerLeave={clearFaceHover}
-        style={{ backgroundColor: '#EAE7E1' }}
+        style={{ backgroundColor: '#D8CDC0' }}
       >
         <ImageWithFallback
           src={FACE_PHOTO_SRC}
@@ -231,11 +231,11 @@ export function FacialFocusFaceMap({
           className="absolute inset-0 h-full w-full origin-center scale-105 object-cover object-center"
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#F5F5F0]/0 via-[#F5F5F0]/0 to-stone-200/25"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#F2EEEC]/0 via-[#F2EEEC]/0 to-[#BAB0A8]/22"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-300/20 via-transparent to-stone-100/10"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#BAB0A8]/18 via-transparent to-[#F2EEEC]/12"
           aria-hidden
         />
 
@@ -299,7 +299,7 @@ export function FacialFocusFaceMap({
                 fill={fillC}
                 fillRule={isRing ? 'evenodd' : 'nonzero'}
                 stroke="none"
-                className="cursor-pointer touch-manipulation transition-[fill] duration-700 ease-out outline-none focus-visible:ring-2 focus-visible:ring-stone-400/40 focus-visible:ring-offset-1 focus-visible:ring-offset-white/0"
+                className="cursor-pointer touch-manipulation transition-[fill] duration-700 ease-out outline-none focus-visible:ring-2 focus-visible:ring-[#977460]/40 focus-visible:ring-offset-1 focus-visible:ring-offset-[#F2EEEC]/0"
                 style={{ filter: `url(#${softFilterId})` }}
                 onPointerDown={(e) => {
                   e.stopPropagation();
@@ -326,7 +326,7 @@ export function FacialFocusFaceMap({
 
         {tooltipText && (
           <div
-            className="pointer-events-none absolute bottom-3 left-1/2 z-20 max-w-[90%] -translate-x-1/2 rounded-2xl bg-stone-800/50 px-4 py-2.5 text-center text-[11px] font-light leading-snug text-[#F7F2EA]/95 shadow-[0_6px_30px_rgba(0,0,0,0.12)] backdrop-blur-md"
+            className="pointer-events-none absolute bottom-3 left-1/2 z-20 max-w-[90%] -translate-x-1/2 rounded-2xl bg-[#38322C]/50 px-4 py-2.5 text-center text-[11px] font-light leading-snug text-[#F2EEEC]/95 shadow-[0_6px_30px_rgba(56,50,44,0.12)] backdrop-blur-md"
             role="tooltip"
           >
             {tooltipText}

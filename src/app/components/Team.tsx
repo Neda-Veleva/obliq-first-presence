@@ -34,16 +34,16 @@ const members = [
 
 export function Team() {
   return (
-    <section id="team" className="relative bg-white text-stone-900">
+    <section id="team" className="relative bg-[#F2EEEC] text-[#38322C]">
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 md:px-12 lg:px-16 lg:py-20">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true, margin: '-80px' }}
-          className="mb-10 max-w-2xl border-b border-stone-200 pb-8 lg:mb-12 lg:pb-9"
+          className="mb-10 max-w-2xl border-b border-[#D8CDC0] pb-8 lg:mb-12 lg:pb-9"
         >
-          <p className="mb-2 text-[0.6875rem] font-medium uppercase tracking-[0.35em] text-stone-500">
+          <p className="mb-2 text-[0.6875rem] font-medium uppercase tracking-[0.35em] text-[#876856]">
             Хора
           </p>
           <h2
@@ -58,7 +58,7 @@ export function Team() {
             Екипът зад OBLIQ.
           </h2>
           <p
-            className="max-w-xl text-pretty text-stone-600"
+            className="max-w-xl text-pretty text-[#635C54]"
             style={{ fontSize: '1rem', lineHeight: 1.65 }}
           >
             Съвместни консултации, сходни стандарти. Всеки с роля в протокола — без компромис с
@@ -79,12 +79,12 @@ export function Team() {
               }}
               viewport={{ once: true, margin: '-50px' }}
               className={cn(
-                'flex flex-col gap-5 border-t border-stone-200 py-7 first:border-t-0 first:pt-0 sm:gap-6 md:flex-row md:items-center md:gap-8 md:py-8 lg:border-t-0 lg:py-5',
+                'flex flex-col gap-5 border-t border-[#D8CDC0] py-7 first:border-t-0 first:pt-0 sm:gap-6 md:flex-row md:items-center md:gap-8 md:py-8 lg:border-t-0 lg:py-5',
                 i % 2 === 1 && 'md:flex-row-reverse',
-                i >= 2 && 'lg:border-t lg:border-stone-200 lg:pt-7',
+                i >= 2 && 'lg:border-t lg:border-[#D8CDC0] lg:pt-7',
               )}
             >
-              <div className="relative w-full shrink-0 overflow-hidden bg-stone-100 sm:max-w-[200px] md:max-w-[220px]">
+              <div className="relative w-full shrink-0 overflow-hidden bg-[#D8CDC0] sm:max-w-[200px] md:max-w-[220px]">
                 <div className="aspect-[4/5] w-full">
                   <ImageWithFallback
                     src={m.image}
@@ -94,11 +94,11 @@ export function Team() {
                 </div>
               </div>
               <div className="flex min-w-0 flex-1 flex-col justify-center pt-1 sm:pt-0">
-                <p className="text-[0.65rem] font-medium uppercase tracking-[0.3em] text-stone-500">
+                <p className="text-[0.65rem] font-medium uppercase tracking-[0.3em] text-[#876856]">
                   {m.role}
                 </p>
                 <h3
-                  className="mt-2 text-balance text-stone-900"
+                  className="mt-2 text-balance text-[#38322C]"
                   style={{
                     fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                     fontSize: 'clamp(1.25rem, 2.5vw, 1.625rem)',
@@ -108,7 +108,7 @@ export function Team() {
                 >
                   {m.name}
                 </h3>
-                <p className="mt-2 max-w-md text-[0.875rem] leading-relaxed text-stone-600">
+                <p className="mt-2 max-w-md text-[0.875rem] leading-relaxed text-[#635C54]">
                   {m.blurb}
                 </p>
               </div>

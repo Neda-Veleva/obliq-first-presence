@@ -17,6 +17,8 @@ type PreviewPageProps = {
   heroVideoSrc: string;
   heroBackgroundGradient: string;
   heroMediaSide: HeroMediaSide;
+  sectionTitle: string;
+  sectionBody: string;
   previewLabel: string;
   previewItems: string[];
   message: string;
@@ -29,30 +31,19 @@ const editorialCopy: Record<
   Locale,
   {
     articleEyebrow: string;
-    sectionTitle: string;
-    sectionBody: string;
     secondaryActionLabel: string;
   }
 > = {
   bg: {
     articleEyebrow: 'Текст в Journal',
-    sectionTitle: 'Подготвя се внимателно курирана перспектива.',
-    sectionBody:
-      'Страницата е умишлено изградена като preview на темите, визуалния език и нивото на грижа, които ще оформят цялостното изживяване.',
     secondaryActionLabel: 'Подходът на OBLIQ',
   },
   en: {
     articleEyebrow: 'Journal preview',
-    sectionTitle: 'A carefully curated perspective is being prepared.',
-    sectionBody:
-      'This page is intentionally shaped as a preview of the themes, visual language and level of care that will define the full experience.',
     secondaryActionLabel: 'The OBLIQ approach',
   },
   ru: {
     articleEyebrow: 'Текст в журнале',
-    sectionTitle: 'Готовится тщательно выстроенная перспектива.',
-    sectionBody:
-      'Эта страница задумана как preview тем, визуального языка и уровня заботы, которые сформируют полное впечатление.',
     secondaryActionLabel: 'Подход OBLIQ',
   },
 };
@@ -71,21 +62,27 @@ const pageCopy: Record<
       subtitle: 'Разбиране на кожните състояния чрез персонален подход и мислене, водено от наука.',
       heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#635C54 62%,#8C8E77 100%)',
       heroMediaSide: 'right',
+      sectionTitle: 'Разбирането изисква време.',
+      sectionBody:
+        'Скоро ще представим внимателно подбрана информация за кожните състояния и ново дигитално изживяване.',
       previewLabel: 'Преглед на състоянията',
       previewItems: ['Акне', 'Пигментация', 'Зачервяване', 'Текстура', 'Фини линии'],
-      message: 'Подготвяме по-задълбочена библиотека от знания.',
+      message: 'Състояния, разгледани с внимание към детайла.',
       ctaLabel: 'Заяви консултация',
       ctaHref: '/#contact',
     },
     procedures: {
-      title: 'Процедури',
+      title: 'Терапии',
       subtitle:
-        'Съвременни естетични процедури с фокус върху естествено изглеждащи резултати и дългосрочно качество на кожата.',
+        'Съвременни естетични терапии с фокус върху естествено изглеждащи резултати и дългосрочно качество на кожата.',
       heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#6F6259 56%,#977460 100%)',
       heroMediaSide: 'left',
-      previewLabel: 'Преглед на процедурите',
-      previewItems: ['Инжекционни процедури', 'Лазерни терапии', 'Качество на кожата', 'Регенеративна естетика'],
-      message: 'Подготвя се внимателно курирано преживяване около процедурите.',
+      sectionTitle: 'Естетиката изисква време.',
+      sectionBody:
+        'Скоро ще представим внимателно подбрани терапии и ново дигитално изживяване.',
+      previewLabel: 'Преглед на терапиите',
+      previewItems: ['Инжекционни терапии', 'Лазерни терапии', 'Качество на кожата', 'Регенеративна естетика'],
+      message: 'Терапии, създадени с внимание към детайла.',
       ctaLabel: 'Запази консултация',
       ctaHref: '/#contact',
     },
@@ -95,6 +92,9 @@ const pageCopy: Record<
         'Мисли, наблюдения и гледни точки за здравето на кожата, естетиката и съвременната грижа.',
       heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
       heroMediaSide: 'right',
+      sectionTitle: 'Естетиката изисква време.',
+      sectionBody:
+        'Скоро ще представим внимателно подбрани терапии и ново дигитално изживяване.',
       previewLabel: 'Редакционни preview текстове',
       previewItems: [],
       articleCards: [
@@ -125,21 +125,27 @@ const pageCopy: Record<
       subtitle: 'Understanding skin conditions through a personal, science-led approach.',
       heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#635C54 62%,#8C8E77 100%)',
       heroMediaSide: 'right',
+      sectionTitle: 'Understanding takes time.',
+      sectionBody:
+        'Soon, we will present carefully selected guidance on skin conditions and a new digital experience.',
       previewLabel: 'Conditions overview',
       previewItems: ['Acne', 'Pigmentation', 'Redness', 'Texture', 'Fine lines'],
-      message: 'We are preparing a deeper knowledge library.',
+      message: 'Conditions explored with attention to detail.',
       ctaLabel: 'Request a consultation',
       ctaHref: '/#contact',
     },
     procedures: {
-      title: 'Procedures',
+      title: 'Therapies',
       subtitle:
-        'Contemporary aesthetic procedures focused on natural-looking results and long-term skin quality.',
+        'Contemporary aesthetic therapies focused on natural-looking results and long-term skin quality.',
       heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#6F6259 56%,#977460 100%)',
       heroMediaSide: 'left',
-      previewLabel: 'Procedure overview',
-      previewItems: ['Injectables', 'Laser therapies', 'Skin quality', 'Regenerative aesthetics'],
-      message: 'A carefully curated procedure experience is being prepared.',
+      sectionTitle: 'Aesthetics take time.',
+      sectionBody:
+        'Soon, we will present a carefully selected range of therapies and a new digital experience.',
+      previewLabel: 'Therapy overview',
+      previewItems: ['Injectable therapies', 'Laser therapies', 'Skin quality', 'Regenerative aesthetics'],
+      message: 'Therapies created with attention to detail.',
       ctaLabel: 'Book consultation',
       ctaHref: '/#contact',
     },
@@ -148,6 +154,9 @@ const pageCopy: Record<
       subtitle: 'Thoughts, observations and perspectives on skin health, aesthetics and modern care.',
       heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
       heroMediaSide: 'right',
+      sectionTitle: 'Aesthetics take time.',
+      sectionBody:
+        'Soon, we will present a carefully selected range of therapies and a new digital experience.',
       previewLabel: 'Editorial previews',
       previewItems: [],
       articleCards: [
@@ -178,21 +187,27 @@ const pageCopy: Record<
       subtitle: 'Понимание состояний кожи через персональный подход и научное мышление.',
       heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#635C54 62%,#8C8E77 100%)',
       heroMediaSide: 'right',
+      sectionTitle: 'Понимание требует времени.',
+      sectionBody:
+        'Скоро мы представим тщательно подготовленную информацию о состояниях кожи и новый цифровой опыт.',
       previewLabel: 'Обзор состояний',
       previewItems: ['Акне', 'Пигментация', 'Покраснение', 'Текстура', 'Тонкие линии'],
-      message: 'Мы готовим более глубокую библиотеку знаний.',
+      message: 'Состояния, рассмотренные с вниманием к деталям.',
       ctaLabel: 'Запросить консультацию',
       ctaHref: '/#contact',
     },
     procedures: {
-      title: 'Процедуры',
+      title: 'Терапии',
       subtitle:
-        'Современные эстетические процедуры с фокусом на естественный результат и долгосрочное качество кожи.',
+        'Современные эстетические терапии с фокусом на естественный результат и долгосрочное качество кожи.',
       heroBackgroundGradient: 'linear-gradient(180deg,#38322C 0%,#6F6259 56%,#977460 100%)',
       heroMediaSide: 'left',
-      previewLabel: 'Обзор процедур',
-      previewItems: ['Инъекционные процедуры', 'Лазерные терапии', 'Качество кожи', 'Регенеративная эстетика'],
-      message: 'Готовится тщательно продуманный опыт вокруг процедур.',
+      sectionTitle: 'Эстетика требует времени.',
+      sectionBody:
+        'Скоро мы представим тщательно подобранные терапии и новый цифровой опыт.',
+      previewLabel: 'Обзор терапий',
+      previewItems: ['Инъекционные терапии', 'Лазерные терапии', 'Качество кожи', 'Регенеративная эстетика'],
+      message: 'Терапии, созданные с вниманием к деталям.',
       ctaLabel: 'Записаться на консультацию',
       ctaHref: '/#contact',
     },
@@ -201,6 +216,9 @@ const pageCopy: Record<
       subtitle: 'Мысли, наблюдения и взгляды на здоровье кожи, эстетику и современный уход.',
       heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
       heroMediaSide: 'right',
+      sectionTitle: 'Эстетика требует времени.',
+      sectionBody:
+        'Скоро мы представим тщательно подобранные терапии и новый цифровой опыт.',
       previewLabel: 'Редакционные preview тексты',
       previewItems: [],
       articleCards: [
@@ -285,6 +303,8 @@ export function EditorialPreviewPage({
   heroVideoSrc,
   heroBackgroundGradient,
   heroMediaSide,
+  sectionTitle,
+  sectionBody,
   previewLabel,
   previewItems,
   message,
@@ -323,8 +343,8 @@ export function EditorialPreviewPage({
           <div className="relative mx-auto max-w-6xl px-5 sm:px-8 lg:px-8">
             <SectionHeading
               eyebrow={previewLabel}
-              title={copy.sectionTitle}
-              body={copy.sectionBody}
+              title={sectionTitle}
+              body={sectionBody}
             />
 
             {articleCards ? (

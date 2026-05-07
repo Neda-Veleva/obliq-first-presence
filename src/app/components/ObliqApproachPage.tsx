@@ -30,7 +30,7 @@ const journeyMoments = [
   {
     eyebrow: 'Консултация',
     title: 'Първата среща започва със слушане.',
-    body: 'Всяка консултация е замислена като спокоен разговор, а не като търговски момент. Притесненията, навиците, предишните процедури и естетичните цели се разбират в контекст, за да започне планът с нюанс, а не с предположения.',
+    body: 'Всяка консултация е замислена като спокоен разговор, а не като търговски момент. Притесненията, навиците, предишните терапии и естетичните цели се разбират в контекст, за да започне планът с нюанс, а не с предположения.',
     image: '/doctor-portrait-1.png',
     alt: 'Лекар в спокойна консултативна атмосфера',
   },
@@ -51,7 +51,7 @@ const journeyMoments = [
   {
     eyebrow: 'Проследяване',
     title: 'Грижата продължава и след самия час.',
-    body: 'Проследяването е част от преживяването, а не допълнение. Реакцията на кожата, ритъмът на процедурите и бъдещата поддръжка се разглеждат със същата прецизност, както и първоначалната консултация.',
+    body: 'Проследяването е част от преживяването, а не допълнение. Реакцията на кожата, ритъмът на терапиите и бъдещата поддръжка се разглеждат със същата прецизност, както и първоначалната консултация.',
     image: '/precision-art-hero.png',
     alt: 'Премиум атмосфера в естетична дерматология',
   },
@@ -68,7 +68,7 @@ const atmosphereFrames = [
 const expertiseBlocks = [
   {
     title: 'Решения, водени от наука',
-    body: 'Съвременните технологии и методите, основани на доказателства, стоят зад всяка препоръка, а изборът на процедури се адаптира към реалното поведение на кожата, а не към тенденциите.',
+    body: 'Съвременните технологии и методите, основани на доказателства, стоят зад всяка препоръка, а изборът на терапии се адаптира към реалното поведение на кожата, а не към тенденциите.',
   },
   {
     title: 'Изтънчено естетическо усещане',
@@ -83,10 +83,9 @@ const expertiseBlocks = [
 const approachCopy = {
   bg: {
     hero: {
-      eyebrow: 'Подходът на OBLIQ',
-      title: 'Различен подход към естетичната дерматология.',
+      title: 'Подходът на OBLIQ',
       subtitle:
-        'Фокусиран върху естествено изглеждащи резултати, здраве на кожата, персонална грижа и съвременно разбиране за естетичната медицина.',
+        'Различен подход към естетичната дерматология. Фокусиран върху естествено изглеждащи резултати, здраве на кожата, персонална грижа и съвременно разбиране за естетичната медицина.',
       primaryLabel: 'Заяви консултация',
       secondaryLabel: 'Посети OBLIQ',
     },
@@ -124,10 +123,9 @@ const approachCopy = {
   },
   en: {
     hero: {
-      eyebrow: 'The OBLIQ approach',
-      title: 'A different approach to aesthetic dermatology.',
+      title: 'The OBLIQ approach',
       subtitle:
-        'Focused on natural-looking results, skin health, personal care and a contemporary understanding of aesthetic medicine.',
+        'A different approach to aesthetic dermatology. Focused on natural-looking results, skin health, personal care and a contemporary understanding of aesthetic medicine.',
       primaryLabel: 'Request a consultation',
       secondaryLabel: 'Visit OBLIQ',
     },
@@ -163,7 +161,7 @@ const approachCopy = {
           eyebrow: 'Consultation',
           title: 'The first meeting begins with listening.',
           body:
-            'Every consultation is shaped as a calm conversation, not a sales moment. Concerns, habits, previous procedures and aesthetic goals are understood in context, so the plan begins with nuance rather than assumptions.',
+            'Every consultation is shaped as a calm conversation, not a sales moment. Concerns, habits, previous therapies and aesthetic goals are understood in context, so the plan begins with nuance rather than assumptions.',
           image: '/doctor-portrait-1.png',
           alt: 'Doctor in a calm consultation atmosphere',
         },
@@ -214,7 +212,7 @@ const approachCopy = {
         {
           title: 'Science-led decisions',
           body:
-            'Contemporary technologies and evidence-based methods stand behind every recommendation, while procedure choices adapt to the real behavior of the skin, not to trends.',
+            'Contemporary technologies and evidence-based methods stand behind every recommendation, while therapy choices adapt to the real behavior of the skin, not to trends.',
         },
         {
           title: 'Refined aesthetic judgment',
@@ -236,10 +234,9 @@ const approachCopy = {
   },
   ru: {
     hero: {
-      eyebrow: 'Подход OBLIQ',
-      title: 'Другой подход к эстетической дерматологии.',
+      title: 'Подход OBLIQ',
       subtitle:
-        'С фокусом на естественный результат, здоровье кожи, персональную заботу и современное понимание эстетической медицины.',
+        'Другой подход к эстетической дерматологии. Фокусирован на естественном результате, здоровье кожи, персональной уходе и современном понимании эстетической медицины.',
       primaryLabel: 'Запросить консультацию',
       secondaryLabel: 'Посетить OBLIQ',
     },
@@ -275,7 +272,7 @@ const approachCopy = {
           eyebrow: 'Консультация',
           title: 'Первая встреча начинается со слушания.',
           body:
-            'Каждая консультация задумана как спокойный разговор, а не коммерческий момент. Запросы, привычки, предыдущие процедуры и эстетические цели рассматриваются в контексте.',
+            'Каждая консультация задумана как спокойный разговор, а не коммерческий момент. Запросы, привычки, предыдущие терапии и эстетические цели рассматриваются в контексте.',
           image: '/doctor-portrait-1.png',
           alt: 'Врач в спокойной консультационной атмосфере',
         },
@@ -293,13 +290,13 @@ const approachCopy = {
           body:
             'Рекомендации выстраиваются так, чтобы уважать долгосрочное качество кожи, эстетическую пропорцию и восстановление.',
           image: '/hero-exosome-treatment.png',
-          alt: 'Деталь эстетической процедуры',
+          alt: 'Деталь эстетической терапии',
         },
         {
           eyebrow: 'Наблюдение',
           title: 'Забота продолжается после приема.',
           body:
-            'Наблюдение является частью опыта. Реакция кожи, ритм процедур и будущая поддержка рассматриваются с той же точностью, что и первая консультация.',
+            'Наблюдение является частью опыта. Реакция кожи, ритм терапий и будущая поддержка рассматриваются с той же точностью, что и первая консультация.',
           image: '/precision-art-hero.png',
           alt: 'Премиальная атмосфера эстетической дерматологии',
         },

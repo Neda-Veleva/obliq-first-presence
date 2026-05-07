@@ -6,8 +6,11 @@ export type Locale = (typeof locales)[number];
 export type RouteKey =
   | 'home'
   | 'homeV2'
+  | 'homeV3'
   | 'approach'
+  | 'brandColors'
   | 'contact'
+  | 'contactV2'
   | 'conditions'
   | 'procedures'
   | 'journal';
@@ -35,8 +38,11 @@ const defaultLocale: Locale = 'bg';
 const routePaths: Record<RouteKey, string> = {
   home: '/',
   homeV2: '/homepage-v2',
+  homeV3: '/homepage-editorial',
   approach: '/the-obliq-approach',
+  brandColors: '/brand-colors',
   contact: '/contact',
+  contactV2: '/contact-v2',
   conditions: '/conditions',
   procedures: '/procedures',
   journal: '/journal',
@@ -45,9 +51,14 @@ const routePaths: Record<RouteKey, string> = {
 const routeAliases: Record<string, RouteKey> = {
   '/': 'home',
   '/homepage-v2': 'homeV2',
+  '/homepage-v3': 'homeV3',
+  '/homepage-editorial': 'homeV3',
   '/approach': 'approach',
   '/the-obliq-approach': 'approach',
+  '/brand-colors': 'brandColors',
+  '/obliq-color-system': 'brandColors',
   '/contact': 'contact',
+  '/contact-v2': 'contactV2',
   '/conditions': 'conditions',
   '/procedures': 'procedures',
   '/journal': 'journal',

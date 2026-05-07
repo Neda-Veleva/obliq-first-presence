@@ -23,7 +23,7 @@ export function Philosophy() {
   return (
     <section
       id="philosophy"
-      className="relative bg-black text-white py-32 px-8 md:px-16 lg:px-24"
+      className="relative bg-[#38322C] text-[#F2EEEC] py-32 px-8 md:px-16 lg:px-24"
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
@@ -49,28 +49,28 @@ export function Philosophy() {
             className="lg:col-start-9 lg:col-span-4 flex flex-col justify-end space-y-12"
           >
             <div>
-              <p className="text-white/60 mb-3 tracking-[0.2em]" style={{ fontSize: '0.75rem' }}>
+              <p className="mb-3 tracking-[0.2em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
                 01
               </p>
-              <p className="text-white/90" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
+              <p className="text-[#F2EEEC]/88" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
                 {copy.points[0]}
               </p>
             </div>
 
             <div>
-              <p className="text-white/60 mb-3 tracking-[0.2em]" style={{ fontSize: '0.75rem' }}>
+              <p className="mb-3 tracking-[0.2em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
                 02
               </p>
-              <p className="text-white/90" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
+              <p className="text-[#F2EEEC]/88" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
                 {copy.points[1]}
               </p>
             </div>
 
             <div>
-              <p className="text-white/60 mb-3 tracking-[0.2em]" style={{ fontSize: '0.75rem' }}>
+              <p className="mb-3 tracking-[0.2em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
                 03
               </p>
-              <p className="text-white/90" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
+              <p className="text-[#F2EEEC]/88" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
                 {copy.points[2]}
               </p>
             </div>

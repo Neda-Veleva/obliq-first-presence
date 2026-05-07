@@ -96,7 +96,7 @@ export function Treatments() {
   return (
     <section
       id="treatments"
-      className="relative bg-white py-40 px-8 md:px-16 lg:px-24"
+      className="relative bg-[#F2EEEC] py-40 px-8 text-[#38322C] md:px-16 lg:px-24"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div
@@ -106,7 +106,7 @@ export function Treatments() {
           viewport={{ once: true }}
           className="mb-24"
         >
-          <p className="text-black/40 tracking-[0.3em] mb-6" style={{ fontSize: '0.75rem' }}>
+          <p className="mb-6 tracking-[0.3em] text-[#876856]" style={{ fontSize: '0.75rem' }}>
             {copy.eyebrow}
           </p>
           <h2 className="tracking-tight" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1.05, fontWeight: 400 }}>
@@ -122,13 +122,13 @@ export function Treatments() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="border-t border-black/10 pt-8"
+              className="border-t border-[#D8CDC0]/85 pt-8"
               style={{ marginTop: index % 2 === 1 ? '6rem' : '0' }}
             >
               <h3 className="mb-3" style={{ fontSize: '1.5rem', fontWeight: 500 }}>
                 {treatment.name}
               </h3>
-              <p className="text-black/60" style={{ fontSize: '1rem' }}>
+              <p className="text-[#635C54]" style={{ fontSize: '1rem' }}>
                 {treatment.area}
               </p>
             </motion.div>

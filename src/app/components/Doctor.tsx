@@ -12,7 +12,7 @@ const doctorCopy: Record<
     eyebrow: 'ОСНОВАТЕЛ',
     name: 'д-р Михаил Михайлов',
     body:
-      'Като сертифициран обучител на Merz Aesthetics, д-р Михайлов провежда тренинги по работа с хиалуронови филъри, ботулинов токсин и колагенови стимулатори (Radiesse, Belotero, BoCouture). Той активно популяризира етичната и безопасна практика в естетичната медицина, подчертавайки значението на медицинската квалификация при естетичните процедури.',
+      'Като сертифициран обучител на Merz Aesthetics, д-р Михайлов провежда тренинги по работа с хиалуронови филъри, ботулинов токсин и колагенови стимулатори (Radiesse, Belotero, BoCouture). Той активно популяризира етичната и безопасна практика в естетичната медицина, подчертавайки значението на медицинската квалификация при естетичните терапии.',
     credential: 'Бордова сертификация • Merz Aesthetics',
   },
   en: {
@@ -20,7 +20,7 @@ const doctorCopy: Record<
     eyebrow: 'FOUNDER',
     name: 'Dr. Mihail Mihaylov',
     body:
-      'As a certified Merz Aesthetics trainer, Dr. Mihaylov leads trainings in hyaluronic fillers, botulinum toxin and collagen stimulators (Radiesse, Belotero, BoCouture). He actively promotes ethical and safe practice in aesthetic medicine, emphasizing the importance of medical qualification in aesthetic procedures.',
+      'As a certified Merz Aesthetics trainer, Dr. Mihaylov leads trainings in hyaluronic fillers, botulinum toxin and collagen stimulators (Radiesse, Belotero, BoCouture). He actively promotes ethical and safe practice in aesthetic medicine, emphasizing the importance of medical qualification in aesthetic therapies.',
     credential: 'Board certification • Merz Aesthetics',
   },
   ru: {
@@ -61,7 +61,7 @@ export function Doctor() {
     <section
       id="founder"
       ref={sectionRef}
-      className="relative bg-black text-white"
+      className="relative bg-[#38322C] text-[#F2EEEC]"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
         <div className="relative h-[60vh] min-h-[50vh] lg:min-h-screen lg:h-auto overflow-hidden">
@@ -76,7 +76,7 @@ export function Doctor() {
             />
           </motion.div>
           <motion.div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/45 via-black/20 to-black/50"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#38322C]/54 via-[#38322C]/24 to-[#38322C]/58"
             style={{ opacity: veilOpacity }}
           />
         </div>
@@ -88,7 +88,7 @@ export function Doctor() {
           viewport={{ once: true }}
           className="flex flex-col justify-center px-8 md:px-16 lg:px-20 py-20"
         >
-          <p className="text-white/40 tracking-[0.3em] mb-8" style={{ fontSize: '0.75rem' }}>
+          <p className="mb-8 tracking-[0.3em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
             {copy.eyebrow}
           </p>
 
@@ -96,14 +96,14 @@ export function Doctor() {
             {copy.name}
           </h2>
 
-          <div className="space-y-6 text-white/70 max-w-lg" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+          <div className="max-w-lg space-y-6 text-[#F2EEEC]/74" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
             <p>
               {copy.body}
             </p>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-white/10">
-            <p className="text-white/50" style={{ fontSize: '0.875rem' }}>
+          <div className="mt-12 border-t border-[#BAB0A8]/16 pt-8">
+            <p className="text-[#BAB0A8]" style={{ fontSize: '0.875rem' }}>
               {copy.credential}
             </p>
           </div>

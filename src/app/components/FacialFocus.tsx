@@ -19,7 +19,7 @@ const focusCopy: Record<
     eyebrow: 'Фокус',
     title: 'Какво бихте искали да подобрите?',
     body: 'Изберете една или повече зони и ще ви насочим към най-подходящия за вас подход.',
-    cta: 'Вижте препоръчаните за вас процедури',
+    cta: 'Вижте препоръчаните за вас терапии',
     options: [
       { id: 'skin', title: 'Кожа', line: 'Акне, текстура, пори, сияние' },
       {
@@ -41,7 +41,7 @@ const focusCopy: Record<
     eyebrow: 'Focus',
     title: 'What would you like to improve?',
     body: 'Select one or more areas and we will guide you toward the most suitable approach.',
-    cta: 'See procedures recommended for you',
+    cta: 'See therapies recommended for you',
     options: [
       { id: 'skin', title: 'Skin', line: 'Acne, texture, pores, radiance' },
       {
@@ -63,7 +63,7 @@ const focusCopy: Record<
     eyebrow: 'Фокус',
     title: 'Что вы хотели бы улучшить?',
     body: 'Выберите одну или несколько зон, и мы направим вас к наиболее подходящему подходу.',
-    cta: 'Посмотреть рекомендованные процедуры',
+    cta: 'Посмотреть рекомендованные терапии',
     options: [
       { id: 'skin', title: 'Кожа', line: 'Акне, текстура, поры, сияние' },
       {
@@ -149,28 +149,28 @@ function FloatingFocusCard({
           'backdrop-blur-md',
           'px-5 py-5',
           'transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-          'text-stone-800',
+          'text-[#38322C]',
           isOn
             ? cn(
-                'bg-gradient-to-b from-[#E9DFD0] via-[#E0D4C2] to-[#D2C2AE]',
-                'shadow-[0_8px_32px_-4px_rgba(55,40,20,0.12),0_0_0_1px_rgba(90,70,50,0.12),inset_0_1px_0_rgba(242,238,236,0.5)]',
-                'ring-1 ring-amber-900/20',
-                accentHover && 'ring-2 ring-amber-800/25 shadow-[0_12px_40px_-4px_rgba(90,60,20,0.16)]',
+                'bg-gradient-to-b from-[#D8CDC0] via-[#BAB0A8] to-[#ACB2CA]',
+                'shadow-[0_8px_32px_-4px_rgba(56,50,44,0.12),0_0_0_1px_rgba(99,92,84,0.12),inset_0_1px_0_rgba(242,238,236,0.5)]',
+                'ring-1 ring-[#876856]/20',
+                accentHover && 'ring-2 ring-[#977460]/25 shadow-[0_12px_40px_-4px_rgba(99,92,84,0.16)]',
               )
             : cn(
-                'bg-gradient-to-b from-[#FDFCF8]/[0.92] via-[#FAF7F0]/80 to-[#F0EBE0]/[0.7]',
-                'shadow-[0_18px_50px_-16px_rgba(38,32,24,0.12),0_1px_0_0_rgba(242,238,236,0.65)_inset]',
-                'hover:shadow-[0_26px_64px_-14px_rgba(38,32,24,0.16)]',
+                'bg-gradient-to-b from-[#F2EEEC]/92 via-[#F2EEEC]/84 to-[#D8CDC0]/52',
+                'shadow-[0_18px_50px_-16px_rgba(56,50,44,0.12),0_1px_0_0_rgba(242,238,236,0.65)_inset]',
+                'hover:shadow-[0_26px_64px_-14px_rgba(56,50,44,0.16)]',
                 accentHover &&
-                  'from-[#FCFAF4] to-[#F2ECE2]/80 shadow-[0_24px_60px_-10px_rgba(120,90,50,0.12)]',
+                  'from-[#F2EEEC] to-[#D8CDC0]/80 shadow-[0_24px_60px_-10px_rgba(99,92,84,0.12)]',
               ),
-          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-400/30 focus-visible:outline-offset-2',
+          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#977460]/30 focus-visible:outline-offset-2',
         )}
       >
-        <p className="mb-1.5 text-[0.9rem] font-light tracking-[-0.01em] text-stone-800/95 sm:text-[0.95rem]">
+        <p className="mb-1.5 text-[0.9rem] font-light tracking-[-0.01em] text-[#38322C]/95 sm:text-[0.95rem]">
           {title}
         </p>
-        <p className="text-[0.8rem] font-light leading-relaxed text-stone-500/95 sm:text-[0.85rem]">
+        <p className="text-[0.8rem] font-light leading-relaxed text-[#635C54]/95 sm:text-[0.85rem]">
           {line}
         </p>
       </button>
@@ -223,21 +223,21 @@ export function FacialFocus() {
   return (
     <section
       id="facial-focus"
-      className="overflow-x-hidden bg-gradient-to-b from-[#F7F3EC] via-[#F3EFE6] to-[#ECE4D8] py-20 text-stone-800 md:py-28"
+      className="overflow-x-hidden bg-gradient-to-b from-[#F2EEEC] via-[#D8CDC0]/34 to-[#BAB0A8]/32 py-20 text-[#38322C] md:py-28"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-7 md:px-10">
         <header className="mx-auto mb-14 max-w-2xl text-center md:mb-20">
-          <p className="mb-4 text-[0.65rem] font-light uppercase tracking-[0.42em] text-stone-500/80">
+          <p className="mb-4 text-[0.65rem] font-light uppercase tracking-[0.42em] text-[#876856]/80">
             {copy.eyebrow}
           </p>
           <h2
-            className="mb-5 font-extralight leading-[1.12] text-stone-800/90"
+            className="mb-5 font-extralight leading-[1.12] text-[#38322C]/92"
             style={{ fontSize: 'clamp(1.85rem, 4.2vw, 2.65rem)' }}
           >
             {copy.title}
           </h2>
           <p
-            className="mx-auto max-w-xl text-balance font-light leading-relaxed text-stone-600/95"
+            className="mx-auto max-w-xl text-balance font-light leading-relaxed text-[#635C54]/95"
             style={{ fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)' }}
           >
             {copy.body}
@@ -276,7 +276,7 @@ export function FacialFocus() {
         {/* Настолен: лице в центъра, плаващи карти около него — абсолютно позициониране, без grid */}
         <div className="relative mb-2 hidden min-h-[min(84vh,46rem)] w-full max-w-6xl px-2 pb-4 pt-2 sm:px-4 lg:mx-auto lg:mb-6 lg:block lg:min-h-[min(78vh,42rem)] lg:max-w-[min(100%,80rem)] lg:px-2 xl:min-h-[min(76vh,48rem)]">
           <div
-            className="pointer-events-none absolute inset-0 -z-0 rounded-[3rem] bg-gradient-to-br from-white/[0.04] to-transparent"
+            className="pointer-events-none absolute inset-0 -z-0 rounded-[3rem] bg-gradient-to-br from-[#F2EEEC]/10 to-transparent"
             aria-hidden
           />
           {options.map((opt) => {
@@ -316,8 +316,8 @@ export function FacialFocus() {
             className={cn(
               'rounded-full px-10 py-3.5 text-sm font-light tracking-[0.12em] transition-all duration-500',
               hasSelection
-                ? 'bg-stone-900/95 text-[#F9F6F0] shadow-[0_12px_40px_-8px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 hover:bg-stone-800 hover:shadow-[0_16px_48px_-6px_rgba(0,0,0,0.28)]'
-                : 'cursor-not-allowed bg-stone-200/50 text-stone-400',
+                ? 'bg-[#38322C] text-[#F2EEEC] shadow-[0_12px_40px_-8px_rgba(56,50,44,0.25)] hover:-translate-y-0.5 hover:bg-[#635C54] hover:shadow-[0_16px_48px_-6px_rgba(56,50,44,0.28)]'
+                : 'cursor-not-allowed bg-[#D8CDC0]/55 text-[#876856]',
             )}
           >
             {copy.cta}

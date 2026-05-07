@@ -43,7 +43,7 @@ const mirrorCopy = {
         title: 'Гладка текстура',
         description:
           'Фин баланс между изразителност, мекота и естествено движение.',
-        image: '/mirror-carousel/forehead.png',
+        image: '/mirror-carousel/forehead-full.png',
         alt: 'Близък кадър на чело и вежди',
         objectPosition: 'center 40%',
         scale: 1,
@@ -54,7 +54,7 @@ const mirrorCopy = {
         title: 'Стегнат контур',
         description:
           'Грижа за зона, която често разкрива нуждата от повече внимание.',
-        image: '/mirror-carousel/neck.png',
+        image: '/mirror-carousel/face.png',
         alt: 'Близък кадър на шия',
         objectPosition: 'center 36%',
         scale: 1,
@@ -106,7 +106,7 @@ const mirrorCopy = {
         label: 'Forehead',
         title: 'Smooth texture',
         description: 'A subtle balance between expression, softness and natural movement.',
-        image: '/mirror-carousel/forehead.png',
+        image: '/mirror-carousel/forehead-full.png',
         alt: 'Close-up of forehead and brows',
         objectPosition: 'center 40%',
         scale: 1,
@@ -116,7 +116,7 @@ const mirrorCopy = {
         label: 'Neck',
         title: 'Defined contour',
         description: 'Care for an area that often reveals the need for more attention.',
-        image: '/mirror-carousel/neck.png',
+        image: '/mirror-carousel/face.png',
         alt: 'Close-up of the neck',
         objectPosition: 'center 36%',
         scale: 1,
@@ -167,7 +167,7 @@ const mirrorCopy = {
         label: 'Лоб',
         title: 'Гладкая текстура',
         description: 'Тонкий баланс между выразительностью, мягкостью и естественным движением.',
-        image: '/mirror-carousel/forehead.png',
+        image: '/mirror-carousel/forehead-full.png',
         alt: 'Крупный план лба и бровей',
         objectPosition: 'center 40%',
         scale: 1,
@@ -177,7 +177,7 @@ const mirrorCopy = {
         label: 'Шея',
         title: 'Четкий контур',
         description: 'Забота о зоне, которая часто показывает потребность в большем внимании.',
-        image: '/mirror-carousel/neck.png',
+        image: '/mirror-carousel/face.png',
         alt: 'Крупный план шеи',
         objectPosition: 'center 36%',
         scale: 1,
@@ -265,11 +265,11 @@ export function MirrorCarousel() {
       onKeyDown={onKeyDown}
     >
       <div
-        className="pointer-events-none absolute -left-20 top-12 h-72 w-72 rounded-full bg-[#E8DDD2]/70 blur-3xl sm:h-80 sm:w-80"
+        className="pointer-events-none absolute -left-20 top-12 h-72 w-72 rounded-full bg-[#D8CDC0]/52 blur-3xl sm:h-80 sm:w-80"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 translate-x-1/4 translate-y-1/4 rounded-[40%] bg-[#DDD0C2]/55 blur-3xl sm:h-80 sm:w-80"
+        className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 translate-x-1/4 translate-y-1/4 rounded-[40%] bg-[#BAB0A8]/42 blur-3xl sm:h-80 sm:w-80"
         aria-hidden
       />
 
@@ -278,7 +278,7 @@ export function MirrorCarousel() {
           <div className="relative mx-auto max-w-[17.5rem] sm:max-w-[21rem] lg:max-w-[25rem]">
             <div className="relative isolate aspect-[544/1086]">
               <div
-                className="absolute left-[8.1%] top-[11.5%] z-10 aspect-square w-[83.3%] overflow-hidden rounded-full bg-[#E6D9CC]"
+                className="absolute left-[8.1%] top-[11.5%] z-10 aspect-square w-[83.3%] overflow-hidden rounded-full bg-[#D8CDC0]"
                 aria-live={isPaused ? 'polite' : 'off'}
               >
                 <AnimatePresence mode="wait">
@@ -362,7 +362,7 @@ export function MirrorCarousel() {
                 <button
                   type="button"
                   onClick={goToPrevious}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#CCBDAF] bg-white/35 text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#B9A999] hover:bg-white/50 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D8CDC0] bg-[#F2EEEC]/55 text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#BAB0A8] hover:bg-[#F2EEEC]/72 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#977460]"
                   aria-label={copy.previousLabel}
                 >
                   <ArrowLeft className="h-4 w-4" strokeWidth={1.8} />
@@ -370,7 +370,7 @@ export function MirrorCarousel() {
                 <button
                   type="button"
                   onClick={goToNext}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#CCBDAF] bg-white/35 text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#B9A999] hover:bg-white/50 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D8CDC0] bg-[#F2EEEC]/55 text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#BAB0A8] hover:bg-[#F2EEEC]/72 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#977460]"
                   aria-label={copy.nextLabel}
                 >
                   <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
@@ -387,8 +387,8 @@ export function MirrorCarousel() {
                       type="button"
                       onClick={() => goTo(index)}
                       className={cn(
-                        'relative h-2.5 rounded-full transition-[width,background-color,transform] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]',
-                        active ? 'w-10 bg-[#635C54]' : 'w-2.5 bg-[#CDBFB1] hover:scale-110 hover:bg-[#B9A999]',
+                        'relative h-2.5 rounded-full transition-[width,background-color,transform] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#977460]',
+                        active ? 'w-10 bg-[#635C54]' : 'w-2.5 bg-[#D8CDC0] hover:scale-110 hover:bg-[#BAB0A8]',
                       )}
                       aria-label={`${copy.showLabel} ${slide.label.toLowerCase()}`}
                       aria-current={active ? 'true' : undefined}
@@ -402,7 +402,7 @@ export function MirrorCarousel() {
 
             <a
               href="#facial-focus"
-              className="mt-8 inline-flex min-h-11 items-center justify-center rounded-full border border-[#C9BBAD] bg-[#F6F2EF] px-6 py-3 text-[0.95rem] font-medium text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#B5A595] hover:bg-[#ECE5DF] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8A897]"
+              className="mt-8 inline-flex min-h-11 items-center justify-center rounded-full border border-[#D8CDC0] bg-[#F2EEEC] px-6 py-3 text-[0.95rem] font-medium text-[#38322C] transition-[transform,background-color,border-color] hover:border-[#BAB0A8] hover:bg-[#D8CDC0]/26 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#977460]"
             >
               {copy.cta}
             </a>

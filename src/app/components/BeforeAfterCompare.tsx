@@ -159,20 +159,20 @@ export function BeforeAfterCompare({
         />
       </div>
       <div
-        className="absolute top-0 z-10 h-full w-px bg-stone-400/50 shadow-sm"
+        className="absolute top-0 z-10 h-full w-px bg-[#BAB0A8]/70 shadow-sm"
         style={{ left: `${pct}%`, transform: 'translateX(-0.5px)' }}
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute top-1/2 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-stone-200/80 bg-white text-stone-800 shadow-md ring-1 ring-stone-900/10"
+        className="pointer-events-none absolute top-1/2 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#D8CDC0]/80 bg-[#F2EEEC] text-[#38322C] shadow-md ring-1 ring-[#38322C]/10"
         style={{ left: `${pct}%` }}
       >
         <ChevronsLeftRight className="h-4 w-4" strokeWidth={1.5} />
       </div>
-      <div className="pointer-events-none absolute top-2 left-2 z-[5] rounded-sm bg-stone-900/60 px-2 py-1 text-xs font-medium text-white/95 backdrop-blur-sm">
+      <div className="pointer-events-none absolute left-2 top-2 z-[5] rounded-sm bg-[#38322C]/60 px-2 py-1 text-xs font-medium text-[#F2EEEC]/95 backdrop-blur-sm">
         {copy.before}
       </div>
-      <div className="pointer-events-none absolute top-2 right-2 z-[5] rounded-sm bg-stone-900/60 px-2 py-1 text-xs font-medium text-white/95 backdrop-blur-sm">
+      <div className="pointer-events-none absolute right-2 top-2 z-[5] rounded-sm bg-[#38322C]/60 px-2 py-1 text-xs font-medium text-[#F2EEEC]/95 backdrop-blur-sm">
         {copy.after}
       </div>
     </div>

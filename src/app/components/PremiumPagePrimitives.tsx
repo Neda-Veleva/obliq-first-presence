@@ -30,6 +30,7 @@ type CinematicHeroProps = {
   title: string;
   subtitle: string;
   videoSrc: string;
+  fullHeight?: boolean;
   mediaSide?: HeroMediaSide;
   primaryAction: HeroAction;
   secondaryAction?: HeroAction;
@@ -181,6 +182,7 @@ export function CinematicHero({
   title,
   subtitle,
   videoSrc,
+  fullHeight = false,
   mediaSide = 'right',
   primaryAction,
   secondaryAction,
@@ -192,7 +194,8 @@ export function CinematicHero({
     <section
       id={id}
       className={cn(
-        'relative flex min-h-screen items-center overflow-hidden pt-28 text-[#F2EEEC] sm:pt-32',
+        'relative flex items-center overflow-hidden pt-28 text-[#F2EEEC] sm:pt-32',
+        fullHeight ? 'min-h-screen' : 'min-h-[36rem] sm:min-h-[40rem] lg:min-h-[44rem]',
         backgroundClassName,
         className,
       )}
@@ -207,10 +210,15 @@ export function CinematicHero({
       />
 
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:px-8 lg:pb-24 lg:pt-16">
-        <div className="grid items-center gap-16 lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.2fr)] lg:gap-12 xl:gap-18">
+        <div
+          className={cn(
+            'flex flex-col gap-16 lg:items-center lg:gap-12 xl:gap-18',
+            mediaSide === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row',
+          )}
+        >
           <motion.div
             {...editorialFade}
-            className={cn('max-w-[34rem]', mediaSide === 'left' ? 'lg:order-2' : 'lg:order-1')}
+            className="max-w-[34rem] lg:basis-[42%] lg:flex-none"
           >
             {eyebrow ? (
               <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#D8CDC0]">{eyebrow}</p>
@@ -219,7 +227,7 @@ export function CinematicHero({
             <h1
               className="mt-6 text-[#F2EEEC]"
               style={{
-                fontSize: 'clamp(3.2rem, 8vw, 7rem)',
+                fontSize: '5rem',
                 lineHeight: 0.92,
                 fontWeight: 400,
                 letterSpacing: '-0.05em',
@@ -238,7 +246,7 @@ export function CinematicHero({
             </div>
           </motion.div>
 
-          <div className={cn(mediaSide === 'left' ? 'lg:order-1' : 'lg:order-2', 'w-full')}>
+          <div className="w-full lg:basis-[58%] lg:flex-none">
             <VideoEllipse src={videoSrc} />
           </div>
         </div>

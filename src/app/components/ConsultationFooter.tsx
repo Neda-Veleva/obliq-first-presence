@@ -28,10 +28,10 @@ const footerCopy: Record<
     clinicText:
       'Прецизна естетика. Тиха увереност. Резултати, които изглеждат естествено — и остават такива.',
     menuLabel: 'Меню',
-    proceduresLabel: 'Процедури',
+    proceduresLabel: 'Терапии',
     contactLabel: 'Контакт',
     socialLabel: 'Социални мрежи',
-    address: 'бул. „Витоша“ 48\n1000 София, България',
+    address: 'ул. „Стефан Стамболов“ 6, ет. 2, София',
     rights: 'Всички права запазени.',
     privacy: 'Политика за поверителност',
     terms: 'Дисклеймър и общи условия',
@@ -40,7 +40,7 @@ const footerCopy: Record<
     menuLinks: [
       { href: '/#top', label: 'Начало' },
       { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
-      { href: '/procedures', label: 'Процедури' },
+      { href: '/procedures', label: 'Терапии' },
       { href: '/conditions', label: 'Състояния' },
       { href: '/#results', label: 'Отзиви' },
       { href: '/journal', label: 'Журнал' },
@@ -66,10 +66,10 @@ const footerCopy: Record<
     clinicText:
       'Precise aesthetics. Quiet confidence. Results that look natural and stay that way.',
     menuLabel: 'Menu',
-    proceduresLabel: 'Procedures',
+    proceduresLabel: 'Therapies',
     contactLabel: 'Contact',
     socialLabel: 'Social',
-    address: '48 Vitosha Blvd\n1000 Sofia, Bulgaria',
+    address: 'ул. „Стефан Стамболов“ 6, ет. 2, София',
     rights: 'All rights reserved.',
     privacy: 'Privacy policy',
     terms: 'Disclaimer and terms',
@@ -78,7 +78,7 @@ const footerCopy: Record<
     menuLinks: [
       { href: '/#top', label: 'Home' },
       { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
-      { href: '/procedures', label: 'Procedures' },
+      { href: '/procedures', label: 'Therapies' },
       { href: '/conditions', label: 'Conditions' },
       { href: '/#results', label: 'Reviews' },
       { href: '/journal', label: 'Journal' },
@@ -104,10 +104,10 @@ const footerCopy: Record<
     clinicText:
       'Точная эстетика. Спокойная уверенность. Результаты, которые выглядят естественно и остаются такими.',
     menuLabel: 'Меню',
-    proceduresLabel: 'Процедуры',
+    proceduresLabel: 'Терапии',
     contactLabel: 'Контакт',
     socialLabel: 'Социальные сети',
-    address: 'бул. Витоша 48\n1000 София, Болгария',
+    address: 'ул. „Стефан Стамболов“ 6, ет. 2, София',
     rights: 'Все права защищены.',
     privacy: 'Политика конфиденциальности',
     terms: 'Дисклеймер и условия',
@@ -116,7 +116,7 @@ const footerCopy: Record<
     menuLinks: [
       { href: '/#top', label: 'Главная' },
       { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
-      { href: '/procedures', label: 'Процедуры' },
+      { href: '/procedures', label: 'Терапии' },
       { href: '/conditions', label: 'Состояния' },
       { href: '/#results', label: 'Отзывы' },
       { href: '/journal', label: 'Журнал' },
@@ -161,7 +161,7 @@ export function ConsultationFooter() {
   const copy = footerCopy[locale];
 
   return (
-    <section className="relative overflow-hidden text-white">
+    <section className="relative overflow-hidden text-[#F2EEEC]">
       <div className="pointer-events-none absolute inset-0">
         <ImageWithFallback
           src="/precision-art-hero.png"
@@ -169,13 +169,13 @@ export function ConsultationFooter() {
           className="h-full min-h-[520px] w-full object-cover object-center"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/[0.58] to-black/[0.82]"
+          className="absolute inset-0 bg-gradient-to-b from-[#38322C]/80 via-[#38322C]/58 to-[#38322C]/82"
           aria-hidden
         />
-        <div className="absolute inset-0 bg-black/20" aria-hidden />
+        <div className="absolute inset-0 bg-[#38322C]/20" aria-hidden />
       </div>
 
-      <footer className="relative z-10 border-t border-white/10">
+      <footer className="relative z-10 border-t border-[#F2EEEC]/10">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 md:px-12 lg:px-16 lg:py-20">
           <motion.div
             variants={obliqTitleVariants}
@@ -193,16 +193,16 @@ export function ConsultationFooter() {
 
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-10">
             <div className="space-y-4 sm:col-span-2 xl:col-span-1">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.clinicLabel}
               </p>
-              <p className="max-w-xs text-[0.9375rem] leading-relaxed text-white/65">
+              <p className="max-w-xs text-[0.9375rem] leading-relaxed text-[#F2EEEC]/65">
                 {copy.clinicText}
               </p>
             </div>
 
             <nav aria-label="Основно меню" className="space-y-4">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.menuLabel}
               </p>
               <ul className="space-y-2.5">
@@ -210,7 +210,7 @@ export function ConsultationFooter() {
                   <li key={`${link.href}-${link.label}`}>
                     <a
                       href={localizeHref(link.href)}
-                      className="text-[0.9375rem] text-white/80 transition-colors hover:text-white"
+                      className="text-[0.9375rem] text-[#F2EEEC]/80 transition-colors hover:text-[#F2EEEC]"
                     >
                       {link.label}
                     </a>
@@ -219,8 +219,8 @@ export function ConsultationFooter() {
               </ul>
             </nav>
 
-            <nav aria-label="Процедури" className="space-y-4 sm:col-span-2 lg:col-span-1 xl:col-span-1">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
+            <nav aria-label="Терапии" className="space-y-4 sm:col-span-2 lg:col-span-1 xl:col-span-1">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.proceduresLabel}
               </p>
               <ul className="columns-1 gap-x-8 gap-y-2 sm:columns-2 lg:columns-1 xl:columns-1">
@@ -228,7 +228,7 @@ export function ConsultationFooter() {
                   <li key={label} className="break-inside-avoid pb-2">
                     <a
                       href={localizeHref('/procedures')}
-                      className="text-[0.875rem] leading-snug text-white/70 transition-colors hover:text-white/95"
+                      className="text-[0.875rem] leading-snug text-[#F2EEEC]/70 transition-colors hover:text-[#F2EEEC]/95"
                     >
                       {label}
                     </a>
@@ -238,10 +238,10 @@ export function ConsultationFooter() {
             </nav>
 
             <div className="space-y-4">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.contactLabel}
               </p>
-              <address className="not-italic text-[0.9375rem] leading-relaxed text-white/75">
+              <address className="not-italic text-[0.9375rem] leading-relaxed text-[#F2EEEC]/75">
                 {copy.address.split('\n').map((line) => (
                   <span key={line}>
                     {line}
@@ -249,15 +249,15 @@ export function ConsultationFooter() {
                   </span>
                 ))}
               </address>
-              <p className="text-[0.9375rem] text-white/80">
-                <a href="tel:+359888000000" className="transition-colors hover:text-white">
-                  +359 888 000 000
+              <p className="text-[0.9375rem] text-[#F2EEEC]/80">
+                <a href="tel:0898910588" className="transition-colors hover:text-[#F2EEEC]">
+                  0898910588
                 </a>
               </p>
             </div>
 
             <div className="space-y-5">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-white/45">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.socialLabel}
               </p>
               <div className="flex gap-3">
@@ -265,7 +265,7 @@ export function ConsultationFooter() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/85 transition-[color,background-color,border-color] hover:border-white/40 hover:bg-white/10 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F2EEEC]/20 text-[#F2EEEC]/85 transition-[color,background-color,border-color] hover:border-[#F2EEEC]/40 hover:bg-[#F2EEEC]/10 hover:text-[#F2EEEC]"
                   aria-label="Instagram"
                 >
                   <Instagram className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.5} />
@@ -274,7 +274,7 @@ export function ConsultationFooter() {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/85 transition-[color,background-color,border-color] hover:border-white/40 hover:bg-white/10 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F2EEEC]/20 text-[#F2EEEC]/85 transition-[color,background-color,border-color] hover:border-[#F2EEEC]/40 hover:bg-[#F2EEEC]/10 hover:text-[#F2EEEC]"
                   aria-label="Facebook"
                 >
                   <Facebook className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.5} />
@@ -284,31 +284,31 @@ export function ConsultationFooter() {
           </div>
         </div>
 
-        <div className="border-t border-white/10">
+        <div className="border-t border-[#F2EEEC]/10">
           <div className="mx-auto max-w-7xl px-5 py-7 sm:px-8 md:px-12 lg:px-16">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-              <p className="text-[0.7rem] leading-relaxed text-white/50 sm:max-w-[min(100%,24rem)]">
+              <p className="text-[0.7rem] leading-relaxed text-[#F2EEEC]/50 sm:max-w-[min(100%,24rem)]">
                 © {new Date().getFullYear()} Obliq. {copy.rights}
               </p>
-              <div className="flex flex-wrap items-center gap-x-1 gap-y-1 text-[0.7rem] text-white/55 sm:justify-end">
-                <a href="#" className="transition-colors hover:text-white/90">
+              <div className="flex flex-wrap items-center gap-x-1 gap-y-1 text-[0.7rem] text-[#F2EEEC]/55 sm:justify-end">
+                <a href="#" className="transition-colors hover:text-[#F2EEEC]/90">
                   {copy.privacy}
                 </a>
-                <span className="text-white/35" aria-hidden>
+                <span className="text-[#F2EEEC]/35" aria-hidden>
                   |
                 </span>
-                <a href="#" className="transition-colors hover:text-white/90">
+                <a href="#" className="transition-colors hover:text-[#F2EEEC]/90">
                   {copy.terms}
                 </a>
-                <span className="text-white/35" aria-hidden>
+                <span className="text-[#F2EEEC]/35" aria-hidden>
                   |
                 </span>
-                <a href="#" className="transition-colors hover:text-white/90">
+                <a href="#" className="transition-colors hover:text-[#F2EEEC]/90">
                   {copy.cookies}
                 </a>
               </div>
             </div>
-            <p className="mt-4 max-w-3xl text-[0.65rem] leading-relaxed text-white/35 sm:text-right sm:ml-auto">
+            <p className="mt-4 ml-auto max-w-3xl text-[0.65rem] leading-relaxed text-[#F2EEEC]/35 sm:text-right">
               {copy.medicalNote}
             </p>
           </div>

@@ -18,7 +18,7 @@ import { ConsultationFooter } from './ConsultationFooter';
 import { SiteHeader } from './SiteHeader';
 import { useLocale, type Locale } from '../i18n';
 
-const clinicAddress = 'ул. „Стефан Стамболов“ 6, ет. 1, София';
+const clinicAddress = 'ул. „Стефан Стамболов“ 6, ет. 2, София';
 const mapsQuery = 'Medical Center OBLIQ, ul. Stefan Stambolov 6, Sofia';
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
 const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
@@ -50,9 +50,9 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: Phone,
       label: 'Телефон',
-      value: '+359 888 000 000',
+      value: '0898910588',
       actionLabel: 'Запази час',
-      href: 'tel:+359888000000',
+      href: 'tel:0898910588',
     },
     {
       icon: Mail,
@@ -72,16 +72,16 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: MapPinned,
       label: 'Address',
-      value: '6 Stefan Stambolov St, floor 1, Sofia',
+      value: clinicAddress,
       actionLabel: 'Open in Google Maps',
       href: mapsUrl,
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+359 888 000 000',
+      value: '0898910588',
       actionLabel: 'Book appointment',
-      href: 'tel:+359888000000',
+      href: 'tel:0898910588',
     },
     {
       icon: Mail,
@@ -101,16 +101,16 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: MapPinned,
       label: 'Адрес',
-      value: 'ул. Стефан Стамболов 6, эт. 1, София',
+      value: clinicAddress,
       actionLabel: 'Открыть в Google Maps',
       href: mapsUrl,
     },
     {
       icon: Phone,
       label: 'Телефон',
-      value: '+359 888 000 000',
+      value: '0898910588',
       actionLabel: 'Записаться',
-      href: 'tel:+359888000000',
+      href: 'tel:0898910588',
     },
     {
       icon: Mail,
@@ -236,7 +236,7 @@ const contactCopy: Record<
     footerHome: 'Home',
     footerContact: 'Contact',
     footerConsultation: 'Consultation',
-    footerAddress: '6 Stefan Stambolov St, floor 1, Sofia',
+    footerAddress: clinicAddress,
   },
   ru: {
     heroTitle: 'Посетите OBLIQ.',
@@ -272,7 +272,7 @@ const contactCopy: Record<
     footerHome: 'Главная',
     footerContact: 'Контакты',
     footerConsultation: 'Консультация',
-    footerAddress: 'ул. Стефан Стамболов 6, эт. 1, София',
+    footerAddress: clinicAddress,
   },
 };
 
@@ -296,7 +296,7 @@ const socialCardsByLocale: Record<Locale, SocialCardData[]> = {
     {
       icon: Instagram,
       title: 'Instagram',
-      description: 'Визуални истории, процедури и атмосфера.',
+      description: 'Визуални истории, терапии и атмосфера.',
       eyebrow: 'Editorial moments',
       accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
     },
@@ -319,7 +319,7 @@ const socialCardsByLocale: Record<Locale, SocialCardData[]> = {
     {
       icon: Instagram,
       title: 'Instagram',
-      description: 'Visual stories, procedures and atmosphere.',
+      description: 'Visual stories, therapies and atmosphere.',
       eyebrow: 'Editorial moments',
       accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
     },
@@ -342,7 +342,7 @@ const socialCardsByLocale: Record<Locale, SocialCardData[]> = {
     {
       icon: Instagram,
       title: 'Instagram',
-      description: 'Визуальные истории, процедуры и атмосфера.',
+      description: 'Визуальные истории, терапии и атмосфера.',
       eyebrow: 'Editorial moments',
       accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
     },
@@ -507,15 +507,15 @@ function ContactInfoCard() {
     <motion.div
       {...editorialFade}
       id="contact-details"
-      className="relative min-h-[28rem] overflow-hidden rounded-[9999px] border border-[#BAB0A8]/18 bg-[#38322C] px-10 py-12 text-[#F2EEEC] shadow-[0_32px_80px_-40px_rgba(56,50,44,0.72)] sm:px-14 sm:py-14 lg:min-h-[29rem] lg:px-16 xl:px-20"
+      className="relative min-h-[28rem] overflow-hidden rounded-[3.25rem] border border-[#BAB0A8]/18 bg-[#38322C] px-10 py-12 text-[#F2EEEC] shadow-[0_32px_80px_-40px_rgba(56,50,44,0.72)] sm:px-14 sm:py-14 lg:min-h-[31rem] lg:rounded-[4rem] lg:px-16 lg:pr-28 xl:px-20 xl:pr-36"
     >
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[9999px]">
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(56,50,44,0.98)_0%,rgba(99,92,84,0.94)_100%)]" />
-        <div className="absolute inset-x-[7%] top-[0.08rem] h-[42%] rounded-[9999px] bg-[linear-gradient(180deg,rgba(242,238,236,0.1)_0%,rgba(242,238,236,0.035)_45%,rgba(242,238,236,0)_100%)]" />
+        <div className="absolute inset-x-[7%] top-[0.08rem] h-[42%] rounded-[inherit] bg-[linear-gradient(180deg,rgba(242,238,236,0.1)_0%,rgba(242,238,236,0.035)_45%,rgba(242,238,236,0)_100%)]" />
         <div className="absolute bottom-8 right-8 h-32 w-56 rounded-full bg-[#977460]/18 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto flex h-full max-w-md flex-col justify-center">
+      <div className="relative flex h-full max-w-md flex-col justify-center">
         <p className="text-[0.72rem] uppercase tracking-[0.26em] text-[#BAB0A8]">
           {copy.infoEyebrow}
         </p>
@@ -567,7 +567,7 @@ function ContactDetailEllipses() {
   return (
     <motion.div
       {...editorialFade}
-      className="relative mt-6 lg:mt-10"
+      className="relative"
       onMouseLeave={() => setActiveIndex(null)}
     >
 
@@ -611,7 +611,7 @@ function ContactDetailEllipses() {
                 style={{ opacity: isActive ? 0.9 : 0.3 }}
               />
 
-              <div className="relative flex flex-col h-full items-center gap-7 px-10 py-8">
+              <div className="relative flex flex-col h-full items-center px-10 py-8">
                 <div
                   className={`flex h-[3.65rem] w-[3.65rem] shrink-0 items-center justify-center rounded-full border transition-[background-color,color,border-color] duration-700 ${
                     isActive
@@ -799,7 +799,7 @@ function MapPanel() {
       href={mapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block min-h-[28rem] overflow-hidden rounded-[9999px] border border-[#BAB0A8]/22 bg-[#F2EEEC] shadow-[0_34px_80px_-44px_rgba(56,50,44,0.38)] lg:min-h-[29rem]"
+      className="group relative block min-h-[28rem] overflow-hidden rounded-[3.25rem] border border-[#BAB0A8]/22 bg-[#F2EEEC] shadow-[0_34px_80px_-44px_rgba(56,50,44,0.38)] lg:min-h-[27rem] lg:rounded-[4rem]"
     >
       <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(242,238,236,0.1)_0%,rgba(216,205,192,0.4)_100%)]" />
       <iframe
@@ -827,7 +827,7 @@ function MapPanel() {
           {copy.mapBadge}
         </div>
       </div>
-
+{/* 
       <div className="absolute inset-x-0 bottom-0 z-30 bg-[linear-gradient(180deg,rgba(56,50,44,0)_0%,rgba(56,50,44,0.84)_100%)] px-[8%] pb-9 pt-20 text-[#F2EEEC] transition-opacity duration-300 group-hover:opacity-100">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -843,7 +843,7 @@ function MapPanel() {
             <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.6} />
           </div>
         </div>
-      </div>
+      </div> */}
     </motion.a>
   );
 }
@@ -882,11 +882,6 @@ function SocialCard({
           </h3>
         </div>
         <p className="mt-6 max-w-sm text-[1rem] leading-relaxed text-[#635C54]">{description}</p>
-      </div>
-
-      <div className="relative mt-8 inline-flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.18em] text-[#977460]">
-        {status}
-        <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
       </div>
     </motion.div>
   );
@@ -959,7 +954,7 @@ export function ContactPage() {
                 <h1
                   className="mt-6 text-[#F2EEEC]"
                   style={{
-                    fontSize: 'clamp(3.2rem, 8vw, 7rem)',
+                    fontSize: '5rem',
                     lineHeight: 0.92,
                     fontWeight: 400,
                     letterSpacing: '-0.05em',
@@ -997,7 +992,7 @@ export function ContactPage() {
 
         <section
           id="visit-details"
-          className="relative overflow-hidden bg-[linear-gradient(180deg,#F2EEEC_0%,#D8CDC0_100%)] py-20 lg:py-28"
+          className="relative overflow-hidden bg-[linear-gradient(180deg,#F2EEEC_0%,#DDD2C7_100%)] py-20 lg:py-28"
         >
           <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute left-[-6%] top-[10%] h-64 w-64 rounded-full bg-[#F2EEEC]/55 blur-3xl" />
@@ -1006,10 +1001,27 @@ export function ContactPage() {
           </div>
 
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
-            <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(18rem,0.92fr)_minmax(0,1.18fr)] lg:gap-8">
-              <ContactInfoCard />
-              <MapPanel />
+            <div className="relative z-10 flex flex-col gap-8 lg:min-h-[35rem] lg:flex-row lg:items-center lg:gap-0">
+              <div className="relative z-10 lg:w-[58%] xl:w-[56%]">
+                <ContactInfoCard />
+              </div>
+              <div className="relative z-20 lg:-ml-24 lg:mt-8 lg:w-[48%] xl:-ml-28 xl:w-[46%]">
+                <MapPanel />
+              </div>
             </div>
+          </div>
+        </section>
+
+        <section
+          id="contact-details"
+          className="relative overflow-hidden border-t border-[#CABCB0]/55 bg-[linear-gradient(180deg,#DDD2C7_0%,#D8CDC0_100%)] py-14 lg:py-18"
+        >
+          <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute left-[12%] top-[-8%] h-44 w-72 rounded-full bg-[#F2EEEC]/26 blur-3xl" />
+            <div className="absolute right-[10%] bottom-[-12%] h-48 w-80 rounded-full bg-[#977460]/10 blur-3xl" />
+          </div>
+
+          <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
             <ContactDetailEllipses />
           </div>
         </section>
@@ -1149,7 +1161,7 @@ export function ContactPage() {
                     {copy.finalBooking}
                   </a>
                   <a
-                    href="tel:+359888000000"
+                    href="tel:0898910588"
                     className="inline-flex items-center justify-center rounded-full border border-[#38322C]/12 bg-[#F2EEEC]/72 px-6 py-4 text-[0.8rem] uppercase tracking-[0.2em] text-[#38322C] backdrop-blur-md transition-colors hover:bg-[#F2EEEC]"
                   >
                     {copy.finalPhone}

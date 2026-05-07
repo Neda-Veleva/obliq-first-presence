@@ -16,6 +16,11 @@ type MegaCategory = {
   links: { href: string; label: string }[];
 };
 
+type PageLink = {
+  href: string;
+  label: string;
+};
+
 const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
   bg: [
     {
@@ -199,6 +204,42 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
   ],
 };
 
+const featuredPagesByLocale: Record<Locale, PageLink[]> = {
+  bg: [
+    { href: '/', label: 'Начало' },
+    { href: '/homepage-v2', label: 'Начало V2' },
+    { href: '/homepage-editorial', label: 'Редакционно присъствие' },
+    { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
+    { href: '/conditions', label: 'Състояния' },
+    { href: '/procedures', label: 'терапии' },
+    { href: '/journal', label: 'Журнал' },
+    { href: '/contact', label: 'Контакт' },
+    { href: '/contact-v2', label: 'Контакт V2' },
+  ],
+  en: [
+    { href: '/', label: 'Home' },
+    { href: '/homepage-v2', label: 'Home V2' },
+    { href: '/homepage-editorial', label: 'Editorial Presence' },
+    { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
+    { href: '/conditions', label: 'Conditions' },
+    { href: '/procedures', label: 'Procedures' },
+    { href: '/journal', label: 'Journal' },
+    { href: '/contact', label: 'Contact' },
+    { href: '/contact-v2', label: 'Contact V2' },
+  ],
+  ru: [
+    { href: '/', label: 'Главная' },
+    { href: '/homepage-v2', label: 'Главная V2' },
+    { href: '/homepage-editorial', label: 'Editorial Presence' },
+    { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
+    { href: '/conditions', label: 'Состояния' },
+    { href: '/procedures', label: 'Процедуры' },
+    { href: '/journal', label: 'Журнал' },
+    { href: '/contact', label: 'Контакт' },
+    { href: '/contact-v2', label: 'Контакт V2' },
+  ],
+};
+
 const headerCopy: Record<
   Locale,
   {
@@ -207,55 +248,52 @@ const headerCopy: Record<
     dialogLabel: string;
     categoryNavLabel: string;
     categoryEyebrow: string;
-    consultationFull: string;
-    consultationShort: string;
+    pagesEyebrow: string;
     languageNavLabel: string;
   }
 > = {
   bg: {
     openMenu: 'Отвори меню',
     closeMenu: 'Затвори меню',
-    dialogLabel: 'Навигация и процедури',
+    dialogLabel: 'Навигация и терапии',
     categoryNavLabel: 'Категории меню',
-    categoryEyebrow: 'Процедури и фокус',
-    consultationFull: 'Запази консултация',
-    consultationShort: 'Консултация',
+    categoryEyebrow: 'Терапии и фокус',
+    pagesEyebrow: 'Страници',
     languageNavLabel: 'Избор на език',
   },
   en: {
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
-    dialogLabel: 'Navigation and procedures',
+    dialogLabel: 'Navigation and therapies',
     categoryNavLabel: 'Menu categories',
-    categoryEyebrow: 'Procedures and focus',
-    consultationFull: 'Book consultation',
-    consultationShort: 'Book',
+    categoryEyebrow: 'Therapies and focus',
+    pagesEyebrow: 'Pages',
     languageNavLabel: 'Language selection',
   },
   ru: {
     openMenu: 'Открыть меню',
     closeMenu: 'Закрыть меню',
-    dialogLabel: 'Навигация и процедуры',
+    dialogLabel: 'Навигация и терапии',
     categoryNavLabel: 'Категории меню',
-    categoryEyebrow: 'Процедуры и фокус',
-    consultationFull: 'Записаться',
-    consultationShort: 'Запись',
+    categoryEyebrow: 'Терапии и фокус',
+    pagesEyebrow: 'Страницы',
     languageNavLabel: 'Выбор языка',
   },
 };
 
 const SCROLL_DELTA = 4;
 const TOP_THRESHOLD = 64;
-/** Под този скрол се счита, че си „върху“ хирото — без фон на лентата */
-const PAGE_TOP_PX = 24;
+const COMPACT_TEXT_THRESHOLD = 28;
 
-export function SiteHeader() {
+export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
   const { locale, localizeHref, switchLocaleHref } = useLocale();
   const copy = headerCopy[locale];
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeMegaId, setActiveMegaId] = useState(megaCategoriesByLocale[locale][0].id);
   const [barHidden, setBarHidden] = useState(false);
-  const [atPageTop, setAtPageTop] = useState(true);
+  const [compactText, setCompactText] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(96);
+  const headerRef = useRef<HTMLElement | null>(null);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
 
@@ -270,6 +308,10 @@ export function SiteHeader() {
       href: resolveHref(link.href),
     })),
   }));
+  const featuredPages = featuredPagesByLocale[locale].map((page) => ({
+    ...page,
+    href: resolveHref(page.href),
+  }));
 
   useEffect(() => {
     const onScroll = () => {
@@ -277,7 +319,7 @@ export function SiteHeader() {
       ticking.current = true;
       requestAnimationFrame(() => {
         const y = window.scrollY;
-        setAtPageTop(y < PAGE_TOP_PX);
+        setCompactText(y > COMPACT_TEXT_THRESHOLD);
         if (y < TOP_THRESHOLD) {
           setBarHidden(false);
         } else {
@@ -293,7 +335,7 @@ export function SiteHeader() {
       });
     };
     lastScrollY.current = window.scrollY;
-    setAtPageTop(window.scrollY < PAGE_TOP_PX);
+    setCompactText(window.scrollY > COMPACT_TEXT_THRESHOLD);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -308,16 +350,41 @@ export function SiteHeader() {
     }
   }, [menuOpen]);
 
+  useEffect(() => {
+    const node = headerRef.current;
+    if (!node) return;
+
+    const updateHeaderHeight = () => {
+      setHeaderHeight(node.getBoundingClientRect().height);
+    };
+
+    updateHeaderHeight();
+
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(node);
+    window.addEventListener('resize', updateHeaderHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateHeaderHeight);
+    };
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
   const activeMega = megaCategories.find((c) => c.id === activeMegaId) ?? megaCategories[0];
   const showBar = !barHidden || menuOpen;
-  const solidBar = !atPageTop;
   const logoHref = resolveHref('#top');
-  const consultationHref = resolveHref('/#contact');
+  const isLight = tone === 'light';
+  const headerControlShellClassName = isLight
+    ? 'border border-[#635C54]/10 bg-[#F2EEEC]/72 shadow-[0_18px_40px_-28px_rgba(56,50,44,0.18)] backdrop-blur-md'
+    : 'border border-[#F2EEEC]/14 bg-[#F2EEEC]/8 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-md';
+  const headerCtaClassName =
+    'inline-flex items-center justify-center rounded-full px-4 py-3 text-[0.72rem] uppercase leading-none tracking-[0.22em] transition-[transform,background-color,color,border-color,box-shadow] duration-300 min-[400px]:px-6 min-[400px]:py-4 min-[400px]:text-[0.78rem]';
 
   return (
     <>
       <header
+        ref={headerRef}
         className="fixed left-0 right-0 top-0 z-50 will-change-[opacity]"
         style={{
           opacity: showBar ? 1 : 0,
@@ -328,18 +395,34 @@ export function SiteHeader() {
       >
         <div
           className={cn(
-            'text-white transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ease-out',
-            solidBar
-              ? 'border-b border-white/15 bg-black/45 shadow-[0_1px_0_0_rgba(242,238,236,0.08)_inset] backdrop-blur-2xl backdrop-saturate-150'
-              : 'border-b border-transparent bg-transparent shadow-none backdrop-blur-none',
+            'relative overflow-hidden backdrop-blur-[12px] backdrop-saturate-150 transition-[background-color,backdrop-filter,color] duration-500 ease-out',
+            isLight ? 'text-[#38322C]' : 'text-[#F2EEEC]',
           )}
+          style={{
+            backgroundColor: isLight ? 'rgba(244, 240, 236, 0.78)' : 'rgba(56, 50, 44, 0.24)',
+          }}
         >
-          <div className="mx-auto grid min-h-20 w-full max-w-7xl grid-cols-[minmax(0,auto)_1fr_minmax(0,auto)] items-center gap-3 px-4 py-1 sm:min-h-24 sm:px-6 sm:py-0 md:px-8 lg:px-12">
+          <div
+            className="pointer-events-none absolute inset-0"
+            aria-hidden
+            style={{
+              background: isLight
+                ? 'linear-gradient(to bottom, rgba(242, 238, 236, 0.72) 0%, rgba(242, 238, 236, 0.32) 44%, rgba(242, 238, 236, 0) 100%)'
+                : 'linear-gradient(to bottom, rgba(56, 50, 44, 0.55) 0%, rgba(56, 50, 44, 0.18) 44%, rgba(56, 50, 44, 0) 100%)',
+            }}
+          />
+
+          <div className="relative mx-auto grid min-h-[6.5rem] w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 px-4 py-4 sm:min-h-[7rem] sm:px-6 sm:py-5 md:px-8 lg:min-h-[7.4rem] lg:px-12">
             <div className="flex justify-start">
               <button
                 type="button"
                 onClick={() => setMenuOpen((o) => !o)}
-                className="flex h-12 w-12 flex-shrink-0 items-center justify-center text-white outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                className={cn(
+                  'flex h-13 w-13 flex-shrink-0 items-center justify-center rounded-[1rem] outline-none transition-colors focus-visible:ring-2 sm:h-14 sm:w-14',
+                  isLight
+                    ? 'text-[#38322C] hover:bg-[#38322C]/6 focus-visible:ring-[#635C54]/20'
+                    : 'text-[#F2EEEC] hover:bg-[#F2EEEC]/8 focus-visible:ring-[#F2EEEC]/40',
+                )}
                 aria-label={menuOpen ? copy.closeMenu : copy.openMenu}
                 aria-expanded={menuOpen}
               >
@@ -363,28 +446,52 @@ export function SiteHeader() {
             <a
               href={logoHref}
               onClick={closeMenu}
-              className="flex items-center justify-center px-2"
+              className="pointer-events-auto flex items-center justify-center px-2"
             >
-              <BrandLogo
-                alt="Obliq"
-                inverted
-                className="w-[6.75rem] sm:w-[8.25rem] lg:w-[9rem]"
-              />
+              <span className="flex flex-col items-center justify-center">
+                <span
+                  className="w-full text-left text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-[#F2EEEC]/78 sm:text-[11px] lg:text-[12px]"
+                  style={{
+                    color: isLight ? 'rgba(99, 92, 84, 0.82)' : undefined,
+                    textShadow: isLight ? 'none' : '0 2px 14px rgba(0,0,0,0.2)',
+                  }}
+                >
+                  AESTHETIC DERMATOLOGY
+                </span>
+
+                <span
+                  className={cn(
+                    'relative z-10 my-1.5 flex items-center justify-center origin-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                    compactText ? 'scale-[0.94] sm:scale-[0.92] lg:scale-[0.86]' : 'scale-100',
+                  )}
+                >
+                  <BrandLogo
+                    alt="Obliq"
+                    inverted={!isLight}
+                    className="w-[9.75rem] drop-shadow-[0_8px_18px_rgba(0,0,0,0.18)] sm:w-[11.5rem] lg:w-[23rem]"
+                  />
+                </span>
+
+                <span
+                  className="w-full text-right text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-[#F2EEEC]/78 sm:text-[11px] lg:text-[12px]"
+                  style={{
+                    color: isLight ? 'rgba(99, 92, 84, 0.82)' : undefined,
+                    textShadow: isLight ? 'none' : '0 2px 14px rgba(0,0,0,0.2)',
+                  }}
+                >
+                  BY DR. MIHAYLOV
+                </span>
+              </span>
             </a>
 
             <div className="flex items-center justify-end gap-2">
-              <a
-                href={consultationHref}
-                onClick={closeMenu}
-                className="justify-self-end rounded-none border border-white/30 bg-white px-3 py-2.5 text-center text-[11px] font-medium uppercase leading-none tracking-wider text-black transition-colors hover:bg-white/90 min-[400px]:px-5 min-[400px]:py-3 min-[400px]:text-sm"
-              >
-                <span className="hidden min-[400px]:inline">{copy.consultationFull}</span>
-                <span className="min-[400px]:hidden">{copy.consultationShort}</span>
-              </a>
-
               <nav
                 aria-label={copy.languageNavLabel}
-                className="hidden items-center border border-white/24 text-[0.65rem] font-medium uppercase leading-none tracking-[0.14em] text-white/72 min-[360px]:flex"
+                className={cn(
+                  headerControlShellClassName,
+                  'hidden items-center rounded-full p-1.5 text-[0.68rem] font-medium uppercase leading-none tracking-[0.22em] min-[360px]:flex',
+                  isLight ? 'text-[#635C54]/82' : 'text-[#F2EEEC]/72',
+                )}
               >
                 {locales.map((targetLocale) => {
                   const active = targetLocale === locale;
@@ -395,8 +502,13 @@ export function SiteHeader() {
                       aria-label={localeNames[targetLocale]}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'px-2.5 py-2 transition-colors',
-                        active ? 'bg-white text-black' : 'hover:bg-white/12 hover:text-white',
+                        headerCtaClassName,
+                        'min-[400px]:px-3.5 min-[400px]:py-3',
+                        active
+                          ? 'bg-[#F2EEEC] text-[#38322C] shadow-[0_12px_24px_-18px_rgba(242,238,236,0.72)]'
+                          : isLight
+                            ? 'text-[#635C54]/76 hover:bg-[#38322C]/5 hover:text-[#38322C]'
+                            : 'text-[#F2EEEC]/74 hover:bg-[#F2EEEC]/10 hover:text-[#F2EEEC]',
                       )}
                     >
                       {localeLabels[targetLocale]}
@@ -424,7 +536,7 @@ export function SiteHeader() {
           >
             <button
               type="button"
-              className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
+              className="absolute inset-0 bg-[#38322C]/40 backdrop-blur-[2px]"
               aria-label={copy.closeMenu}
               onClick={closeMenu}
             />
@@ -433,15 +545,16 @@ export function SiteHeader() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-0 right-0 top-20 bottom-0 overflow-hidden rounded-t-[1.35rem] bg-[#c8c0b9] shadow-[0_-8px_40px_rgba(0,0,0,0.2)] sm:top-24"
+              className="absolute bottom-0 left-0 right-0 overflow-hidden bg-[#D8CDC0] shadow-[0_-8px_40px_rgba(56,50,44,0.2)]"
+              style={{ top: headerHeight }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex h-full min-h-0 flex-col lg:grid lg:grid-cols-12">
                 <nav
                   aria-label={copy.categoryNavLabel}
-                  className="flex flex-shrink-0 flex-row gap-1.5 overflow-x-auto border-b border-stone-700/10 px-4 py-3 lg:col-span-3 lg:flex-col lg:gap-0 lg:overflow-y-auto lg:border-b-0 lg:border-r lg:border-stone-700/10 lg:px-6 lg:py-9"
+                  className="flex flex-shrink-0 flex-row gap-1.5 overflow-x-auto border-b border-[#635C54]/10 px-4 py-3 lg:col-span-3 lg:flex-col lg:gap-0 lg:overflow-y-auto lg:border-b-0 lg:border-r lg:border-[#635C54]/10 lg:px-6 lg:py-9"
                 >
-                  <p className="mb-0 hidden min-w-0 text-[0.625rem] font-medium uppercase tracking-[0.32em] text-stone-600/90 lg:mb-6 lg:block">
+                  <p className="mb-0 hidden min-w-0 text-[0.625rem] font-medium uppercase tracking-[0.32em] text-[#635C54]/90 lg:mb-6 lg:block">
                     {copy.categoryEyebrow}
                   </p>
                   {megaCategories.map((cat) => {
@@ -452,17 +565,17 @@ export function SiteHeader() {
                         type="button"
                         onClick={() => setActiveMegaId(cat.id)}
                         className={cn(
-                          'flex min-w-[max-content] items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-left text-[0.8125rem] font-medium text-stone-800 transition-[background-color,color] lg:w-full lg:rounded-lg lg:px-3 lg:py-2.5 lg:text-[0.9375rem]',
+                          'flex min-w-[max-content] items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-left text-[0.8125rem] font-medium text-[#38322C] transition-[background-color,color] lg:w-full lg:rounded-lg lg:px-3 lg:py-2.5 lg:text-[0.9375rem]',
                           active
-                            ? 'bg-white/35 text-stone-900 shadow-sm lg:bg-white/40'
-                            : 'bg-transparent text-stone-800/85 hover:bg-white/20',
+                            ? 'bg-[#F2EEEC]/45 text-[#38322C] shadow-sm lg:bg-[#F2EEEC]/54'
+                            : 'bg-transparent text-[#38322C]/84 hover:bg-[#F2EEEC]/24',
                         )}
                       >
                         <span className="lg:hidden">{cat.labelShort}</span>
                         <span className="hidden lg:inline">{cat.label}</span>
                         {active ? (
                           <ChevronRight
-                            className="hidden h-4 w-4 shrink-0 text-stone-700/80 lg:block"
+                            className="hidden h-4 w-4 shrink-0 text-[#635C54]/80 lg:block"
                             strokeWidth={1.75}
                             aria-hidden
                           />
@@ -475,7 +588,7 @@ export function SiteHeader() {
                 <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:col-span-5 lg:px-0">
                   <div className="flex flex-1 flex-col px-5 py-7 sm:px-8 sm:py-9 lg:max-w-xl lg:py-10">
                     <h2
-                      className="text-balance text-stone-900"
+                      className="text-balance text-[#38322C]"
                       style={{
                         fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                         fontSize: 'clamp(1.65rem, 3.2vw, 2.35rem)',
@@ -485,7 +598,7 @@ export function SiteHeader() {
                     >
                       {activeMega.label}
                     </h2>
-                    <p className="mt-4 max-w-md text-[0.9375rem] leading-relaxed text-stone-700/85">
+                    <p className="mt-4 max-w-md text-[0.9375rem] leading-relaxed text-[#635C54]/88">
                       {activeMega.description}
                     </p>
                     <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
@@ -494,27 +607,45 @@ export function SiteHeader() {
                           <a
                             href={link.href}
                             onClick={closeMenu}
-                            className="group flex items-start gap-2 text-[0.9rem] leading-snug text-stone-800/95 transition-colors hover:text-stone-950"
+                            className="group flex items-start gap-2 text-[0.9rem] leading-snug text-[#38322C]/95 transition-colors hover:text-[#38322C]"
                           >
-                            <span className="mt-1.5 h-px w-4 shrink-0 bg-stone-600/40 transition-[width,background-color] group-hover:w-5 group-hover:bg-stone-800/60" />
+                            <span className="mt-1.5 h-px w-4 shrink-0 bg-[#635C54]/40 transition-[width,background-color] group-hover:w-5 group-hover:bg-[#38322C]/60" />
                             {link.label}
                           </a>
                         </li>
                       ))}
                     </ul>
+
+                    <div className="mt-10 border-t border-[#635C54]/12 pt-5">
+                      <p className="text-[0.625rem] font-medium uppercase tracking-[0.32em] text-[#635C54]/90">
+                        {copy.pagesEyebrow}
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2.5">
+                        {featuredPages.map((page) => (
+                          <a
+                            key={`${page.href}-${page.label}`}
+                            href={page.href}
+                            onClick={closeMenu}
+                            className="inline-flex items-center border border-[#635C54]/14 bg-[#F2EEEC]/36 px-3 py-2 text-[0.75rem] uppercase tracking-[0.18em] text-[#38322C] transition-colors hover:bg-[#F2EEEC]/72"
+                          >
+                            {page.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <div className="relative hidden min-h-0 lg:col-span-4 lg:block">
                   <div className="absolute inset-0 p-5 pl-0 lg:p-6 lg:pl-0">
-                    <div className="relative h-full min-h-[200px] overflow-hidden rounded-2xl rounded-tr-3xl bg-stone-600/10 shadow-inner">
+                    <div className="relative h-full min-h-[200px] overflow-hidden rounded-2xl rounded-tr-3xl bg-[#635C54]/10 shadow-inner">
                       <ImageWithFallback
                         src={activeMega.image}
                         alt={activeMega.imageAlt}
                         className="h-full w-full object-cover"
                       />
                       <div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-900/25 via-transparent to-stone-100/10"
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#38322C]/25 via-transparent to-[#F2EEEC]/10"
                         aria-hidden
                       />
                     </div>
@@ -522,7 +653,7 @@ export function SiteHeader() {
                 </div>
 
                 <div className="relative h-44 w-full shrink-0 px-5 pb-5 pt-2 lg:hidden">
-                  <div className="relative h-full overflow-hidden rounded-xl bg-stone-600/10">
+                  <div className="relative h-full overflow-hidden rounded-xl bg-[#635C54]/10">
                     <ImageWithFallback
                       src={activeMega.image}
                       alt={activeMega.imageAlt}

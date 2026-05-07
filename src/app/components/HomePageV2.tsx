@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Play } from 'lucide-react';
 import { Hero } from './Hero';
 import { MirrorCarousel } from './MirrorCarousel';
 import { FaceReveal } from './FaceReveal';
@@ -8,6 +8,7 @@ import { SiteHeader } from './SiteHeader';
 import { ConsultationFooter } from './ConsultationFooter';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { AtmosphereOrbs, SectionHeading, editorialFade } from './PremiumPagePrimitives';
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from './ui/carousel';
 import { cn } from './ui/utils';
 import { useLocale, type Locale } from '../i18n';
 
@@ -36,6 +37,12 @@ const pageCopy: Record<
       title: string;
       body: string;
       points: string[];
+    };
+    specialists: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      items: { name: string; role: string; blurb: string; image: string }[];
     };
     transformations: {
       eyebrow: string;
@@ -137,6 +144,42 @@ const pageCopy: Record<
         'Всеки детайл е подчинен на хармонията на цялото лице.',
       ],
     },
+    specialists: {
+      eyebrow: 'Специалисти',
+      title: 'Лицата зад прецизността в OBLIQ.',
+      body:
+        'Подбор от специалисти, които работят с еднакво внимание към естествения резултат, спокойната консултация и медицинската яснота.',
+      items: [
+        {
+          name: 'д-р Елена Стоянова',
+          role: 'ДЕРМАТОЛОГ И SKIN HEALTH SPECIALIST',
+          blurb: 'Фокус върху текстура, качество на кожата и дългосрочни протоколи с естествена финалност.',
+          image:
+            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'д-р Маркус Торн',
+          role: 'AESTHETIC SURGEON',
+          blurb: 'Прецизен подход към контур, баланс и фини корекции, които пазят израза спокоен.',
+          image:
+            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'д-р София Клайн',
+          role: 'INJECTABLES AND FACIAL HARMONY',
+          blurb: 'Работи върху дискретни подобрения в пропорцията и светлината на лицето.',
+          image:
+            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'д-р Андреа Рийд',
+          role: 'REGENERATIVE AESTHETICS',
+          blurb: 'Комбинира биостимулация и skin-first стратегии за по-жив и отпочинал вид.',
+          image:
+            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
+        },
+      ],
+    },
     transformations: {
       eyebrow: 'Трансформации',
       title: 'Трансформации, които не крещят. Те просто променят начина, по който светлината стои върху кожата.',
@@ -165,7 +208,7 @@ const pageCopy: Record<
       eyebrow: 'Видео присъствие',
       title: 'Присъствието на д-р Михайлов като слой на доверие, образование и спокойствие.',
       body:
-        'Курирани видео моменти, които говорят не само за процедури, а за начина на мислене зад тях.',
+        'Курирани видео моменти, които говорят не само за терапии, а за начина на мислене зад тях.',
       items: [
         {
           title: 'Философията на естествено изглеждащите резултати',
@@ -278,6 +321,42 @@ const pageCopy: Record<
         'Every detail serves the harmony of the whole face.',
       ],
     },
+    specialists: {
+      eyebrow: 'Specialists',
+      title: 'The faces behind OBLIQ precision.',
+      body:
+        'A curated group of specialists working with the same sensitivity toward natural results, calm consultation and medical clarity.',
+      items: [
+        {
+          name: 'Dr. Elena Stoyanova',
+          role: 'DERMATOLOGIST AND SKIN HEALTH SPECIALIST',
+          blurb: 'Focused on texture, skin quality and long-horizon protocols with a natural finish.',
+          image:
+            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'Dr. Marcus Thorne',
+          role: 'AESTHETIC SURGEON',
+          blurb: 'A precise approach to contour, balance and subtle correction that preserves expression.',
+          image:
+            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'Dr. Sofia Klein',
+          role: 'INJECTABLES AND FACIAL HARMONY',
+          blurb: 'Works through discreet refinements in proportion, light and overall facial poise.',
+          image:
+            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'Dr. Andrea Reed',
+          role: 'REGENERATIVE AESTHETICS',
+          blurb: 'Combines biostimulation with skin-first strategy for a more rested, luminous result.',
+          image:
+            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
+        },
+      ],
+    },
     transformations: {
       eyebrow: 'Transformation studies',
       title: 'Transformations that do not shout. They simply change how light rests on the skin.',
@@ -306,7 +385,7 @@ const pageCopy: Record<
       eyebrow: 'Video presence',
       title: 'Dr. Mihaylov’s presence as a layer of trust, education and calm authority.',
       body:
-        'Curated video moments that speak not only about procedures, but about the thinking behind them.',
+        'Curated video moments that speak not only about therapies, but about the thinking behind them.',
       items: [
         {
           title: 'The philosophy of natural-looking results',
@@ -417,6 +496,42 @@ const pageCopy: Record<
         'Индивидуальность является отправной точкой.',
         'Наука и эстетика работают вместе.',
         'Каждая деталь служит гармонии всего лица.',
+      ],
+    },
+    specialists: {
+      eyebrow: 'Специалисты',
+      title: 'Лица, стоящие за точностью OBLIQ.',
+      body:
+        'Подбор специалистов, которых объединяет деликатный подход к естественному результату, спокойной консультации и медицинской ясности.',
+      items: [
+        {
+          name: 'д-р Елена Стоянова',
+          role: 'ДЕРМАТОЛОГ И СПЕЦИАЛИСТ ПО ЗДОРОВЬЮ КОЖИ',
+          blurb: 'Фокусируется на текстуре, качестве кожи и долгосрочных протоколах с естественным эффектом.',
+          image:
+            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'д-р Маркус Торн',
+          role: 'ЭСТЕТИЧЕСКИЙ ХИРУРГ',
+          blurb: 'Точная работа с контуром, балансом и мягкими коррекциями без потери естественного выражения.',
+          image:
+            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'д-р София Кляйн',
+          role: 'ИНЪЕКЦИОННЫЕ МЕТОДИКИ И ГАРМОНИЯ ЛИЦА',
+          blurb: 'Создает деликатные изменения в пропорциях, свете и общем ощущении баланса лица.',
+          image:
+            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          name: 'д-р Андреа Рид',
+          role: 'РЕГЕНЕРАТИВНАЯ ЭСТЕТИКА',
+          blurb: 'Сочетает биостимуляцию и skin-first подход для более свежего и спокойного результата.',
+          image:
+            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
+        },
       ],
     },
     transformations: {
@@ -567,7 +682,7 @@ function ImmersiveExperienceSection() {
               key={item.title}
               {...editorialFade}
               transition={{ ...editorialFade.transition, delay: index * 0.12 }}
-              className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur-xl"
+              className="rounded-[2rem] border border-[#F2EEEC]/10 bg-[#F2EEEC]/8 p-6 backdrop-blur-xl"
             >
               <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#d8cdc0]">{item.title}</p>
               <p className="mt-4 max-w-xs text-[1rem] leading-relaxed text-[#f2eeec]/82">{item.body}</p>
@@ -607,7 +722,7 @@ function InteractiveSkinNavigationSection() {
         <div className="mt-14 grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(22rem,0.78fr)] xl:gap-16">
           <motion.div
             {...editorialFade}
-            className="relative mx-auto aspect-[5/7] w-full max-w-[32rem] overflow-hidden rounded-[2.5rem] border border-white/70 bg-[#e8dfd7] shadow-[0_35px_100px_-45px_rgba(56,50,44,0.35)]"
+            className="relative mx-auto aspect-[5/7] w-full max-w-[32rem] overflow-hidden rounded-[2.5rem] border border-[#F2EEEC]/70 bg-[#D8CDC0] shadow-[0_35px_100px_-45px_rgba(56,50,44,0.35)]"
           >
             <ImageWithFallback
               src="/facial-focus-face.jpg"
@@ -638,7 +753,7 @@ function InteractiveSkinNavigationSection() {
                   <span className="sr-only">{item.label}</span>
                   <span
                     className={cn(
-                      'absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 blur-[2px] transition-opacity duration-500',
+                      'absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#F2EEEC]/18 bg-[#F2EEEC]/10 blur-[2px] transition-opacity duration-500',
                       isActive ? 'opacity-100' : 'opacity-0',
                     )}
                     aria-hidden
@@ -654,7 +769,7 @@ function InteractiveSkinNavigationSection() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-[2rem] border border-white/70 bg-white/70 p-8 shadow-[0_28px_80px_-44px_rgba(56,50,44,0.28)] backdrop-blur-xl"
+              className="rounded-[2rem] border border-[#F2EEEC]/70 bg-[#F2EEEC]/74 p-8 shadow-[0_28px_80px_-44px_rgba(56,50,44,0.28)] backdrop-blur-xl"
             >
               <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#876856]">{zone.label}</p>
               <h3
@@ -682,7 +797,7 @@ function InteractiveSkinNavigationSection() {
                       'rounded-full border px-5 py-4 text-left text-[0.78rem] uppercase tracking-[0.24em] transition-all duration-300',
                       isActive
                         ? 'border-[#38322c] bg-[#38322c] text-[#f2eeec]'
-                        : 'border-[#d8cdc0] bg-white/55 text-[#635c54] hover:border-[#876856] hover:text-[#38322c]',
+                        : 'border-[#D8CDC0] bg-[#F2EEEC]/55 text-[#635C54] hover:border-[#876856] hover:text-[#38322C]',
                     )}
                   >
                     {item.label}
@@ -702,7 +817,7 @@ function PhilosophyPreviewSection() {
   const copy = pageCopy[locale].philosophy;
 
   return (
-    <section className="relative overflow-hidden bg-[#f6f1ee] py-24 text-[#38322c] md:py-32">
+    <section className="relative overflow-hidden bg-[#F2EEEC] py-24 text-[#38322c] md:py-32">
       <AtmosphereOrbs
         orbs={[
           { className: 'left-[8%] top-[12%] h-72 w-72 bg-[#d8cdc0]/30' },
@@ -719,7 +834,7 @@ function PhilosophyPreviewSection() {
                   key={point}
                   {...editorialFade}
                   transition={{ ...editorialFade.transition, delay: index * 0.08 }}
-                  className="rounded-[1.75rem] border border-white/70 bg-white/75 px-6 py-5 text-[1rem] leading-relaxed text-[#635c54] backdrop-blur-xl"
+                  className="rounded-[1.75rem] border border-[#F2EEEC]/70 bg-[#F2EEEC]/78 px-6 py-5 text-[1rem] leading-relaxed text-[#635c54] backdrop-blur-xl"
                 >
                   {point}
                 </motion.div>
@@ -775,7 +890,7 @@ function TransformationCase({
       onMouseLeave={() => setHovered(false)}
       onFocusCapture={() => setHovered(true)}
       onBlurCapture={() => setHovered(false)}
-      className="group rounded-[2rem] border border-white/10 bg-white/6 p-4 backdrop-blur-xl"
+      className="group rounded-[2rem] border border-[#F2EEEC]/10 bg-[#F2EEEC]/6 p-4 backdrop-blur-xl"
     >
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
         <ImageWithFallback
@@ -807,6 +922,148 @@ function TransformationCase({
         <p className="mt-3 max-w-sm text-[0.98rem] leading-relaxed text-[#f2eeec]/72">{note}</p>
       </div>
     </motion.article>
+  );
+}
+
+function SpecialistsSection() {
+  const { locale } = useLocale();
+  const copy = pageCopy[locale].specialists;
+  const [api, setApi] = useState<CarouselApi>();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => setActiveIndex(api.selectedScrollSnap());
+
+    onSelect();
+    api.on('select', onSelect);
+    api.on('reInit', onSelect);
+
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onSelect);
+    };
+  }, [api]);
+
+  return (
+    <section className="relative overflow-hidden bg-[#F2EEEC] py-24 text-[#38322c] md:py-32">
+      <AtmosphereOrbs
+        orbs={[
+          { className: 'left-[-8%] top-[6%] h-72 w-72 bg-[#ebe2db]/80' },
+          { className: 'right-[-10%] bottom-[10%] h-80 w-80 bg-[#ddd5cf]/70' },
+        ]}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading eyebrow={copy.eyebrow} title={copy.title} body={copy.body} className="max-w-2xl" />
+
+          <motion.div
+            {...editorialFade}
+            transition={{ ...editorialFade.transition, delay: 0.08 }}
+            className="flex items-center gap-3 self-start lg:self-end"
+          >
+            <button
+              type="button"
+              onClick={() => api?.scrollPrev()}
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#D8CDC0] bg-[#F2EEEC]/78 text-[#635C54] transition-colors hover:bg-[#F2EEEC]"
+              aria-label="Previous specialist"
+            >
+              <ArrowLeft className="h-4 w-4" strokeWidth={1.8} />
+            </button>
+            <button
+              type="button"
+              onClick={() => api?.scrollNext()}
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#D8CDC0] bg-[#F2EEEC]/78 text-[#635C54] transition-colors hover:bg-[#F2EEEC]"
+              aria-label="Next specialist"
+            >
+              <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
+            </button>
+          </motion.div>
+        </div>
+
+        <motion.div {...editorialFade} transition={{ ...editorialFade.transition, delay: 0.12 }} className="mt-14">
+          <Carousel
+            setApi={setApi}
+            opts={{ align: 'start', loop: true }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-5">
+              {copy.items.map((item, index) => {
+                const isActive = index === activeIndex;
+
+                return (
+                  <CarouselItem
+                    key={item.name}
+                    className="pl-5 md:basis-[78%] lg:basis-[56%] xl:basis-[48%]"
+                  >
+                    <article
+                      className={cn(
+                        'transition-[opacity,transform] duration-500',
+                        isActive ? 'opacity-100' : 'opacity-72 lg:translate-y-6',
+                      )}
+                    >
+                      <div className="relative mx-auto aspect-square w-full max-w-[34rem] overflow-hidden rounded-[50%] bg-[#D8CDC0] p-4 shadow-[0_30px_80px_-50px_rgba(56,50,44,0.28)] sm:p-5">
+                        <div className="relative h-full w-full overflow-hidden rounded-[50%] bg-[#BAB0A8]">
+                          <ImageWithFallback
+                            src={item.image}
+                            alt={item.name}
+                            className="h-full w-full object-cover object-center grayscale-[10%] saturate-[0.82]"
+                          />
+                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,242,238,0.16)_0%,rgba(247,242,238,0.04)_48%,rgba(56,50,44,0.16)_100%)]" />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="px-6 text-center text-[0.9rem] italic tracking-[0.01em] text-[#8a817b]/60">
+                              {item.name}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mx-auto max-w-[34rem] px-1 pt-7">
+                        <h3
+                          className="text-balance"
+                          style={{
+                            fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                            fontSize: 'clamp(2rem, 4vw, 3rem)',
+                            lineHeight: 0.98,
+                            fontWeight: 400,
+                            letterSpacing: '-0.04em',
+                          }}
+                        >
+                          {item.name}
+                        </h3>
+                        <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#9a8f87]">
+                          {item.role}
+                        </p>
+                        <p className="mt-4 max-w-lg text-[0.98rem] leading-relaxed text-[#6e645d]">
+                          {item.blurb}
+                        </p>
+                      </div>
+                    </article>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+          </Carousel>
+
+          <div className="mt-8 flex items-center justify-center gap-2">
+            {copy.items.map((item, index) => (
+              <button
+                key={item.name}
+                type="button"
+                onClick={() => api?.scrollTo(index)}
+                className={cn(
+                  'h-2.5 rounded-full transition-all duration-300',
+                  index === activeIndex ? 'w-10 bg-[#635c54]' : 'w-2.5 bg-[#cfc2b8]',
+                )}
+                aria-label={`Go to specialist ${index + 1}`}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -856,7 +1113,7 @@ function VideoPresenceSection() {
               key={item.title}
               {...editorialFade}
               transition={{ ...editorialFade.transition, delay: index * 0.08 }}
-              className="group overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 shadow-[0_30px_90px_-55px_rgba(56,50,44,0.25)]"
+              className="group overflow-hidden rounded-[2rem] border border-[#F2EEEC]/70 bg-[#F2EEEC]/82 shadow-[0_30px_90px_-55px_rgba(56,50,44,0.25)]"
             >
               <div className="relative aspect-[4/5] overflow-hidden">
                 <video
@@ -869,10 +1126,10 @@ function VideoPresenceSection() {
                   <source src={item.video} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(56,50,44,0.12)_0%,rgba(56,50,44,0.6)_100%)]" />
-                <div className="absolute left-5 top-5 rounded-full border border-white/35 bg-white/12 px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-[#f2eeec] backdrop-blur-md">
+                <div className="absolute left-5 top-5 rounded-full border border-[#F2EEEC]/35 bg-[#F2EEEC]/12 px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-[#F2EEEC] backdrop-blur-md">
                   {item.category}
                 </div>
-                <div className="absolute bottom-5 right-5 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/12 text-white backdrop-blur-md transition-transform duration-500 group-hover:scale-105">
+                <div className="absolute bottom-5 right-5 flex h-14 w-14 items-center justify-center rounded-full border border-[#F2EEEC]/30 bg-[#F2EEEC]/12 text-[#F2EEEC] backdrop-blur-md transition-transform duration-500 group-hover:scale-105">
                   <Play className="ml-0.5 h-5 w-5" fill="currentColor" strokeWidth={1.5} />
                 </div>
               </div>
@@ -896,7 +1153,7 @@ function AtmosphereSection() {
   const [heroImage, supportImage, detailImage, accentImage] = clinicAtmosphereImages;
 
   return (
-    <section className="overflow-hidden bg-[#f7f3ef] py-24 text-[#38322c] md:py-32">
+    <section className="overflow-hidden bg-[#F2EEEC] py-24 text-[#38322c] md:py-32">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
         <SectionHeading eyebrow={copy.eyebrow} title={copy.title} body={copy.body} />
         <div className="mt-14 grid gap-5 lg:grid-cols-[1.08fr_0.92fr]">
@@ -927,20 +1184,20 @@ function AtmosphereSection() {
             </motion.div>
             <motion.div
               {...editorialFade}
-              className="sm:col-span-2 rounded-[2rem] border border-[#d8cdc0]/60 bg-white/80 p-8 shadow-[0_28px_80px_-50px_rgba(56,50,44,0.24)]"
+              className="sm:col-span-2 rounded-[2rem] border border-[#D8CDC0]/60 bg-[#F2EEEC]/82 p-8 shadow-[0_28px_80px_-50px_rgba(56,50,44,0.24)]"
             >
               <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_10rem] lg:items-center">
                 <div className="grid gap-4 sm:grid-cols-2">
                   {copy.captions.map((item) => (
                     <div
                       key={item}
-                      className="rounded-full border border-[#e6ddd6] bg-[#f7f2ef] px-5 py-4 text-[0.76rem] uppercase tracking-[0.25em] text-[#635c54]"
+                      className="rounded-full border border-[#D8CDC0] bg-[#F2EEEC] px-5 py-4 text-[0.76rem] uppercase tracking-[0.25em] text-[#635c54]"
                     >
                       {item}
                     </div>
                   ))}
                 </div>
-                <div className="overflow-hidden rounded-[1.5rem] border border-[#e6ddd6] bg-[#f7f2ef]">
+                <div className="overflow-hidden rounded-[1.5rem] border border-[#D8CDC0] bg-[#F2EEEC]">
                   <ImageWithFallback
                     src={accentImage.src}
                     alt={accentImage.alt}
@@ -971,7 +1228,7 @@ function TrustSection() {
       />
       <div className="relative mx-auto max-w-6xl px-6 text-center sm:px-8">
         <SectionHeading eyebrow={copy.eyebrow} title={copy.title} invert className="mx-auto text-center" />
-        <div className="mt-16 rounded-[2.5rem] border border-white/10 bg-white/6 px-8 py-16 backdrop-blur-xl md:px-16">
+        <div className="mt-16 rounded-[2.5rem] border border-[#F2EEEC]/10 bg-[#F2EEEC]/6 px-8 py-16 backdrop-blur-xl md:px-16">
           <AnimatePresence mode="wait">
             <motion.blockquote
               key={copy.quotes[activeIndex]}
@@ -1058,7 +1315,7 @@ function FinalCtaSection() {
           </a>
           <a
             href={localizeHref('/the-obliq-approach')}
-            className="inline-flex items-center justify-center rounded-full border border-white/16 bg-white/8 px-7 py-4 text-[0.78rem] uppercase tracking-[0.24em] text-[#f2eeec] backdrop-blur-md transition-colors duration-300 hover:bg-white/12"
+            className="inline-flex items-center justify-center rounded-full border border-[#F2EEEC]/16 bg-[#F2EEEC]/8 px-7 py-4 text-[0.78rem] uppercase tracking-[0.24em] text-[#f2eeec] backdrop-blur-md transition-colors duration-300 hover:bg-[#F2EEEC]/12"
           >
             {copy.secondary}
           </a>
@@ -1070,7 +1327,7 @@ function FinalCtaSection() {
 
 export function HomePageV2() {
   return (
-    <div className="bg-white">
+    <div className="bg-[#F2EEEC]">
       <SiteHeader />
       <Hero />
       <MirrorCarousel />
@@ -1078,6 +1335,7 @@ export function HomePageV2() {
       <ImmersiveExperienceSection />
       <InteractiveSkinNavigationSection />
       <PhilosophyPreviewSection />
+      <SpecialistsSection />
       <TransformationShowcaseSection />
       <VideoPresenceSection />
       <AtmosphereSection />

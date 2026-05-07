@@ -4,7 +4,7 @@ import { useHeroVideoPlayback } from './PremiumPagePrimitives';
 
 const heroCopy: Record<Locale, { headline: [string, string]; byline: string }> = {
   bg: {
-    headline: ['истинската красота', 'идва от вътре.'],
+    headline: ['истинската красота', 'идва отвътре.'],
     byline: 'by dr. mihaylov',
   },
   en: {
@@ -23,7 +23,7 @@ export function Hero() {
   const { videoRef, freezeVideoOnLastFrame, replayVideoOnHover } = useHeroVideoPlayback();
 
   return (
-    <section id="top" className="relative h-screen w-full overflow-hidden bg-black">
+    <section id="top" className="relative h-screen w-full overflow-hidden bg-[#38322C]">
       <motion.div
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
@@ -47,7 +47,7 @@ export function Hero() {
         </video>
       </motion.div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#38322C]/40 via-transparent to-[#38322C]/60" />
 
       <div className="relative h-full flex items-end pb-32 px-8 md:px-16 lg:px-24">
         <motion.div
@@ -55,12 +55,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1 className="text-white mb-6 tracking-tight uppercase" style={{ fontSize: 'clamp(3rem, 8vw, 7rem)', lineHeight: 0.95, fontWeight: 400, letterSpacing: '-0.03em' }}>
+          <h1 className="mb-6 text-[#F2EEEC] tracking-tight uppercase" style={{ fontSize: '5rem', lineHeight: 0.95, fontWeight: 400, letterSpacing: '-0.03em' }}>
             {copy.headline[0]}
             <br />
             {copy.headline[1]}
           </h1>
-          <p className="text-white/70 max-w-md ml-auto uppercase" style={{ fontSize: '1.125rem', lineHeight: 1.6 }}>
+          <p className="ml-auto max-w-md uppercase text-[#F2EEEC]/70" style={{ fontSize: '1.125rem', lineHeight: 1.6 }}>
             {copy.byline}
           </p>
         </motion.div>

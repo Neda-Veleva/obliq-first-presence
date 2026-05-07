@@ -113,10 +113,10 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
   return (
     <div className={cn('relative w-full', className)}>
       {labelHint ? (
-        <p className="mb-2 text-center text-xs tracking-[0.2em] text-stone-500">{labelHint}</p>
+        <p className="mb-2 text-center text-xs tracking-[0.2em] text-[#876856]">{labelHint}</p>
       ) : null}
 
-      <p className="mb-1 text-center text-[0.7rem] text-stone-400 md:hidden">{copy.mobileHint}</p>
+      <p className="mb-1 text-center text-[0.7rem] text-[#BAB0A8] md:hidden">{copy.mobileHint}</p>
 
       <div className="relative">
         <div
@@ -148,7 +148,7 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
             <button
               type="button"
               onClick={scrollPrev}
-              className="absolute left-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-stone-200/70 bg-white/90 p-2 text-stone-800 shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-white md:left-2"
+              className="absolute left-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-[#D8CDC0]/70 bg-[#F2EEEC]/92 p-2 text-[#38322C] shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-[#F2EEEC] md:left-2"
               aria-label={copy.previous}
             >
               <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
@@ -156,7 +156,7 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
             <button
               type="button"
               onClick={scrollNext}
-              className="absolute right-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-stone-200/70 bg-white/90 p-2 text-stone-800 shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-white md:right-2"
+              className="absolute right-1.5 top-1/2 z-30 -translate-y-1/2 rounded-full border border-[#D8CDC0]/70 bg-[#F2EEEC]/92 p-2 text-[#38322C] shadow-sm backdrop-blur-sm transition-[opacity,background-color,transform] hover:bg-[#F2EEEC] md:right-2"
               aria-label={copy.next}
             >
               <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
@@ -175,8 +175,8 @@ export function BeforeAfterCaseSlider({ slides, className, labelHint }: BeforeAf
               className={cn(
                 'h-1.5 rounded-full transition-[width,background-color,opacity] duration-300',
                 selected === i
-                  ? 'w-4 bg-stone-800'
-                  : 'w-1.5 bg-stone-300/90 hover:bg-stone-400',
+                  ? 'w-4 bg-[#38322C]'
+                  : 'w-1.5 bg-[#BAB0A8]/90 hover:bg-[#876856]',
               )}
               aria-label={`${copy.example} ${i + 1}`}
               aria-current={selected === i ? 'true' : undefined}

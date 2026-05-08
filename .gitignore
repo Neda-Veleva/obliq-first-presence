@@ -81,3 +81,4 @@ vite.config.ts.timestamp-*
 .DS_Store
 .idea/
 .vscode/
+.vercel

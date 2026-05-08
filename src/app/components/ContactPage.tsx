@@ -481,7 +481,6 @@ function HeroVisual() {
             ref={videoRef}
             autoPlay
             muted
-            defaultMuted
             playsInline
             preload="auto"
             aria-hidden="true"
@@ -808,19 +807,24 @@ function MapPanel() {
         className="pointer-events-none absolute inset-0 h-full w-full"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        style={{
-          filter:
-            'grayscale(1) sepia(0.22) saturate(0.55) hue-rotate(332deg) brightness(0.98) contrast(0.88)',
-        }}
       />
 
-      <div className="absolute left-[50%] top-[41%] z-30 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-[#F2EEEC]/42 bg-[linear-gradient(180deg,#38322C_0%,#635C54_100%)] text-[#F2EEEC] shadow-[0_26px_36px_-22px_rgba(56,50,44,0.8)]">
+      <motion.div
+        className="absolute left-[50%] top-[34%] z-30 -translate-x-1/2 -translate-y-1/2"
+        animate={{ y: [0, -3, 0], scale: [1, 1.035, 1] }}
+        whileHover={{ scale: 1.08 }}
+        transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: 'easeInOut' }}
+      >
+        <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-[#F2EEEC]/42 bg-[linear-gradient(180deg,#38322C_0%,#635C54_100%)] text-[#F2EEEC] shadow-[0_26px_36px_-22px_rgba(56,50,44,0.8)] transition-shadow duration-500 group-hover:shadow-[0_28px_42px_-20px_rgba(56,50,44,0.92)]">
+          <motion.span
+            className="absolute inset-[-0.55rem] rounded-full border border-[#F2EEEC]/32"
+            animate={{ opacity: [0, 0.52, 0], scale: [0.86, 1.18, 1.34] }}
+            transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: 'easeOut' }}
+          />
           <span className="absolute inset-0 rounded-full border border-[#F2EEEC]/16" />
-          <BrandLogo alt="OBLIQ pin" inverted className="w-12" />
-        </div>
-        <div className="mx-auto h-5 w-5 -translate-y-2 rotate-45 rounded-[0.5rem] bg-[#635C54]" />
-      </div>
+          <BrandLogo alt="OBLIQ pin" inverted className="relative z-10 w-12" />
+        </div>  
+      </motion.div>
 
       <div className="absolute inset-x-[9%] top-8 z-30 flex items-start justify-end gap-4">
         <div className="rounded-full bg-[#38322C]/72 px-4 py-2 text-[0.72rem] uppercase tracking-[0.2em] text-[#F2EEEC]/82 backdrop-blur-md">
@@ -932,6 +936,87 @@ function ReviewCard({
   );
 }
 
+export function ContactHeroSection() {
+  const { locale, localizeHref } = useLocale();
+  const copy = contactCopy[locale];
+
+  return (
+    <section
+      id="contact-top"
+      className="relative overflow-hidden bg-[linear-gradient(180deg,#38322C_0%,#635C54_76%,#8C8E77_100%)] pt-28 text-[#F2EEEC] sm:pt-32"
+    >
+      {/* <LayeredOrbs /> */}
+
+      <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:px-8 lg:pb-24 lg:pt-16">
+        <div className="grid items-center gap-16 lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.2fr)] lg:gap-12 xl:gap-18">
+          <motion.div {...editorialFade} className="max-w-[34rem]">
+            <h1
+              className="mt-6 text-[#F2EEEC]"
+              style={{
+                fontSize: '5rem',
+                lineHeight: 0.92,
+                fontWeight: 400,
+                letterSpacing: '-0.05em',
+              }}
+            >
+              {copy.heroTitle}
+            </h1>
+            <p className="mt-6 max-w-xl text-[1.12rem] leading-relaxed text-[#F2EEEC]/76 sm:text-[1.18rem]">
+              {copy.heroBody}
+            </p>
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <a
+                href={localizeHref(bookingUrl)}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F2EEEC] px-6 py-4 text-[0.8rem] uppercase tracking-[0.22em] text-[#38322C] shadow-[0_20px_30px_-20px_rgba(242,238,236,0.7)] transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                {copy.bookingButton}
+              </a>
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F2EEEC]/18 bg-[#F2EEEC]/8 px-6 py-4 text-[0.8rem] uppercase tracking-[0.22em] text-[#F2EEEC] backdrop-blur-md transition-colors hover:bg-[#F2EEEC]/12"
+              >
+                {copy.mapsButton}
+                <ExternalLink className="h-4 w-4" strokeWidth={1.6} />
+              </a>
+            </div>
+          </motion.div>
+
+          <HeroVisual />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function ContactVisitSection() {
+  return (
+    <section
+      id="visit-details"
+      className="relative overflow-hidden bg-[linear-gradient(180deg,#F2EEEC_0%,#DDD2C7_100%)] py-20 lg:py-28"
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-6%] top-[10%] h-64 w-64 rounded-full bg-[#F2EEEC]/55 blur-3xl" />
+        <div className="absolute right-[2%] top-[18%] h-56 w-96 rounded-full bg-[#ACB2CA]/12 blur-3xl" />
+        <div className="absolute bottom-[8%] left-[18%] h-44 w-72 rounded-full bg-[#977460]/12 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
+        <div className="relative z-10 flex flex-col gap-8 lg:min-h-[35rem] lg:flex-row lg:items-center lg:gap-0">
+          <div className="relative z-10 lg:w-[58%] xl:w-[56%]">
+            <ContactInfoCard />
+          </div>
+          <div className="relative z-20 lg:-ml-24 lg:mt-8 lg:w-[48%] xl:-ml-28 xl:w-[46%]">
+            <MapPanel />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ContactPage() {
   const { locale, localizeHref } = useLocale();
   const copy = contactCopy[locale];
@@ -942,75 +1027,9 @@ export function ContactPage() {
       <SiteHeader />
 
       <main>
-        <section
-          id="contact-top"
-          className="relative overflow-hidden bg-[linear-gradient(180deg,#38322C_0%,#635C54_76%,#8C8E77_100%)] pt-28 text-[#F2EEEC] sm:pt-32"
-        >
-          {/* <LayeredOrbs /> */}
+        <ContactHeroSection />
 
-          <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:px-8 lg:pb-24 lg:pt-16">
-            <div className="grid items-center gap-16 lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.2fr)] lg:gap-12 xl:gap-18">
-              <motion.div {...editorialFade} className="max-w-[34rem]">
-                <h1
-                  className="mt-6 text-[#F2EEEC]"
-                  style={{
-                    fontSize: '5rem',
-                    lineHeight: 0.92,
-                    fontWeight: 400,
-                    letterSpacing: '-0.05em',
-                  }}
-                >
-                  {copy.heroTitle}
-                </h1>
-                <p className="mt-6 max-w-xl text-[1.12rem] leading-relaxed text-[#F2EEEC]/76 sm:text-[1.18rem]">
-                  {copy.heroBody}
-                </p>
-
-                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                  <a
-                    href={localizeHref(bookingUrl)}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F2EEEC] px-6 py-4 text-[0.8rem] uppercase tracking-[0.22em] text-[#38322C] shadow-[0_20px_30px_-20px_rgba(242,238,236,0.7)] transition-transform duration-300 hover:-translate-y-0.5"
-                  >
-                    {copy.bookingButton}
-                  </a>
-                  <a
-                    href={mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F2EEEC]/18 bg-[#F2EEEC]/8 px-6 py-4 text-[0.8rem] uppercase tracking-[0.22em] text-[#F2EEEC] backdrop-blur-md transition-colors hover:bg-[#F2EEEC]/12"
-                  >
-                    {copy.mapsButton}
-                    <ExternalLink className="h-4 w-4" strokeWidth={1.6} />
-                  </a>
-                </div>
-              </motion.div>
-
-              <HeroVisual />
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="visit-details"
-          className="relative overflow-hidden bg-[linear-gradient(180deg,#F2EEEC_0%,#DDD2C7_100%)] py-20 lg:py-28"
-        >
-          <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-[-6%] top-[10%] h-64 w-64 rounded-full bg-[#F2EEEC]/55 blur-3xl" />
-            <div className="absolute right-[2%] top-[18%] h-56 w-96 rounded-full bg-[#ACB2CA]/12 blur-3xl" />
-            <div className="absolute bottom-[8%] left-[18%] h-44 w-72 rounded-full bg-[#977460]/12 blur-3xl" />
-          </div>
-
-          <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
-            <div className="relative z-10 flex flex-col gap-8 lg:min-h-[35rem] lg:flex-row lg:items-center lg:gap-0">
-              <div className="relative z-10 lg:w-[58%] xl:w-[56%]">
-                <ContactInfoCard />
-              </div>
-              <div className="relative z-20 lg:-ml-24 lg:mt-8 lg:w-[48%] xl:-ml-28 xl:w-[46%]">
-                <MapPanel />
-              </div>
-            </div>
-          </div>
-        </section>
+        <ContactVisitSection />
 
         <section
           id="contact-details"

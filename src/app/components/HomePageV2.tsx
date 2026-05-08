@@ -638,7 +638,7 @@ const clinicAtmosphereImages = [
   },
 ] as const;
 
-function ImmersiveExperienceSection() {
+export function HomePageV2ImmersiveExperienceSection() {
   const { locale } = useLocale();
   const copy = pageCopy[locale].immersive;
 
@@ -925,7 +925,7 @@ function TransformationCase({
   );
 }
 
-function SpecialistsSection() {
+export function HomePageV2SpecialistsSection() {
   const { locale } = useLocale();
   const copy = pageCopy[locale].specialists;
   const [api, setApi] = useState<CarouselApi>();
@@ -1099,7 +1099,7 @@ function TransformationShowcaseSection() {
   );
 }
 
-function VideoPresenceSection() {
+export function HomePageV2VideoPresenceSection() {
   const { locale } = useLocale();
   const copy = pageCopy[locale].presence;
 
@@ -1265,7 +1265,7 @@ function TrustSection() {
   );
 }
 
-function FinalCtaSection() {
+export function HomePageV2FinalCtaSection() {
   const { locale, localizeHref } = useLocale();
   const copy = pageCopy[locale].cta;
 
@@ -1332,15 +1332,15 @@ export function HomePageV2() {
       <Hero />
       <MirrorCarousel />
       <FaceReveal />
-      <ImmersiveExperienceSection />
+      <HomePageV2ImmersiveExperienceSection />
       <InteractiveSkinNavigationSection />
       <PhilosophyPreviewSection />
-      <SpecialistsSection />
+      <HomePageV2SpecialistsSection />
       <TransformationShowcaseSection />
-      <VideoPresenceSection />
+      <HomePageV2VideoPresenceSection />
       <AtmosphereSection />
       <TrustSection />
-      <FinalCtaSection />
+      <HomePageV2FinalCtaSection />
       <ConsultationFooter />
     </div>
   );

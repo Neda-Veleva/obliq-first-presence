@@ -595,7 +595,7 @@ function ApproachSection() {
   );
 }
 
-function PhilosophyVideoSection() {
+export function HomePageV3PhilosophyVideoSection() {
   const { locale } = useLocale();
   const copy = editorialPresenceCopy[locale].philosophyVideo;
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -724,7 +724,7 @@ function PhilosophyVideoSection() {
   );
 }
 
-function AtmosphereSection() {
+export function HomePageV3AtmosphereSection() {
   const { locale } = useLocale();
   const copy = editorialPresenceCopy[locale].atmosphere;
   const images = [
@@ -950,8 +950,8 @@ export function HomePageV3() {
       <PauseSection />
       <EditorialCompositionSection />
       <ApproachSection />
-      <PhilosophyVideoSection />
-      <AtmosphereSection />
+      <HomePageV3PhilosophyVideoSection />
+      <HomePageV3AtmosphereSection />
       <TrustSection />
       <FinalCtaSection />
       <FooterTransitionSection />

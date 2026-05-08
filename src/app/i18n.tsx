@@ -7,10 +7,14 @@ export type RouteKey =
   | 'home'
   | 'homeV2'
   | 'homeV3'
+  | 'homeV4'
+  | 'homeConcept02'
+  | 'homeConcept03'
   | 'approach'
   | 'brandColors'
   | 'contact'
   | 'contactV2'
+  | 'contactV3'
   | 'conditions'
   | 'procedures'
   | 'journal';
@@ -39,10 +43,14 @@ const routePaths: Record<RouteKey, string> = {
   home: '/',
   homeV2: '/homepage-v2',
   homeV3: '/homepage-editorial',
+  homeV4: '/homepage-v4',
+  homeConcept02: '/homepage-concept-02',
+  homeConcept03: '/homepage-concept-03',
   approach: '/the-obliq-approach',
   brandColors: '/brand-colors',
   contact: '/contact',
   contactV2: '/contact-v2',
+  contactV3: '/contact-v3',
   conditions: '/conditions',
   procedures: '/procedures',
   journal: '/journal',
@@ -53,12 +61,18 @@ const routeAliases: Record<string, RouteKey> = {
   '/homepage-v2': 'homeV2',
   '/homepage-v3': 'homeV3',
   '/homepage-editorial': 'homeV3',
+  '/homepage-v4': 'homeV4',
+  '/homepage-concept-02': 'homeConcept02',
+  '/homepage-editorial-presence-02': 'homeConcept02',
+  '/homepage-concept-03': 'homeConcept03',
+  '/homepage-future-human': 'homeConcept03',
   '/approach': 'approach',
   '/the-obliq-approach': 'approach',
   '/brand-colors': 'brandColors',
   '/obliq-color-system': 'brandColors',
   '/contact': 'contact',
   '/contact-v2': 'contactV2',
+  '/contact-v3': 'contactV3',
   '/conditions': 'conditions',
   '/procedures': 'procedures',
   '/journal': 'journal',

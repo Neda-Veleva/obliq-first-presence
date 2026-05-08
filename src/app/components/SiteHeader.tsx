@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { cn } from './ui/utils';
 import { BrandLogo } from './BrandLogo';
@@ -78,6 +78,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       links: [
         { href: '/#contact', label: 'Форма за консултация' },
         { href: '/contact', label: 'Адрес и телефон' },
+        { href: '/contact-v3', label: 'Контакт V3' },
         { href: '#top', label: 'Към началото' },
       ],
     },
@@ -138,6 +139,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       links: [
         { href: '/#contact', label: 'Consultation form' },
         { href: '/contact', label: 'Address and phone' },
+        { href: '/contact-v3', label: 'Contact V3' },
         { href: '#top', label: 'Back to top' },
       ],
     },
@@ -198,6 +200,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       links: [
         { href: '/#contact', label: 'Форма консультации' },
         { href: '/contact', label: 'Адрес и телефон' },
+        { href: '/contact-v3', label: 'Контакт V3' },
         { href: '#top', label: 'Наверх' },
       ],
     },
@@ -209,34 +212,46 @@ const featuredPagesByLocale: Record<Locale, PageLink[]> = {
     { href: '/', label: 'Начало' },
     { href: '/homepage-v2', label: 'Начало V2' },
     { href: '/homepage-editorial', label: 'Редакционно присъствие' },
+    { href: '/homepage-concept-02', label: 'Editorial Presence 02' },
+    { href: '/homepage-concept-03', label: 'Future Human 03' },
+    { href: '/homepage-v4', label: 'Начало V4' },
     { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
     { href: '/conditions', label: 'Състояния' },
     { href: '/procedures', label: 'терапии' },
     { href: '/journal', label: 'Журнал' },
     { href: '/contact', label: 'Контакт' },
     { href: '/contact-v2', label: 'Контакт V2' },
+    { href: '/contact-v3', label: 'Контакт V3' },
   ],
   en: [
     { href: '/', label: 'Home' },
     { href: '/homepage-v2', label: 'Home V2' },
     { href: '/homepage-editorial', label: 'Editorial Presence' },
+    { href: '/homepage-concept-02', label: 'Editorial Presence 02' },
+    { href: '/homepage-concept-03', label: 'Future Human 03' },
+    { href: '/homepage-v4', label: 'Home V4' },
     { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
     { href: '/conditions', label: 'Conditions' },
     { href: '/procedures', label: 'Procedures' },
     { href: '/journal', label: 'Journal' },
     { href: '/contact', label: 'Contact' },
     { href: '/contact-v2', label: 'Contact V2' },
+    { href: '/contact-v3', label: 'Contact V3' },
   ],
   ru: [
     { href: '/', label: 'Главная' },
     { href: '/homepage-v2', label: 'Главная V2' },
     { href: '/homepage-editorial', label: 'Editorial Presence' },
+    { href: '/homepage-concept-02', label: 'Editorial Presence 02' },
+    { href: '/homepage-concept-03', label: 'Future Human 03' },
+    { href: '/homepage-v4', label: 'Главная V4' },
     { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
     { href: '/conditions', label: 'Состояния' },
     { href: '/procedures', label: 'Процедуры' },
     { href: '/journal', label: 'Журнал' },
     { href: '/contact', label: 'Контакт' },
     { href: '/contact-v2', label: 'Контакт V2' },
+    { href: '/contact-v3', label: 'Контакт V3' },
   ],
 };
 
@@ -293,6 +308,7 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
   const [barHidden, setBarHidden] = useState(false);
   const [compactText, setCompactText] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(96);
+  const [mobileLanguageOpen, setMobileLanguageOpen] = useState(false);
   const headerRef = useRef<HTMLElement | null>(null);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
@@ -342,6 +358,7 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
 
   useEffect(() => {
     if (menuOpen) {
+      setMobileLanguageOpen(false);
       const prev = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       return () => {
@@ -371,6 +388,7 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+  const inactiveLocales = locales.filter((targetLocale) => targetLocale !== locale);
   const activeMega = megaCategories.find((c) => c.id === activeMegaId) ?? megaCategories[0];
   const showBar = !barHidden || menuOpen;
   const logoHref = resolveHref('#top');
@@ -393,9 +411,9 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
         }}
         aria-hidden={!showBar}
       >
-        <div
-          className={cn(
-            'relative overflow-hidden backdrop-blur-[12px] backdrop-saturate-150 transition-[background-color,backdrop-filter,color] duration-500 ease-out',
+          <div
+            className={cn(
+            'relative overflow-visible backdrop-blur-[12px] backdrop-saturate-150 transition-[background-color,backdrop-filter,color] duration-500 ease-out',
             isLight ? 'text-[#38322C]' : 'text-[#F2EEEC]',
           )}
           style={{
@@ -487,9 +505,78 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
             <div className="flex items-center justify-end gap-2">
               <nav
                 aria-label={copy.languageNavLabel}
+                className="hidden"
+              >
+                <div
+                  className={cn(
+                    headerControlShellClassName,
+                    'flex items-center rounded-full p-1 text-[0.68rem] font-medium uppercase leading-none tracking-[0.22em]',
+                    mobileLanguageOpen ? 'rounded-[1.15rem] rounded-b-[0.55rem]' : '',
+                    isLight ? 'text-[#635C54]/82' : 'text-[#F2EEEC]/72',
+                  )}
+                >
+                  <button
+                    type="button"
+                    aria-label={localeNames[locale]}
+                    aria-expanded={mobileLanguageOpen}
+                    onClick={() => setMobileLanguageOpen((open) => !open)}
+                    className={cn(
+                      headerCtaClassName,
+                      'gap-1.5 bg-[#F2EEEC] px-3 py-2.5 text-[#38322C] shadow-[0_12px_24px_-18px_rgba(242,238,236,0.72)] min-[400px]:py-3',
+                      mobileLanguageOpen ? 'rounded-[0.9rem] rounded-b-[0.45rem]' : '',
+                    )}
+                  >
+                    {localeLabels[locale]}
+                    <ChevronDown
+                      className={cn(
+                        'h-3.5 w-3.5 transition-transform duration-200',
+                        mobileLanguageOpen ? 'rotate-180' : '',
+                      )}
+                      strokeWidth={1.75}
+                      aria-hidden
+                    />
+                  </button>
+                </div>
+                <AnimatePresence initial={false}>
+                  {mobileLanguageOpen && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.12, ease: 'easeOut' }}
+                      className={cn(
+                        headerControlShellClassName,
+                        'absolute right-0 top-[calc(100%-0.05rem)] flex min-w-full flex-col items-stretch gap-0 rounded-b-[1.15rem] rounded-t-[0.35rem] border-[#F2EEEC]/50 bg-[#F2EEEC]/92 p-1 pt-1 text-[0.68rem] font-medium uppercase leading-none tracking-[0.22em] shadow-[0_18px_38px_-22px_rgba(56,50,44,0.5)]',
+                        isLight ? 'text-[#635C54]/82' : 'text-[#38322C]',
+                      )}
+                    >
+                      {inactiveLocales.map((targetLocale) => (
+                        <a
+                          key={targetLocale}
+                          href={switchLocaleHref(targetLocale)}
+                          aria-label={localeNames[targetLocale]}
+                          onClick={() => setMobileLanguageOpen(false)}
+                          className={cn(
+                            headerCtaClassName,
+                            'w-full rounded-[0.75rem] px-3 py-2.5 text-[#38322C]/72 hover:bg-[#38322C]/6 hover:text-[#38322C] min-[400px]:py-3',
+                            isLight
+                              ? 'text-[#635C54]/76'
+                              : 'text-[#38322C]/72',
+                          )}
+                        >
+                          {localeLabels[targetLocale]}
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </nav>
+
+              <nav
+                aria-label={copy.languageNavLabel}
                 className={cn(
                   headerControlShellClassName,
-                  'hidden items-center rounded-full p-1.5 text-[0.68rem] font-medium uppercase leading-none tracking-[0.22em] min-[360px]:flex',
+                  'hidden items-center rounded-full p-1.5 text-[0.68rem] font-medium uppercase leading-none tracking-[0.22em] sm:flex',
                   isLight ? 'text-[#635C54]/82' : 'text-[#F2EEEC]/72',
                 )}
               >

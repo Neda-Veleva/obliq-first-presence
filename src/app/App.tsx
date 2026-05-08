@@ -12,9 +12,13 @@ import { ConsultationForm } from './components/ConsultationForm';
 import { ConsultationFooter } from './components/ConsultationFooter';
 import { ContactPage } from './components/ContactPage';
 import { ContactPageV2 } from './components/ContactPageV2';
+import { ContactPageV3 } from './components/ContactPageV3';
 import { BrandColorsPage } from './components/BrandColorsPage';
 import { HomePageV2 } from './components/HomePageV2';
 import { HomePageV3 } from './components/HomePageV3';
+import { HomePageV4 } from './components/HomePageV4';
+import { HomePageConcept02 } from './components/HomePageConcept02';
+import { HomePageConcept03 } from './components/HomePageConcept03';
 import { ObliqApproachPage } from './components/ObliqApproachPage';
 import { FloatingConsultationCta } from './components/FloatingConsultationCta';
 import {
@@ -58,12 +62,28 @@ export default function App() {
       return <ContactPageV2 />;
     }
 
+    if (route.routeKey === 'contactV3') {
+      return <ContactPageV3 />;
+    }
+
     if (route.routeKey === 'homeV2') {
       return <HomePageV2 />;
     }
 
     if (route.routeKey === 'homeV3') {
       return <HomePageV3 />;
+    }
+
+    if (route.routeKey === 'homeV4') {
+      return <HomePageV4 />;
+    }
+
+    if (route.routeKey === 'homeConcept02') {
+      return <HomePageConcept02 />;
+    }
+
+    if (route.routeKey === 'homeConcept03') {
+      return <HomePageConcept03 />;
     }
 
     if (route.routeKey === 'approach') {

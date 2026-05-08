@@ -53,7 +53,7 @@ const routePaths: Record<RouteKey, string> = {
   contactV3: '/contact-v3',
   conditions: '/conditions',
   procedures: '/procedures',
-  journal: '/journal',
+  journal: '/skin-journal',
 };
 
 const routeAliases: Record<string, RouteKey> = {
@@ -76,6 +76,7 @@ const routeAliases: Record<string, RouteKey> = {
   '/conditions': 'conditions',
   '/procedures': 'procedures',
   '/journal': 'journal',
+  '/skin-journal': 'journal',
 };
 
 function isLocale(value: string | undefined): value is Locale {

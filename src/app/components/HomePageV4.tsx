@@ -82,6 +82,9 @@ const pageCopy: Record<
       body: string;
       items: { name: string; role: string; blurb: string; image: string }[];
     };
+    founderIntro: {
+      title: string;
+    };
     presence: {
       eyebrow: string;
       title: string;
@@ -126,10 +129,10 @@ const pageCopy: Record<
       ],
     },
     specialists: {
-      eyebrow: 'Специалисти',
-      title: 'Лицата зад прецизността в OBLIQ.',
+      eyebrow: 'Екип',
+      title: 'Хората, които оформят преживяването.',
       body:
-        'Подбор от специалисти, които работят с еднакво внимание към естествения резултат, спокойната консултация и медицинската яснота.',
+        'Хората в OBLIQ обединяват медицинска експертиза, грижа, организация и внимание към детайла, за да създадат спокойно и прецизно преживяване във всяка стъпка.',
       items: [
         {
           name: 'д-р Елена Стоянова',
@@ -160,6 +163,9 @@ const pageCopy: Record<
             'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
         },
       ],
+    },
+    founderIntro: {
+      title: 'Лицата зад прецизността в OBLIQ.',
     },
     presence: {
       eyebrow: 'Видео присъствие',
@@ -231,10 +237,10 @@ const pageCopy: Record<
       ],
     },
     specialists: {
-      eyebrow: 'Specialists',
-      title: 'The faces behind OBLIQ precision.',
+      eyebrow: 'Team',
+      title: 'The people shaping the experience.',
       body:
-        'A curated group of specialists working with the same sensitivity toward natural results, calm consultation and medical clarity.',
+        'The people at OBLIQ bring together medical expertise, care, coordination and attention to detail to create a calm, precise experience at every step.',
       items: [
         {
           name: 'Dr. Elena Stoyanova',
@@ -265,6 +271,9 @@ const pageCopy: Record<
             'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
         },
       ],
+    },
+    founderIntro: {
+      title: 'The faces behind OBLIQ precision.',
     },
     presence: {
       eyebrow: 'Video presence',
@@ -331,10 +340,10 @@ const pageCopy: Record<
       ],
     },
     specialists: {
-      eyebrow: 'Специалисты',
-      title: 'Лица, стоящие за точностью OBLIQ.',
+      eyebrow: 'Команда',
+      title: 'Люди, которые формируют опыт.',
       body:
-        'Подбор специалистов, которых объединяет деликатный подход к естественному результату, спокойной консультации и медицинской ясности.',
+        'Люди в OBLIQ объединяют медицинскую экспертизу, заботу, организацию и внимание к деталям, чтобы создавать спокойный и точный опыт на каждом этапе.',
       items: [
         {
           name: 'д-р Елена Стоянова',
@@ -365,6 +374,9 @@ const pageCopy: Record<
             'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
         },
       ],
+    },
+    founderIntro: {
+      title: 'Лица, стоящие за точностью OBLIQ.',
     },
     presence: {
       eyebrow: 'Video presence',
@@ -1053,6 +1065,31 @@ function FounderSection() {
   );
 }
 
+function FounderIntroSection() {
+  const { locale } = useLocale();
+  const copy = pageCopy[locale].founderIntro;
+
+  return (
+    <section className="relative flex items-center overflow-hidden bg-[#38322C] px-6 py-24 text-[#F2EEEC] sm:px-8 md:py-32 lg:px-10">
+      <motion.div
+        {...editorialFade}
+        className="mx-auto max-w-7xl"
+      >
+        <h2
+          style={{
+            fontSize: 'clamp(2.8rem, 7vw, 5.2rem)',
+            lineHeight: 0.96,
+            fontWeight: 400,
+            letterSpacing: '-0.05em',
+          }}
+        >
+          {copy.title}
+        </h2>
+      </motion.div>
+    </section>
+  );
+}
+
 function SpecialistsSection() {
   const { locale } = useLocale();
   const copy = pageCopy[locale].specialists;
@@ -1260,6 +1297,7 @@ export function HomePageV4() {
       <VideoPresenceSection />
       <ImmersiveExperienceSection />
       <AtmosphereSection />
+      <FounderIntroSection />
       <FounderSection />
       <SpecialistsSection />
       <FinalCtaSection />

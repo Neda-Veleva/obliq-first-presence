@@ -49,7 +49,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       links: [
         { href: '/conditions', label: 'Кожни състояния и фокус' },
         { href: '/procedures', label: 'Лазерни и енергийни терапии' },
-        { href: '/journal', label: 'Журнал и насоки' },
+        { href: '/skin-journal', label: 'Skin Journal и насоки' },
       ],
     },
     {
@@ -64,7 +64,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
         { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
         { href: '#founder', label: 'Лекар основател' },
         { href: '#results', label: 'Отзиви и преди / след' },
-        { href: '/journal', label: 'Журнал' },
+        { href: '/skin-journal', label: 'Skin Journal' },
       ],
     },
     {
@@ -110,7 +110,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       links: [
         { href: '/conditions', label: 'Skin conditions and focus' },
         { href: '/procedures', label: 'Laser and energy therapies' },
-        { href: '/journal', label: 'Journal and guidance' },
+        { href: '/skin-journal', label: 'Skin Journal and guidance' },
       ],
     },
     {
@@ -125,7 +125,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
         { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
         { href: '#founder', label: 'Founder doctor' },
         { href: '#results', label: 'Reviews and before / after' },
-        { href: '/journal', label: 'Journal' },
+        { href: '/skin-journal', label: 'Skin Journal' },
       ],
     },
     {
@@ -171,7 +171,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       links: [
         { href: '/conditions', label: 'Состояния кожи и фокус' },
         { href: '/procedures', label: 'Лазерные и энергетические терапии' },
-        { href: '/journal', label: 'Журнал и рекомендации' },
+        { href: '/skin-journal', label: 'Skin Journal и рекомендации' },
       ],
     },
     {
@@ -186,7 +186,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
         { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
         { href: '#founder', label: 'Врач-основатель' },
         { href: '#results', label: 'Отзывы и до / после' },
-        { href: '/journal', label: 'Журнал' },
+        { href: '/skin-journal', label: 'Skin Journal' },
       ],
     },
     {
@@ -218,7 +218,7 @@ const featuredPagesByLocale: Record<Locale, PageLink[]> = {
     { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
     { href: '/conditions', label: 'Състояния' },
     { href: '/procedures', label: 'терапии' },
-    { href: '/journal', label: 'Журнал' },
+    { href: '/skin-journal', label: 'Skin Journal' },
     { href: '/contact', label: 'Контакт' },
     { href: '/contact-v2', label: 'Контакт V2' },
     { href: '/contact-v3', label: 'Контакт V3' },
@@ -233,7 +233,7 @@ const featuredPagesByLocale: Record<Locale, PageLink[]> = {
     { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
     { href: '/conditions', label: 'Conditions' },
     { href: '/procedures', label: 'Procedures' },
-    { href: '/journal', label: 'Journal' },
+    { href: '/skin-journal', label: 'Skin Journal' },
     { href: '/contact', label: 'Contact' },
     { href: '/contact-v2', label: 'Contact V2' },
     { href: '/contact-v3', label: 'Contact V3' },
@@ -248,7 +248,7 @@ const featuredPagesByLocale: Record<Locale, PageLink[]> = {
     { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
     { href: '/conditions', label: 'Состояния' },
     { href: '/procedures', label: 'Процедуры' },
-    { href: '/journal', label: 'Журнал' },
+    { href: '/skin-journal', label: 'Skin Journal' },
     { href: '/contact', label: 'Контакт' },
     { href: '/contact-v2', label: 'Контакт V2' },
     { href: '/contact-v3', label: 'Контакт V3' },
@@ -505,13 +505,13 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
             <div className="flex items-center justify-end gap-2">
               <nav
                 aria-label={copy.languageNavLabel}
-                className="hidden"
+                className="relative flex sm:hidden"
               >
                 <div
                   className={cn(
                     headerControlShellClassName,
-                    'flex items-center rounded-full p-1 text-[0.68rem] font-medium uppercase leading-none tracking-[0.22em]',
-                    mobileLanguageOpen ? 'rounded-[1.15rem] rounded-b-[0.55rem]' : '',
+                    'flex items-center rounded-full p-0.5 text-[0.58rem] font-medium uppercase leading-none tracking-[0.18em]',
+                    mobileLanguageOpen ? 'rounded-[0.85rem] rounded-b-[0.45rem]' : '',
                     isLight ? 'text-[#635C54]/82' : 'text-[#F2EEEC]/72',
                   )}
                 >
@@ -522,14 +522,14 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
                     onClick={() => setMobileLanguageOpen((open) => !open)}
                     className={cn(
                       headerCtaClassName,
-                      'gap-1.5 bg-[#F2EEEC] px-3 py-2.5 text-[#38322C] shadow-[0_12px_24px_-18px_rgba(242,238,236,0.72)] min-[400px]:py-3',
-                      mobileLanguageOpen ? 'rounded-[0.9rem] rounded-b-[0.45rem]' : '',
+                      'gap-1 bg-[#F2EEEC] px-2 py-2 text-[0.58rem] tracking-[0.18em] text-[#38322C] shadow-[0_12px_24px_-18px_rgba(242,238,236,0.72)] min-[400px]:px-2.5 min-[400px]:py-2',
+                      mobileLanguageOpen ? 'rounded-[0.7rem] rounded-b-[0.35rem]' : '',
                     )}
                   >
                     {localeLabels[locale]}
                     <ChevronDown
                       className={cn(
-                        'h-3.5 w-3.5 transition-transform duration-200',
+                        'h-3 w-3 transition-transform duration-200',
                         mobileLanguageOpen ? 'rotate-180' : '',
                       )}
                       strokeWidth={1.75}
@@ -546,7 +546,7 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
                       transition={{ duration: 0.12, ease: 'easeOut' }}
                       className={cn(
                         headerControlShellClassName,
-                        'absolute right-0 top-[calc(100%-0.05rem)] flex min-w-full flex-col items-stretch gap-0 rounded-b-[1.15rem] rounded-t-[0.35rem] border-[#F2EEEC]/50 bg-[#F2EEEC]/92 p-1 pt-1 text-[0.68rem] font-medium uppercase leading-none tracking-[0.22em] shadow-[0_18px_38px_-22px_rgba(56,50,44,0.5)]',
+                        'absolute right-0 top-[calc(100%-0.05rem)] flex min-w-full flex-col items-stretch gap-0 rounded-b-[0.85rem] rounded-t-[0.3rem] border-[#F2EEEC]/50 bg-[#F2EEEC]/92 p-0.5 pt-1 text-[0.58rem] font-medium uppercase leading-none tracking-[0.18em] shadow-[0_18px_38px_-22px_rgba(56,50,44,0.5)]',
                         isLight ? 'text-[#635C54]/82' : 'text-[#38322C]',
                       )}
                     >
@@ -558,7 +558,7 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
                           onClick={() => setMobileLanguageOpen(false)}
                           className={cn(
                             headerCtaClassName,
-                            'w-full rounded-[0.75rem] px-3 py-2.5 text-[#38322C]/72 hover:bg-[#38322C]/6 hover:text-[#38322C] min-[400px]:py-3',
+                            'w-full rounded-[0.6rem] px-2 py-2 text-[0.58rem] tracking-[0.18em] text-[#38322C]/72 hover:bg-[#38322C]/6 hover:text-[#38322C] min-[400px]:px-2.5 min-[400px]:py-2',
                             isLight
                               ? 'text-[#635C54]/76'
                               : 'text-[#38322C]/72',

@@ -35,15 +35,15 @@ const editorialCopy: Record<
   }
 > = {
   bg: {
-    articleEyebrow: 'Текст в Journal',
+    articleEyebrow: 'Текст в Skin Journal',
     secondaryActionLabel: 'Подходът на OBLIQ',
   },
   en: {
-    articleEyebrow: 'Journal preview',
+    articleEyebrow: 'Skin Journal preview',
     secondaryActionLabel: 'The OBLIQ approach',
   },
   ru: {
-    articleEyebrow: 'Текст в журнале',
+    articleEyebrow: 'Текст в Skin Journal',
     secondaryActionLabel: 'Подход OBLIQ',
   },
 };
@@ -87,15 +87,15 @@ const pageCopy: Record<
       ctaHref: '/#contact',
     },
     journal: {
-      title: 'Journal',
+      title: 'Skin Journal',
       subtitle:
-        'Мисли, наблюдения и гледни точки за здравето на кожата, естетиката и съвременната грижа.',
+        'Мисли, наблюдения и гледни точки за здравето на кожата, активните съставки и съвременната естетична грижа.',
       heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
       heroMediaSide: 'right',
-      sectionTitle: 'Естетиката изисква време.',
+      sectionTitle: 'Кожата има собствен ритъм.',
       sectionBody:
-        'Скоро ще представим внимателно подбрани терапии и ново дигитално изживяване.',
-      previewLabel: 'Редакционни preview текстове',
+        'Skin Journal събира кратки, ясни и внимателно подбрани насоки за кожа, терапии и ежедневна грижа.',
+      previewLabel: 'Skin Journal preview',
       previewItems: [],
       articleCards: [
         {
@@ -114,7 +114,7 @@ const pageCopy: Record<
             'Редакционна гледна точка към избора на грижа, която уважава биологията, индивидуалността и тихата увереност на естествено изглеждащата кожа.',
         },
       ],
-      message: 'Очаквайте още редакционно съдържание.',
+      message: 'Още теми от Skin Journal идват скоро.',
       ctaLabel: 'Разгледай OBLIQ',
       ctaHref: '/the-obliq-approach',
     },
@@ -150,14 +150,14 @@ const pageCopy: Record<
       ctaHref: '/#contact',
     },
     journal: {
-      title: 'Journal',
-      subtitle: 'Thoughts, observations and perspectives on skin health, aesthetics and modern care.',
+      title: 'Skin Journal',
+      subtitle: 'Thoughts, observations and perspectives on skin health, active ingredients and modern aesthetic care.',
       heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
       heroMediaSide: 'right',
-      sectionTitle: 'Aesthetics take time.',
+      sectionTitle: 'Skin has its own rhythm.',
       sectionBody:
-        'Soon, we will present a carefully selected range of therapies and a new digital experience.',
-      previewLabel: 'Editorial previews',
+        'Skin Journal gathers concise, carefully selected guidance on skin, therapies and daily care.',
+      previewLabel: 'Skin Journal preview',
       previewItems: [],
       articleCards: [
         {
@@ -176,7 +176,7 @@ const pageCopy: Record<
             'An editorial view on choosing care that respects biology, individuality and the quiet confidence of natural-looking skin.',
         },
       ],
-      message: 'More editorial content is coming soon.',
+      message: 'More from Skin Journal is coming soon.',
       ctaLabel: 'Explore OBLIQ',
       ctaHref: '/the-obliq-approach',
     },
@@ -212,14 +212,14 @@ const pageCopy: Record<
       ctaHref: '/#contact',
     },
     journal: {
-      title: 'Journal',
-      subtitle: 'Мысли, наблюдения и взгляды на здоровье кожи, эстетику и современный уход.',
+      title: 'Skin Journal',
+      subtitle: 'Мысли, наблюдения и взгляды на здоровье кожи, активные ингредиенты и современный эстетический уход.',
       heroBackgroundGradient: 'linear-gradient(180deg,#2F2B28 0%,#635C54 58%,#BAB0A8 100%)',
       heroMediaSide: 'right',
-      sectionTitle: 'Эстетика требует времени.',
+      sectionTitle: 'У кожи есть свой ритм.',
       sectionBody:
-        'Скоро мы представим тщательно подобранные терапии и новый цифровой опыт.',
-      previewLabel: 'Редакционные preview тексты',
+        'Skin Journal собирает краткие и тщательно подобранные рекомендации о коже, терапиях и ежедневном уходе.',
+      previewLabel: 'Skin Journal preview',
       previewItems: [],
       articleCards: [
         {
@@ -238,7 +238,7 @@ const pageCopy: Record<
             'Редакционный взгляд на уход, который уважает биологию, индивидуальность и спокойную уверенность естественного результата.',
         },
       ],
-      message: 'Скоро появится больше редакционного содержания.',
+      message: 'Скоро появятся новые темы из Skin Journal.',
       ctaLabel: 'Посмотреть OBLIQ',
       ctaHref: '/the-obliq-approach',
     },

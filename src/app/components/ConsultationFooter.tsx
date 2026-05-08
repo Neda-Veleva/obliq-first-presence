@@ -43,7 +43,7 @@ const footerCopy: Record<
       { href: '/procedures', label: 'Терапии' },
       { href: '/conditions', label: 'Състояния' },
       { href: '/#results', label: 'Отзиви' },
-      { href: '/journal', label: 'Журнал' },
+      { href: '/skin-journal', label: 'Skin Journal' },
       { href: '/contact', label: 'Контакти' },
     ],
     procedureLinks: [
@@ -81,7 +81,7 @@ const footerCopy: Record<
       { href: '/procedures', label: 'Therapies' },
       { href: '/conditions', label: 'Conditions' },
       { href: '/#results', label: 'Reviews' },
-      { href: '/journal', label: 'Journal' },
+      { href: '/skin-journal', label: 'Skin Journal' },
       { href: '/contact', label: 'Contact' },
     ],
     procedureLinks: [
@@ -119,7 +119,7 @@ const footerCopy: Record<
       { href: '/procedures', label: 'Терапии' },
       { href: '/conditions', label: 'Состояния' },
       { href: '/#results', label: 'Отзывы' },
-      { href: '/journal', label: 'Журнал' },
+      { href: '/skin-journal', label: 'Skin Journal' },
       { href: '/contact', label: 'Контакты' },
     ],
     procedureLinks: [

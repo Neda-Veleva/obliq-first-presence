@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -17,7 +17,6 @@ import {
 } from './PremiumPagePrimitives';
 import { SiteHeader } from './SiteHeader';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from './ui/carousel';
 import { Slider } from './ui/slider';
 import { cn } from './ui/utils';
 import { useLocale, type Locale } from '../i18n';
@@ -1093,26 +1092,33 @@ function FounderIntroSection() {
 function SpecialistsSection() {
   const { locale } = useLocale();
   const copy = pageCopy[locale].specialists;
-  const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const activeItem = copy.items[activeIndex];
+  const previewItems = Array.from({ length: copy.items.length - 1 }, (_, previewIndex) => {
+    const offset = previewIndex + 1;
+    const index = (activeIndex + offset) % copy.items.length;
+    return { ...copy.items[index], index, offset };
+  });
 
-  useEffect(() => {
-    if (!api) return;
+  const goToSpecialist = (nextIndex: number) => {
+    if (nextIndex === activeIndex) return;
+    setDirection(nextIndex > activeIndex || (activeIndex === copy.items.length - 1 && nextIndex === 0) ? 1 : -1);
+    setActiveIndex(nextIndex);
+  };
 
-    const onSelect = () => setActiveIndex(api.selectedScrollSnap());
+  const goPrev = () => {
+    setDirection(-1);
+    setActiveIndex((current) => (current - 1 + copy.items.length) % copy.items.length);
+  };
 
-    onSelect();
-    api.on('select', onSelect);
-    api.on('reInit', onSelect);
-
-    return () => {
-      api.off('select', onSelect);
-      api.off('reInit', onSelect);
-    };
-  }, [api]);
+  const goNext = () => {
+    setDirection(1);
+    setActiveIndex((current) => (current + 1) % copy.items.length);
+  };
 
   return (
-    <section className="relative overflow-hidden bg-[#F2EEEC] py-24 text-[#38322c] md:py-32">
+    <section className="relative overflow-x-clip bg-[#F2EEEC] py-24 text-[#38322c] md:py-32">
       <AtmosphereOrbs
         orbs={[
           { className: 'left-[-8%] top-[6%] h-72 w-72 bg-[#ebe2db]/80' },
@@ -1131,7 +1137,7 @@ function SpecialistsSection() {
           >
             <button
               type="button"
-              onClick={() => api?.scrollPrev()}
+              onClick={goPrev}
               className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#D8CDC0] bg-[#F2EEEC]/78 text-[#635C54] transition-colors hover:bg-[#F2EEEC]"
               aria-label="Previous specialist"
             >
@@ -1139,7 +1145,7 @@ function SpecialistsSection() {
             </button>
             <button
               type="button"
-              onClick={() => api?.scrollNext()}
+              onClick={goNext}
               className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#D8CDC0] bg-[#F2EEEC]/78 text-[#635C54] transition-colors hover:bg-[#F2EEEC]"
               aria-label="Next specialist"
             >
@@ -1149,78 +1155,97 @@ function SpecialistsSection() {
         </div>
 
         <motion.div {...editorialFade} transition={{ ...editorialFade.transition, delay: 0.12 }} className="mt-14">
-          <Carousel setApi={setApi} opts={{ align: 'start', loop: true }} className="w-full">
-            <CarouselContent className="-ml-5">
-              {copy.items.map((item, index) => {
-                const isActive = index === activeIndex;
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(20rem,0.92fr)] lg:gap-10">
+            <div className="relative min-h-[42rem] sm:min-h-[48rem] lg:sticky lg:top-28 lg:min-h-[47rem]">
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.article
+                  key={activeItem.name}
+                  custom={direction}
+                  initial={{ opacity: 0, x: direction * 54, scale: 0.965, zIndex: 2 }}
+                  animate={{ opacity: 1, x: 0, scale: 1, zIndex: 3 }}
+                  exit={{ opacity: 0, x: direction * -34, scale: 0.985, zIndex: 1 }}
+                  transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-x-0 top-0"
+                >
+                  <div className="relative mx-auto aspect-square w-full max-w-[34rem] overflow-hidden rounded-[50%] bg-[#D8CDC0] p-4 shadow-[0_30px_80px_-50px_rgba(56,50,44,0.28)] sm:p-5">
+                    <div className="relative h-full w-full overflow-hidden rounded-[50%] bg-[#BAB0A8]">
+                      <ImageWithFallback
+                        src={activeItem.image}
+                        alt={activeItem.name}
+                        className="h-full w-full object-cover object-center grayscale-[10%] saturate-[0.82]"
+                      />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,242,238,0.16)_0%,rgba(247,242,238,0.04)_48%,rgba(56,50,44,0.16)_100%)]" />
+                    </div>
+                  </div>
 
-                return (
-                  <CarouselItem
-                    key={item.name}
-                    className="pl-5 md:basis-[78%] lg:basis-[56%] xl:basis-[48%]"
-                  >
-                    <article
-                      className={cn(
-                        'transition-[opacity,transform] duration-500',
-                        isActive ? 'opacity-100' : 'opacity-72 lg:translate-y-6',
-                      )}
+                  <div className="mx-auto max-w-[34rem] px-1 pt-7">
+                    <h3
+                      className="text-balance"
+                      style={{
+                        fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                        fontSize: 'clamp(2rem, 4vw, 3rem)',
+                        lineHeight: 0.98,
+                        fontWeight: 400,
+                        letterSpacing: '-0.04em',
+                      }}
                     >
-                      <div className="relative mx-auto aspect-square w-full max-w-[34rem] overflow-hidden rounded-[50%] bg-[#D8CDC0] p-4 shadow-[0_30px_80px_-50px_rgba(56,50,44,0.28)] sm:p-5">
-                        <div className="relative h-full w-full overflow-hidden rounded-[50%] bg-[#BAB0A8]">
-                          <ImageWithFallback
-                            src={item.image}
-                            alt={item.name}
-                            className="h-full w-full object-cover object-center grayscale-[10%] saturate-[0.82]"
-                          />
-                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,242,238,0.16)_0%,rgba(247,242,238,0.04)_48%,rgba(56,50,44,0.16)_100%)]" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="px-6 text-center text-[0.9rem] italic tracking-[0.01em] text-[#8a817b]/60">
-                              {item.name}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                      {activeItem.name}
+                    </h3>
+                    <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#9a8f87]">
+                      {activeItem.role}
+                    </p>
+                    <p className="mt-4 max-w-lg text-[0.98rem] leading-relaxed text-[#6e645d]">
+                      {activeItem.blurb}
+                    </p>
+                  </div>
+                </motion.article>
+              </AnimatePresence>
+            </div>
 
-                      <div className="mx-auto max-w-[34rem] px-1 pt-7">
-                        <h3
-                          className="text-balance"
-                          style={{
-                            fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                            fontSize: 'clamp(2rem, 4vw, 3rem)',
-                            lineHeight: 0.98,
-                            fontWeight: 400,
-                            letterSpacing: '-0.04em',
-                          }}
-                        >
-                          {item.name}
-                        </h3>
-                        <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#9a8f87]">
-                          {item.role}
-                        </p>
-                        <p className="mt-4 max-w-lg text-[0.98rem] leading-relaxed text-[#6e645d]">
-                          {item.blurb}
-                        </p>
-                      </div>
-                    </article>
-                  </CarouselItem>
-                );
-              })}
-            </CarouselContent>
-          </Carousel>
-
-          <div className="mt-8 flex items-center justify-center gap-2">
-            {copy.items.map((item, index) => (
-              <button
-                key={item.name}
-                type="button"
-                onClick={() => api?.scrollTo(index)}
-                className={cn(
-                  'h-2.5 rounded-full transition-all duration-300',
-                  index === activeIndex ? 'w-10 bg-[#635c54]' : 'w-2.5 bg-[#cfc2b8]',
-                )}
-                aria-label={`Go to specialist ${index + 1}`}
-              />
-            ))}
+            <div className="relative -mr-24 flex min-h-[23rem] items-start gap-6 overflow-hidden pt-6 sm:-mr-32 lg:mr-0 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-14 lg:overflow-visible lg:pb-24 lg:pt-3">
+              {previewItems.map((item) => (
+                <button
+                  key={`${item.name}-${activeIndex}`}
+                  type="button"
+                  onClick={() => goToSpecialist(item.index)}
+                  className={cn(
+                    'group shrink-0 text-left transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                    item.offset === 1 ? 'w-[16rem] opacity-82 lg:w-full' : 'w-[16rem] opacity-52 lg:w-full',
+                    item.offset % 2 === 0 ? 'translate-y-8 lg:translate-y-20' : '',
+                    item.offset >= 3 ? 'max-lg:translate-y-16' : '',
+                  )}
+                  aria-label={`Go to specialist ${item.index + 1}`}
+                >
+                  <span className="relative block aspect-square w-full overflow-hidden rounded-[50%] bg-[#D8CDC0] p-3 shadow-[0_22px_52px_-44px_rgba(56,50,44,0.22)] transition-transform duration-500 group-hover:scale-[1.025]">
+                    <span className="relative block h-full w-full overflow-hidden rounded-[50%] bg-[#BAB0A8]">
+                      <ImageWithFallback
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover object-center grayscale-[34%] saturate-[0.62]"
+                      />
+                      <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,242,238,0.18)_0%,rgba(247,242,238,0.06)_48%,rgba(56,50,44,0.14)_100%)]" />
+                    </span>
+                  </span>
+                  <span className="mt-5 block px-1">
+                    <span
+                      className="block text-balance"
+                      style={{
+                        fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                        fontSize: 'clamp(1.35rem, 2vw, 1.75rem)',
+                        lineHeight: 0.98,
+                        fontWeight: 400,
+                        letterSpacing: '-0.04em',
+                      }}
+                    >
+                      {item.name}
+                    </span>
+                    <span className="mt-3 block text-[0.62rem] uppercase tracking-[0.26em] text-[#9a8f87]">
+                      {item.role}
+                    </span>
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

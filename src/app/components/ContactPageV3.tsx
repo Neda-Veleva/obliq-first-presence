@@ -17,7 +17,9 @@ import {
 import { ConsultationFooter } from './ConsultationFooter';
 import { ContactHeroSection, ContactVisitSection } from './ContactPage';
 import { SiteHeader } from './SiteHeader';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 import { editorialFade } from './PremiumPagePrimitives';
+import { cn } from './ui/utils';
 import { useLocale, type Locale } from '../i18n';
 
 const clinicAddress = 'ул. „Стефан Стамболов“ 6, ет. 2, София';
@@ -68,6 +70,12 @@ const copyByLocale: Record<
     reviewsCta: string;
     reviewsBadge: string;
     reviews: ReviewItem[];
+    consultationEyebrow: string;
+    consultationTitle: string;
+    consultationBody: string;
+    consultationPrimary: string;
+    consultationSecondary: string;
+    consultationImageAlt: string;
     ctaTitle: string;
     ctaBody: string;
     ctaPrimary: string;
@@ -144,7 +152,7 @@ const copyByLocale: Record<
       },
     ],
     reviewsEyebrow: 'Отзиви',
-    reviewsTitle: 'Доверието тук стои като редакционен слой, не като стандартна секция.',
+    reviewsTitle: 'Доверието тук трябва да се усеща по-различно.',
     reviewsBody:
       'Визията следва /contact-v2: различни мащаби, повече въздух и акцент върху човешкия глас.',
     reviewsCta: 'Виж всички отзиви в Google',
@@ -172,6 +180,13 @@ const copyByLocale: Record<
         href: googleReviewsUrl,
       },
     ],
+    consultationEyebrow: 'Следваща стъпка',
+    consultationTitle: 'Ясен път към консултация',
+    consultationBody:
+      'Страницата е подредена около най-важното: бърз контакт, ясно следващо действие, усещане за професионализъм и достатъчно доверие, за да направите първата стъпка спокойно.',
+    consultationPrimary: 'Виж контактите',
+    consultationSecondary: 'Обади се',
+    consultationImageAlt: 'Спокоен профил на жена с естествена кожа',
     ctaTitle: 'Твоята кожа в най-добрата си светлина.',
     ctaBody:
       'Спокойна консултация, прецизен план и грижа, която остава естествена. Започваме с разговор.',
@@ -276,6 +291,13 @@ const copyByLocale: Record<
         href: googleReviewsUrl,
       },
     ],
+    consultationEyebrow: 'Next step',
+    consultationTitle: 'A clear path to consultation.',
+    consultationBody:
+      'The page is shaped around what matters most: quick contact, a clear next action, a professional feeling and enough trust to take the first step calmly.',
+    consultationPrimary: 'View contacts',
+    consultationSecondary: 'Call now',
+    consultationImageAlt: 'Calm profile of a woman with natural skin',
     ctaTitle: 'Your skin, in its best light.',
     ctaBody:
       'Calm consultation, precise planning and care that stays natural. We begin with a conversation.',
@@ -380,6 +402,13 @@ const copyByLocale: Record<
         href: googleReviewsUrl,
       },
     ],
+    consultationEyebrow: 'Следующий шаг',
+    consultationTitle: 'Понятный путь к консультации.',
+    consultationBody:
+      'Страница выстроена вокруг главного: быстрый контакт, понятное следующее действие, ощущение профессионализма и достаточно доверия, чтобы спокойно сделать первый шаг.',
+    consultationPrimary: 'Посмотреть контакты',
+    consultationSecondary: 'Позвонить',
+    consultationImageAlt: 'Спокойный профиль женщины с естественной кожей',
     ctaTitle: 'Your skin, in its best light.',
     ctaBody:
       'Спокойная консультация, точный план и уход, который остается естественным. Начинаем с разговора.',
@@ -553,6 +582,180 @@ function ContactDetailGrid() {
             </p>
           </motion.div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ConsultationPathSection() {
+  const { locale } = useLocale();
+  const copy = copyByLocale[locale];
+  const [phone, , email, hours] = copy.details;
+  const [activePillIndex, setActivePillIndex] = useState<number | null>(null);
+  const contactPills = [
+    { ...phone, href: phone.href, icon: Phone },
+    { ...email, href: email.href, icon: Mail },
+    { ...hours, icon: Clock3 },
+  ];
+  const inactiveGradient =
+    'linear-gradient(90deg, rgba(135,104,86,0.82) 0%, rgba(186,176,168,0.58) 100%)';
+  const activeGradient =
+    'linear-gradient(90deg, rgba(186,176,168,0.76) 0%, rgba(135,104,86,0.9) 100%)';
+
+  return (
+    <section className="border-b border-[#D8CDC0] bg-[#977460] pt-28 sm:pt-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
+        <motion.div
+          {...editorialFade}
+          className="relative overflow-hidden bg-[#977460]"
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.2]"
+            style={{
+              backgroundImage:
+                'radial-gradient(rgba(255,255,255,0.34) 0.7px, transparent 0.7px), radial-gradient(rgba(44,36,31,0.2) 0.7px, transparent 0.7px)',
+              backgroundPosition: '0 0, 3px 3px',
+              backgroundSize: '6px 6px',
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-y-0 right-0 w-full bg-[linear-gradient(90deg,rgba(151,116,96,0)_28%,rgba(151,116,96,0.24)_44%,rgba(151,116,96,0.78)_64%,rgba(151,116,96,1)_100%)] md:w-[62%]"
+          />
+
+          <div className="relative min-h-[44rem] md:min-h-[46rem]">
+            <div className="absolute inset-y-0 right-0 w-full md:w-[58%]">
+              <ImageWithFallback
+                src="/precision-art-hero-1.png"
+                alt={copy.consultationImageAlt}
+                className="h-full w-full object-cover object-[78%_center] md:object-[76%_center]"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(151,116,96,0.98)_0%,rgba(151,116,96,0.72)_28%,rgba(151,116,96,0.2)_52%,rgba(151,116,96,0)_78%)] md:bg-[linear-gradient(90deg,rgba(151,116,96,0.98)_0%,rgba(151,116,96,0.62)_18%,rgba(151,116,96,0.14)_42%,rgba(151,116,96,0)_60%)]" />
+            </div>
+
+            <div className="relative flex min-h-[44rem] flex-col justify-between p-7 sm:p-10 lg:p-14">
+              <div>
+                <div className="max-w-[50rem] text-[#F2EEEC]">
+                  <h2
+                    className="mt-6"
+                    style={{
+                      fontSize: 'clamp(3rem, 5.7vw, 5.3rem)',
+                      lineHeight: 0.94,
+                      fontWeight: 400,
+                      letterSpacing: '-0.05em',
+                    }}
+                  >
+                    {copy.consultationTitle}
+                  </h2>
+                  <p className="mt-6 max-w-[26rem] text-[1.03rem] leading-relaxed text-[#F2EEEC]/80 sm:text-[1.12rem]">
+                    {copy.consultationBody}
+                  </p>
+                </div>
+              </div>
+
+              <div
+                className="mt-10 grid max-w-[70rem] gap-5 sm:grid-cols-3 lg:mt-12 lg:gap-6"
+                onMouseLeave={() => setActivePillIndex(null)}
+              >
+                {contactPills.map((item, index) => {
+                  const Icon = item.icon;
+                  const isActive = activePillIndex === index;
+                  const content = (
+                    <>
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 rounded-[9999px] transition-opacity duration-700"
+                        style={{
+                          backgroundImage: inactiveGradient,
+                          opacity: isActive ? 0.22 : 1,
+                        }}
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 rounded-[9999px] transition-opacity duration-700"
+                        style={{
+                          backgroundImage: activeGradient,
+                          opacity: isActive ? 1 : 0,
+                        }}
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute inset-x-[7%] top-[0.08rem] h-[44%] rounded-[9999px] transition-opacity duration-700"
+                        style={{
+                          background:
+                            'linear-gradient(180deg, rgba(242,238,236,0.18) 0%, rgba(242,238,236,0.06) 42%, rgba(242,238,236,0) 100%)',
+                          opacity: isActive ? 0.9 : 0.56,
+                        }}
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute -right-8 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-[#F2EEEC]/12 blur-3xl transition-opacity duration-700"
+                        style={{ opacity: isActive ? 0.9 : 0.3 }}
+                      />
+
+                      <span className="relative flex h-full flex-row items-center gap-3 px-5">
+                        <span
+                          className={cn(
+                            'flex h-[3.25rem] w-[3.25rem] shrink-0 items-center justify-center rounded-full border transition-[background-color,color,border-color] duration-700',
+                            isActive
+                              ? 'border-[#F2EEEC]/28 bg-[#F2EEEC]/84 text-[#38322C]'
+                              : 'border-[#F2EEEC]/10 bg-[#F2EEEC]/10 text-[#F2EEEC]',
+                          )}
+                        >
+                          <Icon className="h-5 w-5" strokeWidth={1.6} />
+                        </span>
+                        <span className="flex min-w-0 flex-1 flex-col justify-center text-left">
+                          <span
+                            className={cn(
+                              'block text-[0.66rem] uppercase tracking-[0.24em] transition-colors duration-700',
+                              isActive ? 'text-[#F2EEEC]/92' : 'text-[#F2EEEC]/62',
+                            )}
+                          >
+                          {item.label}
+                          </span>
+                          <span className="mt-2 block max-w-[16rem] text-[1rem] leading-relaxed text-[#F2EEEC]/94">
+                          {item.value}
+                          </span>
+                          <span className="mt-1 block max-w-[16rem] text-[0.88rem] leading-relaxed text-[#F2EEEC]/62">
+                          {item.note}
+                          </span>
+                        </span>
+                      </span>
+                    </>
+                  );
+                  const className = cn(
+                    'relative block h-[13.25rem] overflow-hidden rounded-[9999px] border bg-transparent px-0 text-left backdrop-blur-[24px] transition-[border-color,box-shadow,transform,opacity] duration-700 sm:h-[12.75rem] lg:h-[12.5rem]',
+                  );
+                  const interactiveProps = {
+                    onMouseEnter: () => setActivePillIndex(index),
+                    onFocus: () => setActivePillIndex(index),
+                    onBlur: () => setActivePillIndex(null),
+                    style: {
+                      clipPath: 'ellipse(50% 50% at 50% 50%)',
+                      borderColor: isActive ? 'rgba(242, 238, 236, 0.18)' : 'rgba(242, 238, 236, 0.10)',
+                      boxShadow: isActive
+                        ? '0 20px 48px -28px rgba(56,50,44,0.34), inset 0 1px 0 rgba(242,238,236,0.18)'
+                        : '0 14px 34px -26px rgba(56,50,44,0.22), inset 0 1px 0 rgba(242,238,236,0.12)',
+                      transform: isActive ? 'translateY(-2px) scale(1.01)' : 'translateY(0) scale(0.992)',
+                      opacity: isActive ? 1 : 0.9,
+                    },
+                  };
+
+                  return item.href ? (
+                    <a key={item.label} href={item.href} className={className} {...interactiveProps}>
+                      {content}
+                    </a>
+                  ) : (
+                    <div key={item.label} className={className} {...interactiveProps}>
+                      {content}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -891,7 +1094,8 @@ export function ContactPageV3() {
       <main>
         <ContactHeroSection />
         <ContactVisitSection />
-        <ContactDetailGrid />
+        <ConsultationPathSection />
+        {/* <ContactDetailGrid /> */}
         <SocialPresenceSection />
         <ReviewsFromV2Section />
         <VideoCtaSection />

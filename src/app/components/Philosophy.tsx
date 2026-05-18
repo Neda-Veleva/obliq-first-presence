@@ -34,7 +34,7 @@ export function Philosophy() {
             viewport={{ once: true }}
             className="lg:col-start-1 lg:col-span-7"
           >
-            <h2 className="mb-8 tracking-tight" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', lineHeight: 1.1, fontWeight: 400 }}>
+            <h2 className="type-h2 mb-8">
               {copy.title[0]}
               <br />
               {copy.title[1]}
@@ -49,30 +49,18 @@ export function Philosophy() {
             className="lg:col-start-9 lg:col-span-4 flex flex-col justify-end space-y-12"
           >
             <div>
-              <p className="mb-3 tracking-[0.2em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
-                01
-              </p>
-              <p className="text-[#F2EEEC]/88" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
-                {copy.points[0]}
-              </p>
+              <p className="type-eyebrow mb-3 text-[#BAB0A8]">01</p>
+              <p className="type-body-lg text-[#F2EEEC]/88">{copy.points[0]}</p>
             </div>
 
             <div>
-              <p className="mb-3 tracking-[0.2em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
-                02
-              </p>
-              <p className="text-[#F2EEEC]/88" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
-                {copy.points[1]}
-              </p>
+              <p className="type-eyebrow mb-3 text-[#BAB0A8]">02</p>
+              <p className="type-body-lg text-[#F2EEEC]/88">{copy.points[1]}</p>
             </div>
 
             <div>
-              <p className="mb-3 tracking-[0.2em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
-                03
-              </p>
-              <p className="text-[#F2EEEC]/88" style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
-                {copy.points[2]}
-              </p>
+              <p className="type-eyebrow mb-3 text-[#BAB0A8]">03</p>
+              <p className="type-body-lg text-[#F2EEEC]/88">{copy.points[2]}</p>
             </div>
           </motion.div>
         </div>

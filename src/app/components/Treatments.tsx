@@ -106,12 +106,8 @@ export function Treatments() {
           viewport={{ once: true }}
           className="mb-24"
         >
-          <p className="mb-6 tracking-[0.3em] text-[#876856]" style={{ fontSize: '0.75rem' }}>
-            {copy.eyebrow}
-          </p>
-          <h2 className="tracking-tight" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1.05, fontWeight: 400 }}>
-            {copy.title}
-          </h2>
+          <p className="type-eyebrow mb-6 text-[#876856]">{copy.eyebrow}</p>
+          <h2 className="type-h2">{copy.title}</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-16">
@@ -125,12 +121,8 @@ export function Treatments() {
               className="border-t border-[#D8CDC0]/85 pt-8"
               style={{ marginTop: index % 2 === 1 ? '6rem' : '0' }}
             >
-              <h3 className="mb-3" style={{ fontSize: '1.5rem', fontWeight: 500 }}>
-                {treatment.name}
-              </h3>
-              <p className="text-[#635C54]" style={{ fontSize: '1rem' }}>
-                {treatment.area}
-              </p>
+              <h3 className="type-h5 mb-3">{treatment.name}</h3>
+              <p className="type-body text-[#635C54]">{treatment.area}</p>
             </motion.div>
           ))}
         </div>

@@ -137,10 +137,10 @@ const copyByLocale: Record<
   }
 > = {
   bg: {
-    eyebrow: 'OBLIQ Color System',
+    eyebrow: 'OBLIQ. Color System',
     title: 'Brand Colors',
     intro:
-      'Официалната цветова система на OBLIQ е изградена около спокойна топлина, клинична чистота и мека редакционна елегантност.',
+      'Официалната цветова система на OBLIQ. е изградена около спокойна топлина, клинична чистота и мека редакционна елегантност.',
     primaryTitle: 'Primary palette',
     primaryBody:
       'Основните тонове дефинират идентичността на марката: светлина, баланс и дълбочина без визуален шум.',
@@ -152,10 +152,10 @@ const copyByLocale: Record<
       'Градиентите са създадени за деликатни преходи, атмосфера и луксозно усещане, без тежест и без агресивна декоративност.',
   },
   en: {
-    eyebrow: 'OBLIQ Color System',
+    eyebrow: 'OBLIQ. Color System',
     title: 'Brand Colors',
     intro:
-      'OBLIQ’s official color system is built around calm warmth, clinical clarity and a soft editorial elegance.',
+      'The official color system is built around calm warmth, clinical clarity and a soft editorial elegance — reflecting the character of OBLIQ.',
     primaryTitle: 'Primary palette',
     primaryBody:
       'The core tones define the brand identity through light, balance and depth without visual noise.',
@@ -167,10 +167,10 @@ const copyByLocale: Record<
       'The gradients are designed for delicate transitions, atmosphere and a luxurious feel without visual heaviness.',
   },
   ru: {
-    eyebrow: 'OBLIQ Color System',
+    eyebrow: 'OBLIQ. Color System',
     title: 'Brand Colors',
     intro:
-      'Официальная цветовая система OBLIQ построена вокруг спокойного тепла, клинической чистоты и мягкой редакционной элегантности.',
+      'Официальная цветовая система OBLIQ. построена вокруг спокойного тепла, клинической чистоты и мягкой редакционной элегантности.',
     primaryTitle: 'Primary palette',
     primaryBody:
       'Основные тона формируют идентичность бренда через свет, баланс и глубину без визуального шума.',
@@ -338,18 +338,10 @@ export function BrandColorsPage() {
               className="max-w-[44rem]"
             >
               <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#876856]">{copy.eyebrow}</p>
-              <h1
-                className="mt-6 text-[#38322C]"
-                style={{
-                  fontSize: 'clamp(3.2rem, 8vw, 7rem)',
-                  lineHeight: 0.92,
-                  fontWeight: 400,
-                  letterSpacing: '-0.055em',
-                }}
-              >
+              <h1 className="type-h1 mt-6 text-[#38322C]">
                 {copy.title}
               </h1>
-              <p className="mt-7 max-w-[34rem] text-[1.02rem] leading-relaxed text-[#635C54] sm:text-[1.12rem]">
+              <p className="type-body mt-7 max-w-[34rem] text-[#635C54]">
                 {copy.intro}
               </p>
             </motion.div>

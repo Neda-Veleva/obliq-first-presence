@@ -59,8 +59,8 @@ export function FaceReveal() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.3 }}
             viewport={{ once: true }}
-            className="pointer-events-none absolute right-4 top-1/2 z-10 max-w-[45%] -translate-y-1/2 text-right text-[#38322C]/92 sm:right-8 md:right-12"
-            style={{ writingMode: 'vertical-rl', fontSize: '0.875rem', letterSpacing: '0.3em', fontWeight: 500 }}
+            className="pointer-events-none absolute right-4 top-1/2 z-10 max-w-[45%] -translate-y-1/2 text-right text-[#38322C]/92 type-caption font-medium sm:right-8 md:right-12"
+            style={{ writingMode: 'vertical-rl' }}
           >
             <span className="drop-shadow-[0_1px_8px_rgba(242,238,236,0.6)]">{copy.caption}</span>
           </motion.div>

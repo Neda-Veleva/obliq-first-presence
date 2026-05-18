@@ -20,6 +20,7 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Slider } from './ui/slider';
 import { cn } from './ui/utils';
 import { useLocale, type Locale } from '../i18n';
+import { clinicTeamByLocale } from '../content/clinicTeam';
 
 const heroCopy: Record<Locale, { headline: [string, string]; byline: string }> = {
   bg: {
@@ -91,7 +92,15 @@ const pageCopy: Record<
       soundOn: string;
       soundOff: string;
       volumeLabel: string;
-      items: { title: string; category: string; description: string; video: string }[];
+      items: {
+        title: string;
+        category: string;
+        description: string;
+        video: string;
+        thumbnail: string;
+        /** When false, only the thumbnail is shown (video not available yet). */
+        published?: boolean;
+      }[];
     };
     cta: {
       title: string;
@@ -120,7 +129,7 @@ const pageCopy: Record<
       eyebrow: 'Потапящо изживяване',
       title: 'Когато кожата се усеща в баланс, увереността не се нуждае от усилие.',
       body:
-        'OBLIQ разглежда естетичната дерматология като дългосрочна грижа за качеството на кожата, естествените пропорции и тихото присъствие на добре поддържаното лице.',
+        'OBLIQ. разглежда естетичната дерматология като дългосрочна грижа за качеството на кожата, естествените пропорции и тихото присъствие на добре поддържаното лице.',
       floating: [
         { title: 'Здраве на кожата', body: 'наука, която подкрепя естествения вид' },
         { title: 'Дългосрочна грижа', body: 'план, изграден около устойчив резултат' },
@@ -131,37 +140,8 @@ const pageCopy: Record<
       eyebrow: 'Екип',
       title: 'Хората, които оформят преживяването.',
       body:
-        'Хората в OBLIQ обединяват медицинска експертиза, грижа, организация и внимание към детайла, за да създадат спокойно и прецизно преживяване във всяка стъпка.',
-      items: [
-        {
-          name: 'д-р Елена Стоянова',
-          role: 'ДЕРМАТОЛОГ И SKIN HEALTH SPECIALIST',
-          blurb: 'Фокус върху текстура, качество на кожата и дългосрочни протоколи с естествена финалност.',
-          image:
-            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Маркус Торн',
-          role: 'AESTHETIC SURGEON',
-          blurb: 'Прецизен подход към контур, баланс и фини корекции, които пазят израза спокоен.',
-          image:
-            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р София Клайн',
-          role: 'INJECTABLES AND FACIAL HARMONY',
-          blurb: 'Работи върху дискретни подобрения в пропорцията и светлината на лицето.',
-          image:
-            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Андреа Рийд',
-          role: 'REGENERATIVE AESTHETICS',
-          blurb: 'Комбинира биостимулация и skin-first стратегии за по-жив и отпочинал вид.',
-          image:
-            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
-        },
-      ],
+        'Хората в OBLIQ. обединяват медицинска експертиза, грижа, организация и внимание към детайла, за да създадат спокойно и прецизно преживяване във всяка стъпка.',
+      items: clinicTeamByLocale.bg,
     },
     founderIntro: {
       title: 'Лицата зад прецизността в OBLIQ.',
@@ -180,18 +160,24 @@ const pageCopy: Record<
           category: 'Редакционен разговор',
           description: 'Как изглежда модерната естетика, когато медицинското мислене води процеса.',
           video: '/doctor-videos/video-1.mp4',
+          thumbnail: '/video-presence/video-3-thumb.png',
+          published: false,
         },
         {
           title: 'Консултацията като стратегия за кожата',
           category: 'Консултация',
           description: 'Защо добрата консултация е началото на по-умен и устойчив резултат.',
           video: '/doctor-videos/video-2.mp4',
+          thumbnail: '/video-presence/video-2-thumb.png',
+          published: false,
         },
         {
           title: 'Образование преди намеса',
           category: 'Образование за кожата',
           description: 'Доверие, изградено чрез яснота, а не чрез агресивни обещания.',
           video: '/doctor-videos/video-3.mp4',
+          thumbnail: '/video-presence/video-1-thumb.png',
+          published: false,
         },
       ],
     },
@@ -215,12 +201,7 @@ const pageCopy: Record<
     atmosphere: {
       eyebrow: 'Атмосфера',
       title: 'Пространство, което говори тихо.',
-      captions: [
-        'мека дневна светлина',
-        'спокойни материали',
-        'прецизна тишина',
-        'лично усещане за комфорт',
-      ],
+      captions: ['усещане', 'комфорт', 'прецизност', 'спокойствие'],
     },
   },
   en: {
@@ -228,7 +209,7 @@ const pageCopy: Record<
       eyebrow: 'Immersive experience',
       title: 'When skin feels balanced, confidence never has to perform.',
       body:
-        'OBLIQ approaches aesthetic dermatology as long-term care for skin quality, natural proportions and the quiet presence of a well-kept face.',
+        'OBLIQ. approaches aesthetic dermatology as long-term care for skin quality, natural proportions and the quiet presence of a well-kept face.',
       floating: [
         { title: 'Skin health', body: 'science-led care that protects a natural look' },
         { title: 'Long-term care', body: 'a plan designed for sustainable results' },
@@ -239,40 +220,11 @@ const pageCopy: Record<
       eyebrow: 'Team',
       title: 'The people shaping the experience.',
       body:
-        'The people at OBLIQ bring together medical expertise, care, coordination and attention to detail to create a calm, precise experience at every step.',
-      items: [
-        {
-          name: 'Dr. Elena Stoyanova',
-          role: 'DERMATOLOGIST AND SKIN HEALTH SPECIALIST',
-          blurb: 'Focused on texture, skin quality and long-horizon protocols with a natural finish.',
-          image:
-            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'Dr. Marcus Thorne',
-          role: 'AESTHETIC SURGEON',
-          blurb: 'A precise approach to contour, balance and subtle correction that preserves expression.',
-          image:
-            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'Dr. Sofia Klein',
-          role: 'INJECTABLES AND FACIAL HARMONY',
-          blurb: 'Works through discreet refinements in proportion, light and overall facial poise.',
-          image:
-            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'Dr. Andrea Reed',
-          role: 'REGENERATIVE AESTHETICS',
-          blurb: 'Combines biostimulation with skin-first strategy for a more rested, luminous result.',
-          image:
-            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
-        },
-      ],
+        'The people at OBLIQ. bring together medical expertise, care, coordination and attention to detail to create a calm, precise experience at every step.',
+      items: clinicTeamByLocale.en,
     },
     founderIntro: {
-      title: 'The faces behind OBLIQ precision.',
+      title: 'The faces behind OBLIQ. precision.',
     },
     presence: {
       eyebrow: 'Video presence',
@@ -288,18 +240,24 @@ const pageCopy: Record<
           category: 'Editorial talk',
           description: 'What modern aesthetics looks like when medical thinking leads the process.',
           video: '/contact-hero-clip.mp4',
+          thumbnail: '/video-presence/video-1-thumb.png',
+          published: false,
         },
         {
           title: 'Consultation as skin strategy',
           category: 'Consultation',
           description: 'Why a good consultation is the beginning of a smarter, more durable result.',
           video: '/procedures-hero.mp4',
+          thumbnail: '/video-presence/video-2-thumb.png',
+          published: false,
         },
         {
           title: 'Education before intervention',
           category: 'Skin education',
           description: 'Trust built through clarity rather than aggressive promises.',
           video: '/conditions-hero.mp4',
+          thumbnail: '/video-presence/video-3-thumb.png',
+          published: false,
         },
       ],
     },
@@ -323,7 +281,7 @@ const pageCopy: Record<
     atmosphere: {
       eyebrow: 'Atmosphere',
       title: 'A space that speaks quietly.',
-      captions: ['soft daylight', 'calm materials', 'precise stillness', 'personal comfort'],
+      captions: ['feeling', 'comfort', 'precision', 'calm'],
     },
   },
   ru: {
@@ -331,7 +289,7 @@ const pageCopy: Record<
       eyebrow: 'Immersive experience',
       title: 'Когда кожа ощущается в балансе, уверенности не нужно стараться.',
       body:
-        'OBLIQ рассматривает эстетическую дерматологию как долгосрочную заботу о качестве кожи, естественных пропорциях и тихом присутствии ухоженного лица.',
+        'OBLIQ. рассматривает эстетическую дерматологию как долгосрочную заботу о качестве кожи, естественных пропорциях и тихом присутствии ухоженного лица.',
       floating: [
         { title: 'Skin health', body: 'научный подход, который сохраняет естественный вид' },
         { title: 'Long-term care', body: 'план, рассчитанный на устойчивый результат' },
@@ -342,37 +300,8 @@ const pageCopy: Record<
       eyebrow: 'Команда',
       title: 'Люди, которые формируют опыт.',
       body:
-        'Люди в OBLIQ объединяют медицинскую экспертизу, заботу, организацию и внимание к деталям, чтобы создавать спокойный и точный опыт на каждом этапе.',
-      items: [
-        {
-          name: 'д-р Елена Стоянова',
-          role: 'ДЕРМАТОЛОГ И СПЕЦИАЛИСТ ПО ЗДОРОВЬЮ КОЖИ',
-          blurb: 'Фокусируется на текстуре, качестве кожи и долгосрочных протоколах с естественным эффектом.',
-          image:
-            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Маркус Торн',
-          role: 'ЭСТЕТИЧЕСКИЙ ХИРУРГ',
-          blurb: 'Точная работа с контуром, балансом и мягкими коррекциями без потери естественного выражения.',
-          image:
-            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р София Кляйн',
-          role: 'ИНЪЕКЦИОННЫЕ МЕТОДИКИ И ГАРМОНИЯ ЛИЦА',
-          blurb: 'Создает деликатные изменения в пропорциях, свете и общем ощущении баланса лица.',
-          image:
-            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Андреа Рид',
-          role: 'РЕГЕНЕРАТИВНАЯ ЭСТЕТИКА',
-          blurb: 'Сочетает биостимуляцию и skin-first подход для более свежего и спокойного результата.',
-          image:
-            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
-        },
-      ],
+        'Люди в OBLIQ. объединяют медицинскую экспертизу, заботу, организацию и внимание к деталям, чтобы создавать спокойный и точный опыт на каждом этапе.',
+      items: clinicTeamByLocale.ru,
     },
     founderIntro: {
       title: 'Лица, стоящие за точностью OBLIQ.',
@@ -391,18 +320,24 @@ const pageCopy: Record<
           category: 'Editorial talk',
           description: 'Как выглядит современная эстетика, когда медицинское мышление ведет процесс.',
           video: '/contact-hero-clip.mp4',
+          thumbnail: '/video-presence/video-1-thumb.png',
+          published: false,
         },
         {
           title: 'Consultation as skin strategy',
           category: 'Consultation',
           description: 'Почему хорошая консультация становится началом более умного результата.',
           video: '/procedures-hero.mp4',
+          thumbnail: '/video-presence/video-2-thumb.png',
+          published: false,
         },
         {
           title: 'Education before intervention',
           category: 'Skin education',
           description: 'Доверие, построенное на ясности, а не на агрессивных обещаниях.',
           video: '/conditions-hero.mp4',
+          thumbnail: '/video-presence/video-3-thumb.png',
+          published: false,
         },
       ],
     },
@@ -426,7 +361,7 @@ const pageCopy: Record<
     atmosphere: {
       eyebrow: 'Atmosphere',
       title: 'Пространство, которое говорит тихо.',
-      captions: ['мягкий дневной свет', 'спокойные материалы', 'точная тишина', 'личный комфорт'],
+      captions: ['ощущение', 'комфорт', 'точность', 'спокойствие'],
     },
   },
 };
@@ -469,18 +404,12 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1
-            className="mb-6 text-[#F2EEEC] tracking-tight uppercase"
-            style={{ fontSize: '5rem', lineHeight: 0.95, fontWeight: 400, letterSpacing: '-0.03em' }}
-          >
+          <h1 className="type-h1 mb-6 uppercase text-[#F2EEEC]">
             {copy.headline[0]}
             <br />
             {copy.headline[1]}
           </h1>
-          <p
-            className="ml-auto max-w-md uppercase text-[#F2EEEC]/70"
-            style={{ fontSize: '1.125rem', lineHeight: 1.6 }}
-          >
+          <p className="type-body ml-auto max-w-md uppercase text-[#F2EEEC]/70">
             {copy.byline}
           </p>
         </motion.div>
@@ -635,27 +564,21 @@ function PhilosophyVideoSection() {
         <div className="max-w-[28rem]">
           <motion.p
             {...editorialFade}
-            className="text-[0.72rem] uppercase tracking-[0.3em] text-[#876856]"
+            className="type-eyebrow text-[#876856]"
           >
             {copy.eyebrow}
           </motion.p>
           <motion.h2
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.05 }}
-            className="mt-6 text-[#38322C]"
-            style={{
-              fontSize: 'clamp(2.5rem, 5vw, 2.8rem)',
-              lineHeight: 0.96,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
+            className="type-h3 mt-6 text-[#38322C]"
           >
             {copy.title}
           </motion.h2>
           <motion.p
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.12 }}
-            className="mt-6 text-[1rem] leading-relaxed text-[#635C54]"
+            className="type-body mt-6 text-[#635C54]"
           >
             {copy.body}
           </motion.p>
@@ -807,7 +730,10 @@ function VideoPresenceSection() {
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
         <SectionHeading eyebrow={copy.eyebrow} title={copy.title} body={copy.body} />
         <div className="mt-14 grid gap-6 xl:grid-cols-3">
-          {copy.items.map((item, index) => (
+          {copy.items.map((item, index) => {
+            const isPublished = item.published !== false;
+
+            return (
             <motion.article
               key={item.title}
               {...editorialFade}
@@ -819,19 +745,29 @@ function VideoPresenceSection() {
                   ref={(node) => {
                     videoRefs.current[index] = node;
                   }}
+                  poster={item.thumbnail}
                   loop
                   muted={mutedStates[index] ?? true}
                   defaultMuted
                   playsInline
-                  preload="auto"
+                  preload={isPublished ? 'auto' : 'metadata'}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 >
                   <source src={item.video} type="video/mp4" />
                 </video>
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(56,50,44,0.12)_0%,rgba(56,50,44,0.6)_100%)]" />
-                <div className="absolute left-5 top-5 rounded-full border border-[#F2EEEC]/35 bg-[#F2EEEC]/12 px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-[#F2EEEC] backdrop-blur-md">
-                  {item.category}
-                </div>
+                <div
+                  className={cn(
+                    'pointer-events-none absolute inset-0',
+                    isPublished
+                      ? 'bg-[linear-gradient(180deg,rgba(56,50,44,0.12)_0%,rgba(56,50,44,0.6)_100%)]'
+                      : 'bg-[linear-gradient(180deg,rgba(56,50,44,0)_0%,rgba(56,50,44,0.22)_100%)]',
+                  )}
+                />
+                {isPublished ? (
+                  <div className="absolute left-5 top-5 z-10 rounded-full border border-[#F2EEEC]/35 bg-[#F2EEEC]/12 px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-[#F2EEEC] backdrop-blur-md">
+                    {item.category}
+                  </div>
+                ) : null}
                 <VideoVolumeControl
                   isMuted={mutedStates[index] ?? true}
                   volume={volumeStates[index] ?? defaultVolume}
@@ -841,7 +777,7 @@ function VideoPresenceSection() {
                   onToggleMuted={() => toggleMuted(index)}
                   onVolumeChange={(value) => handleVolumeChange(index, value)}
                   className={cn(
-                    'absolute bottom-5 left-5 right-24 transition-all duration-500',
+                    'absolute bottom-5 left-5 right-24 z-10 transition-all duration-500',
                     playingStates[index]
                       ? 'translate-y-0 opacity-100'
                       : 'pointer-events-none translate-y-3 opacity-0',
@@ -852,7 +788,7 @@ function VideoPresenceSection() {
                   onClick={() => toggleVideo(index)}
                   aria-pressed={playingStates[index] ?? false}
                   aria-label={playingStates[index] ? 'Pause video' : 'Play video'}
-                  className="absolute bottom-5 right-5 flex h-14 w-14 items-center justify-center rounded-full border border-[#F2EEEC]/30 bg-[#F2EEEC]/12 text-[#F2EEEC] backdrop-blur-md transition-transform duration-500 group-hover:scale-105"
+                  className="absolute bottom-5 right-5 z-20 flex h-14 w-14 items-center justify-center rounded-full border border-[#F2EEEC]/30 bg-[#F2EEEC]/12 text-[#F2EEEC] backdrop-blur-md transition-transform duration-500 group-hover:scale-105"
                 >
                   {playingStates[index] ? (
                     <Pause className="h-5 w-5" fill="currentColor" strokeWidth={1.5} />
@@ -862,15 +798,14 @@ function VideoPresenceSection() {
                 </button>
               </div>
               <div className="p-6">
-                <h3
-                  style={{ fontSize: '1.55rem', lineHeight: 1.02, fontWeight: 400, letterSpacing: '-0.03em' }}
-                >
+                <h3 className="type-h5">
                   {item.title}
                 </h3>
                 <p className="mt-4 text-[1rem] leading-relaxed text-[#635c54]">{item.description}</p>
               </div>
             </motion.article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -903,14 +838,11 @@ function ImmersiveExperienceSection() {
 
       <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-between px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
         <motion.div {...editorialFade} className="max-w-4xl">
-          <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#d8cdc0]">{copy.eyebrow}</p>
-          <h2
-            className="mt-8 max-w-5xl"
-            style={{ fontSize: 'clamp(3.2rem, 8vw, 5.2rem)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.05em' }}
-          >
+          <p className="type-eyebrow text-[#d8cdc0]">{copy.eyebrow}</p>
+          <h2 className="type-h1 mt-8 max-w-5xl">
             {copy.title}
           </h2>
-          <p className="mt-7 max-w-2xl text-[1.08rem] leading-relaxed text-[#f2eeec]/76 sm:text-[1.16rem]">
+          <p className="type-body-lg mt-7 max-w-2xl text-[#f2eeec]/76">
             {copy.body}
           </p>
         </motion.div>
@@ -936,51 +868,50 @@ function ImmersiveExperienceSection() {
 function AtmosphereSection() {
   const { locale } = useLocale();
   const copy = pageCopy[locale].atmosphere;
+  const backgroundImage = '/clinic-space/reception-1.jpg';
   const images = [
-    { src: '/clinic-space/reception.jpg', alt: 'Reception', className: 'lg:translate-y-0' },
-    { src: '/clinic-space/consultation-wide.jpg', alt: 'Consultation room', className: 'lg:translate-y-16' },
-    { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Treatment room', className: 'lg:-translate-y-6' },
-    { src: '/clinic-space/consultation-detail.jpg', alt: 'Interior detail', className: 'lg:translate-y-14' },
+    { src: '/clinic-space/treatment-room-front.jpg', alt: 'Bright treatment room' },
+    { src: '/clinic-space/treatment-room-device.jpg', alt: 'Treatment room with device' },
+    { src: '/clinic-space/treatment-room-desk.jpg', alt: 'Treatment room desk' },
+    { src: '/clinic-space/clinic-lounge-view.jpg', alt: 'Clinic lounge view' },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#38322C] px-5 py-28 text-[#F2EEEC] sm:px-8 sm:py-36 lg:px-10 lg:py-44">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(216,205,192,0.18),transparent_20%),radial-gradient(circle_at_82%_30%,rgba(172,178,202,0.1),transparent_24%)]" />
+    <section
+      className="relative overflow-hidden bg-[#38322C] bg-cover bg-center px-5 py-28 text-[#F2EEEC] sm:px-8 sm:py-36 lg:px-10 lg:py-44"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
+      <div className="absolute inset-0 bg-[#211c18]/58" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(216,205,192,0.16),transparent_24%),linear-gradient(180deg,rgba(56,50,44,0.12),rgba(56,50,44,0.82))]" />
       <div className="relative mx-auto max-w-7xl">
-        <motion.div {...editorialFade} className="max-w-[34rem]">
-          <p className="text-[0.72rem] uppercase tracking-[0.3em] text-[#BAB0A8]">
+        <motion.div {...editorialFade} className="max-w-[64rem]">
+          <p className="type-eyebrow text-[#BAB0A8]">
             {copy.eyebrow}
           </p>
-          <h2
-            className="mt-6 text-[#F2EEEC]"
-            style={{
-              fontSize: 'clamp(2.8rem, 5.6vw, 5.2rem)',
-              lineHeight: 0.96,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
-          >
-            {copy.title}
-          </h2>
+          <h2 className="type-h1 mt-6 text-[#F2EEEC]">{copy.title}</h2>
         </motion.div>
 
-        <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-14 grid gap-5 py-6 md:grid-cols-2 md:py-10 xl:grid-cols-4 xl:py-12">
           {images.map((image, index) => (
             <motion.figure
               key={image.src}
               {...editorialFade}
               transition={{ ...editorialFade.transition, delay: index * 0.06 }}
-              className={image.className}
+              className={cn(
+                index % 2 === 0
+                  ? '-translate-y-3 md:-translate-y-5 xl:-translate-y-6'
+                  : 'translate-y-3 md:translate-y-5 xl:translate-y-6',
+              )}
             >
-              <div className="overflow-hidden rounded-[2rem] bg-[#F2EEEC]/8 shadow-[0_36px_80px_-48px_rgba(0,0,0,0.55)]">
+              <div className="overflow-hidden rounded-[0.5rem] bg-[#F2EEEC]/8 shadow-[0_36px_80px_-48px_rgba(0,0,0,0.55)]">
                 <ImageWithFallback
                   src={image.src}
                   alt={image.alt}
                   className="h-[21rem] w-full object-cover object-center"
                 />
               </div>
-              <figcaption className="pt-4 text-[0.78rem] uppercase tracking-[0.24em] text-[#D8CDC0]/74">
-                {copy.captions[index]}
+              <figcaption className="pt-4 text-center text-[0.76rem] uppercase tracking-[0.24em] text-[#F2EEEC]/82">
+                {copy.captions[index % copy.captions.length]}
               </figcaption>
             </motion.figure>
           ))}
@@ -1023,7 +954,7 @@ function FounderSection() {
             style={{ filter: imageFilter }}
           >
             <ImageWithFallback
-              src="/doctor-portrait.png"
+              src="/doctor-portrait-test.png"
               alt={copy.imageAlt}
               className="h-full w-full object-cover"
             />
@@ -1041,22 +972,18 @@ function FounderSection() {
           viewport={{ once: true }}
           className="flex flex-col justify-center px-8 py-20 md:px-16 lg:px-20"
         >
-          <p className="text-[0.72rem] uppercase tracking-[0.3em] text-[#BAB0A8]">
+          <p className="type-eyebrow text-[#BAB0A8]">
             {copy.eyebrow}
           </p>
 
-          <h2 className="mb-6 tracking-tight" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.1, fontWeight: 400 }}>
-            {copy.name}
-          </h2>
+          <h2 className="type-h2 mb-6">{copy.name}</h2>
 
-          <div className="max-w-lg space-y-6 text-[#F2EEEC]/74" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+          <div className="type-body-lg max-w-lg space-y-6 text-[#F2EEEC]/74">
             <p>{copy.body}</p>
           </div>
 
           <div className="mt-12 border-t border-[#BAB0A8]/16 pt-8">
-            <p className="text-[#BAB0A8]" style={{ fontSize: '0.875rem' }}>
-              {copy.credential}
-            </p>
+            <p className="type-body-sm text-[#BAB0A8]">{copy.credential}</p>
           </div>
         </motion.div>
       </div>
@@ -1074,14 +1001,7 @@ function FounderIntroSection() {
         {...editorialFade}
         className="mx-auto max-w-7xl"
       >
-        <h2
-          style={{
-            fontSize: 'clamp(2.8rem, 7vw, 5.2rem)',
-            lineHeight: 0.96,
-            fontWeight: 400,
-            letterSpacing: '-0.05em',
-          }}
-        >
+        <h2 className="type-h1">
           {copy.title}
         </h2>
       </motion.div>
@@ -1118,7 +1038,7 @@ function SpecialistsSection() {
   };
 
   return (
-    <section className="relative overflow-x-clip bg-[#F2EEEC] py-24 text-[#38322c] md:py-32">
+    <section className="relative overflow-x-clip bg-[#F2EEEC] py-28 text-[#38322c] md:py-36">
       <AtmosphereOrbs
         orbs={[
           { className: 'left-[-8%] top-[6%] h-72 w-72 bg-[#ebe2db]/80' },
@@ -1156,7 +1076,7 @@ function SpecialistsSection() {
 
         <motion.div {...editorialFade} transition={{ ...editorialFade.transition, delay: 0.12 }} className="mt-14">
           <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(20rem,0.92fr)] lg:gap-10">
-            <div className="relative min-h-[42rem] sm:min-h-[48rem] lg:sticky lg:top-28 lg:min-h-[47rem]">
+            <div className="relative min-h-[52rem] sm:min-h-[56rem] lg:sticky lg:top-28 lg:min-h-[58rem]">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.article
                   key={activeItem.name}
@@ -1172,29 +1092,20 @@ function SpecialistsSection() {
                       <ImageWithFallback
                         src={activeItem.image}
                         alt={activeItem.name}
-                        className="h-full w-full object-cover object-center grayscale-[10%] saturate-[0.82]"
+                        className="h-full w-full object-contain object-center grayscale-[10%] saturate-[0.82]"
                       />
                       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,242,238,0.16)_0%,rgba(247,242,238,0.04)_48%,rgba(56,50,44,0.16)_100%)]" />
                     </div>
                   </div>
 
-                  <div className="mx-auto max-w-[34rem] px-1 pt-7">
-                    <h3
-                      className="text-balance"
-                      style={{
-                        fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                        fontSize: 'clamp(2rem, 4vw, 3rem)',
-                        lineHeight: 0.98,
-                        fontWeight: 400,
-                        letterSpacing: '-0.04em',
-                      }}
-                    >
+                  <div className="mx-auto max-w-[34rem] px-1 pb-4 pt-7">
+                    <h3 className="type-h2 text-balance">
                       {activeItem.name}
                     </h3>
                     <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#9a8f87]">
                       {activeItem.role}
                     </p>
-                    <p className="mt-4 max-w-lg text-[0.98rem] leading-relaxed text-[#6e645d]">
+                    <p className="mt-4 max-w-xl text-[0.98rem] leading-relaxed text-[#6e645d] sm:max-w-2xl">
                       {activeItem.blurb}
                     </p>
                   </div>
@@ -1221,22 +1132,13 @@ function SpecialistsSection() {
                       <ImageWithFallback
                         src={item.image}
                         alt={item.name}
-                        className="h-full w-full object-cover object-center grayscale-[34%] saturate-[0.62]"
+                        className="h-full w-full object-contain object-center grayscale-[34%] saturate-[0.62]"
                       />
                       <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,242,238,0.18)_0%,rgba(247,242,238,0.06)_48%,rgba(56,50,44,0.14)_100%)]" />
                     </span>
                   </span>
                   <span className="mt-5 block px-1">
-                    <span
-                      className="block text-balance"
-                      style={{
-                        fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                        fontSize: 'clamp(1.35rem, 2vw, 1.75rem)',
-                        lineHeight: 0.98,
-                        fontWeight: 400,
-                        letterSpacing: '-0.04em',
-                      }}
-                    >
+                    <span className="type-h5 block text-balance">
                       {item.name}
                     </span>
                     <span className="mt-3 block text-[0.62rem] uppercase tracking-[0.26em] text-[#9a8f87]">
@@ -1278,14 +1180,14 @@ function FinalCtaSection() {
       <div className="relative mx-auto max-w-5xl px-6 text-center sm:px-8">
         <motion.h2
           {...editorialFade}
-          style={{ fontSize: 'clamp(3rem, 7vw, 6.5rem)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.05em' }}
+          className="type-h1"
         >
           {copy.title}
         </motion.h2>
         <motion.p
           {...editorialFade}
           transition={{ ...editorialFade.transition, delay: 0.08 }}
-          className="mx-auto mt-7 max-w-3xl text-[1.08rem] leading-relaxed text-[#f2eeec]/76 sm:text-[1.16rem]"
+          className="type-body-lg mx-auto mt-7 max-w-3xl text-[#f2eeec]/76"
         >
           {copy.body}
         </motion.p>
@@ -1318,7 +1220,7 @@ export function HomePageV4() {
     <div className="bg-[#F2EEEC]">
       <SiteHeader />
       <HeroSection />
-      <PhilosophyVideoSection />
+      {/* <PhilosophyVideoSection /> */}
       <VideoPresenceSection />
       <ImmersiveExperienceSection />
       <AtmosphereSection />

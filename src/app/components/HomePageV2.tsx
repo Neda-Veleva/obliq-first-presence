@@ -11,6 +11,7 @@ import { AtmosphereOrbs, SectionHeading, editorialFade } from './PremiumPagePrim
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from './ui/carousel';
 import { cn } from './ui/utils';
 import { useLocale, type Locale } from '../i18n';
+import { clinicTeamByLocale } from '../content/clinicTeam';
 
 type FaceZoneId = 'forehead' | 'eyes' | 'cheeks' | 'lips' | 'jawline' | 'neck';
 
@@ -82,7 +83,7 @@ const pageCopy: Record<
       eyebrow: 'Потапящо изживяване',
       title: 'Когато кожата се усеща в баланс, увереността не се нуждае от усилие.',
       body:
-        'OBLIQ разглежда естетичната дерматология като дългосрочна грижа за качеството на кожата, естествените пропорции и тихото присъствие на добре поддържаното лице.',
+        'OBLIQ. разглежда естетичната дерматология като дългосрочна грижа за качеството на кожата, естествените пропорции и тихото присъствие на добре поддържаното лице.',
       floating: [
         { title: 'Здраве на кожата', body: 'наука, която подкрепя естествения вид' },
         { title: 'Дългосрочна грижа', body: 'план, изграден около устойчив резултат' },
@@ -93,7 +94,7 @@ const pageCopy: Record<
       eyebrow: 'Интерактивна карта на кожата',
       title: 'Една деликатна навигация през зоните, които оформят цялостното излъчване.',
       body:
-        'Задръж или докосни зона, за да видиш как OBLIQ мисли за текстура, баланс, отпочинал вид и меко възстановяване на хармонията.',
+        'Задръж или докосни зона, за да видиш как OBLIQ. мисли за текстура, баланс, отпочинал вид и меко възстановяване на хармонията.',
       zones: {
         forehead: {
           label: 'Чело',
@@ -134,7 +135,7 @@ const pageCopy: Record<
       },
     },
     philosophy: {
-      eyebrow: 'Философията на OBLIQ',
+      eyebrow: 'Философията на OBLIQ.',
       title: 'Фино подчертаване. Кожа на първо място. Резултати, които все още се усещат като теб.',
       body:
         'Това е естетика, водена от медицинска прецизност и уважение към индивидуалните черти. Не преследва тенденции. Изгражда увереност, която остава естествена и устойчива във времето.',
@@ -149,36 +150,7 @@ const pageCopy: Record<
       title: 'Лицата зад прецизността в OBLIQ.',
       body:
         'Подбор от специалисти, които работят с еднакво внимание към естествения резултат, спокойната консултация и медицинската яснота.',
-      items: [
-        {
-          name: 'д-р Елена Стоянова',
-          role: 'ДЕРМАТОЛОГ И SKIN HEALTH SPECIALIST',
-          blurb: 'Фокус върху текстура, качество на кожата и дългосрочни протоколи с естествена финалност.',
-          image:
-            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Маркус Торн',
-          role: 'AESTHETIC SURGEON',
-          blurb: 'Прецизен подход към контур, баланс и фини корекции, които пазят израза спокоен.',
-          image:
-            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р София Клайн',
-          role: 'INJECTABLES AND FACIAL HARMONY',
-          blurb: 'Работи върху дискретни подобрения в пропорцията и светлината на лицето.',
-          image:
-            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Андреа Рийд',
-          role: 'REGENERATIVE AESTHETICS',
-          blurb: 'Комбинира биостимулация и skin-first стратегии за по-жив и отпочинал вид.',
-          image:
-            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
-        },
-      ],
+      items: clinicTeamByLocale.bg,
     },
     transformations: {
       eyebrow: 'Трансформации',
@@ -259,7 +231,7 @@ const pageCopy: Record<
       eyebrow: 'Immersive experience',
       title: 'When skin feels balanced, confidence never has to perform.',
       body:
-        'OBLIQ approaches aesthetic dermatology as long-term care for skin quality, natural proportions and the quiet presence of a well-kept face.',
+        'OBLIQ. approaches aesthetic dermatology as long-term care for skin quality, natural proportions and the quiet presence of a well-kept face.',
       floating: [
         { title: 'Skin health', body: 'science-led care that protects a natural look' },
         { title: 'Long-term care', body: 'a plan designed for sustainable results' },
@@ -270,7 +242,7 @@ const pageCopy: Record<
       eyebrow: 'Interactive skin map',
       title: 'A refined exploration of the zones that shape the whole expression.',
       body:
-        'Hover or tap a zone to see how OBLIQ thinks about texture, balance, a rested look and subtle restoration.',
+        'Hover or tap a zone to see how OBLIQ. thinks about texture, balance, a rested look and subtle restoration.',
       zones: {
         forehead: {
           label: 'Forehead',
@@ -311,7 +283,7 @@ const pageCopy: Record<
       },
     },
     philosophy: {
-      eyebrow: 'The OBLIQ philosophy',
+      eyebrow: 'The OBLIQ. philosophy',
       title: 'Subtle enhancement. Skin-first thinking. Results that still feel like you.',
       body:
         'This is aesthetics guided by medical precision and respect for individual features. It does not chase trends. It builds confidence that feels natural and lasting.',
@@ -323,39 +295,10 @@ const pageCopy: Record<
     },
     specialists: {
       eyebrow: 'Specialists',
-      title: 'The faces behind OBLIQ precision.',
+      title: 'The faces behind OBLIQ. precision.',
       body:
         'A curated group of specialists working with the same sensitivity toward natural results, calm consultation and medical clarity.',
-      items: [
-        {
-          name: 'Dr. Elena Stoyanova',
-          role: 'DERMATOLOGIST AND SKIN HEALTH SPECIALIST',
-          blurb: 'Focused on texture, skin quality and long-horizon protocols with a natural finish.',
-          image:
-            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'Dr. Marcus Thorne',
-          role: 'AESTHETIC SURGEON',
-          blurb: 'A precise approach to contour, balance and subtle correction that preserves expression.',
-          image:
-            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'Dr. Sofia Klein',
-          role: 'INJECTABLES AND FACIAL HARMONY',
-          blurb: 'Works through discreet refinements in proportion, light and overall facial poise.',
-          image:
-            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'Dr. Andrea Reed',
-          role: 'REGENERATIVE AESTHETICS',
-          blurb: 'Combines biostimulation with skin-first strategy for a more rested, luminous result.',
-          image:
-            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
-        },
-      ],
+      items: clinicTeamByLocale.en,
     },
     transformations: {
       eyebrow: 'Transformation studies',
@@ -411,7 +354,7 @@ const pageCopy: Record<
       eyebrow: 'Atmosphere',
       title: 'A space designed to feel quiet, luminous and carefully composed.',
       body:
-        'Materials, reflections, shadows and soft daylight arranged as part of the full OBLIQ experience.',
+        'Materials, reflections, shadows and soft daylight arranged as part of the full OBLIQ. experience.',
       captions: ['Soft daylight', 'Architectural calm', 'Reflective materials', 'Private comfort'],
     },
     trust: {
@@ -436,7 +379,7 @@ const pageCopy: Record<
       eyebrow: 'Immersive experience',
       title: 'Когда кожа ощущается в балансе, уверенности не нужно стараться.',
       body:
-        'OBLIQ рассматривает эстетическую дерматологию как долгосрочную заботу о качестве кожи, естественных пропорциях и тихом присутствии ухоженного лица.',
+        'OBLIQ. рассматривает эстетическую дерматологию как долгосрочную заботу о качестве кожи, естественных пропорциях и тихом присутствии ухоженного лица.',
       floating: [
         { title: 'Skin health', body: 'научный подход, который сохраняет естественный вид' },
         { title: 'Long-term care', body: 'план, рассчитанный на устойчивый результат' },
@@ -447,7 +390,7 @@ const pageCopy: Record<
       eyebrow: 'Interactive skin map',
       title: 'Деликатная навигация по зонам, которые формируют общее впечатление.',
       body:
-        'Наведите или коснитесь зоны, чтобы увидеть, как OBLIQ думает о текстуре, балансе, свежем взгляде и мягком восстановлении гармонии.',
+        'Наведите или коснитесь зоны, чтобы увидеть, как OBLIQ. думает о текстуре, балансе, свежем взгляде и мягком восстановлении гармонии.',
       zones: {
         forehead: {
           label: 'Лоб',
@@ -488,7 +431,7 @@ const pageCopy: Record<
       },
     },
     philosophy: {
-      eyebrow: 'The OBLIQ philosophy',
+      eyebrow: 'The OBLIQ. philosophy',
       title: 'Subtle enhancement. Skin-first thinking. Results that still feel like you.',
       body:
         'Это эстетика, основанная на медицинской точности и уважении к индивидуальным чертам. Она не гонится за трендами. Она создает уверенность, которая остается естественной.',
@@ -503,36 +446,7 @@ const pageCopy: Record<
       title: 'Лица, стоящие за точностью OBLIQ.',
       body:
         'Подбор специалистов, которых объединяет деликатный подход к естественному результату, спокойной консультации и медицинской ясности.',
-      items: [
-        {
-          name: 'д-р Елена Стоянова',
-          role: 'ДЕРМАТОЛОГ И СПЕЦИАЛИСТ ПО ЗДОРОВЬЮ КОЖИ',
-          blurb: 'Фокусируется на текстуре, качестве кожи и долгосрочных протоколах с естественным эффектом.',
-          image:
-            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Маркус Торн',
-          role: 'ЭСТЕТИЧЕСКИЙ ХИРУРГ',
-          blurb: 'Точная работа с контуром, балансом и мягкими коррекциями без потери естественного выражения.',
-          image:
-            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р София Кляйн',
-          role: 'ИНЪЕКЦИОННЫЕ МЕТОДИКИ И ГАРМОНИЯ ЛИЦА',
-          blurb: 'Создает деликатные изменения в пропорциях, свете и общем ощущении баланса лица.',
-          image:
-            'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          name: 'д-р Андреа Рид',
-          role: 'РЕГЕНЕРАТИВНАЯ ЭСТЕТИКА',
-          blurb: 'Сочетает биостимуляцию и skin-first подход для более свежего и спокойного результата.',
-          image:
-            'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1200&auto=format&fit=crop',
-        },
-      ],
+      items: clinicTeamByLocale.ru,
     },
     transformations: {
       eyebrow: 'Transformation studies',
@@ -622,11 +536,11 @@ const faceHotspots: Record<FaceZoneId, string> = {
 const clinicAtmosphereImages = [
   {
     src: '/clinic-space/reception.jpg',
-    alt: 'Рецепцията на OBLIQ с мека светлина и тиха атмосфера',
+    alt: 'Рецепцията на OBLIQ. с мека светлина и тиха атмосфера',
   },
   {
     src: '/clinic-space/consultation-wide.jpg',
-    alt: 'Консултативният кабинет в OBLIQ',
+    alt: 'Консултативният кабинет в OBLIQ.',
   },
   {
     src: '/clinic-space/treatment-room-shelves.jpg',
@@ -634,7 +548,31 @@ const clinicAtmosphereImages = [
   },
   {
     src: '/clinic-space/treatment-room-forma.jpg',
-    alt: 'Процедурна стая с Forma апарат в OBLIQ',
+    alt: 'Процедурна стая с Forma апарат в OBLIQ.',
+  },
+  {
+    src: '/clinic-space/treatment-room-front.jpg',
+    alt: 'Светла процедурна стая с естетичен стол',
+  },
+  {
+    src: '/clinic-space/treatment-room-device.jpg',
+    alt: 'Процедурна стая с апаратура и дневна светлина',
+  },
+  {
+    src: '/clinic-space/treatment-room-desk.jpg',
+    alt: 'Процедурна стая с работен кът и спокойна атмосфера',
+  },
+  {
+    src: '/clinic-space/treatment-room-mirror.png',
+    alt: 'Процедурна зона с огледало и топли материали',
+  },
+  {
+    src: '/clinic-space/treatment-room-sink.png',
+    alt: 'Процедурна стая с мивка и минималистичен интериор',
+  },
+  {
+    src: '/clinic-space/clinic-lounge-view.jpg',
+    alt: 'Зона за почивка и поглед към процедурната стая',
   },
 ] as const;
 
@@ -664,14 +602,11 @@ export function HomePageV2ImmersiveExperienceSection() {
 
       <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-between px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
         <motion.div {...editorialFade} className="max-w-4xl">
-          <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#d8cdc0]">{copy.eyebrow}</p>
-          <h2
-            className="mt-8 max-w-5xl"
-            style={{ fontSize: 'clamp(3.2rem, 8vw, 7.2rem)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.05em' }}
-          >
+          <p className="type-eyebrow text-[#d8cdc0]">{copy.eyebrow}</p>
+          <h2 className="type-h1 mt-8 max-w-5xl">
             {copy.title}
           </h2>
-          <p className="mt-7 max-w-2xl text-[1.08rem] leading-relaxed text-[#f2eeec]/76 sm:text-[1.16rem]">
+          <p className="type-body-lg mt-7 max-w-2xl text-[#f2eeec]/76">
             {copy.body}
           </p>
         </motion.div>
@@ -772,10 +707,7 @@ function InteractiveSkinNavigationSection() {
               className="rounded-[2rem] border border-[#F2EEEC]/70 bg-[#F2EEEC]/74 p-8 shadow-[0_28px_80px_-44px_rgba(56,50,44,0.28)] backdrop-blur-xl"
             >
               <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#876856]">{zone.label}</p>
-              <h3
-                className="mt-4"
-                style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', lineHeight: 0.98, fontWeight: 400, letterSpacing: '-0.04em' }}
-              >
+              <h3 className="type-h2 mt-4">
                 {zone.concern}
               </h3>
               <p className="mt-5 text-[1rem] uppercase tracking-[0.22em] text-[#635c54]">{zone.treatment}</p>
@@ -845,8 +777,8 @@ function PhilosophyPreviewSection() {
           <motion.div {...editorialFade} className="relative min-h-[28rem] lg:min-h-[40rem]">
             <div className="absolute left-[6%] top-[3%] h-[68%] w-[58%] overflow-hidden rounded-[2rem] shadow-[0_30px_70px_-40px_rgba(56,50,44,0.3)]">
               <ImageWithFallback
-                src="/doctor-portrait-1.png"
-                alt="Портрет за философията на OBLIQ"
+                src="/doctor-portrait-test.png"
+                alt="Портрет за философията на OBLIQ."
                 className="h-full w-full object-cover"
               />
             </div>
@@ -916,7 +848,7 @@ function TransformationCase({
         </div>
       </div>
       <div className="px-2 pb-2 pt-5 text-[#f2eeec]">
-        <h3 style={{ fontSize: '1.55rem', lineHeight: 1, fontWeight: 400, letterSpacing: '-0.03em' }}>
+        <h3 className="type-h5">
           {title}
         </h3>
         <p className="mt-3 max-w-sm text-[0.98rem] leading-relaxed text-[#f2eeec]/72">{note}</p>
@@ -1021,16 +953,7 @@ export function HomePageV2SpecialistsSection() {
                       </div>
 
                       <div className="mx-auto max-w-[34rem] px-1 pt-7">
-                        <h3
-                          className="text-balance"
-                          style={{
-                            fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                            fontSize: 'clamp(2rem, 4vw, 3rem)',
-                            lineHeight: 0.98,
-                            fontWeight: 400,
-                            letterSpacing: '-0.04em',
-                          }}
-                        >
+                        <h3 className="type-h2 text-balance">
                           {item.name}
                         </h3>
                         <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#9a8f87]">
@@ -1134,7 +1057,7 @@ export function HomePageV2VideoPresenceSection() {
                 </div>
               </div>
               <div className="p-6">
-                <h3 style={{ fontSize: '1.55rem', lineHeight: 1.02, fontWeight: 400, letterSpacing: '-0.03em' }}>
+                <h3 className="type-h5">
                   {item.title}
                 </h3>
                 <p className="mt-4 text-[1rem] leading-relaxed text-[#635c54]">{item.description}</p>
@@ -1208,6 +1131,22 @@ function AtmosphereSection() {
             </motion.div>
           </div>
         </div>
+        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {clinicAtmosphereImages.slice(4).map((image, index) => (
+            <motion.div
+              key={image.src}
+              {...editorialFade}
+              transition={{ ...editorialFade.transition, delay: 0.08 + index * 0.04 }}
+              className="overflow-hidden rounded-[2rem]"
+            >
+              <ImageWithFallback
+                src={image.src}
+                alt={image.alt}
+                className="h-72 w-full object-cover lg:h-80"
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -1238,9 +1177,7 @@ function TrustSection() {
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="mx-auto max-w-4xl"
             >
-              <p
-                style={{ fontSize: 'clamp(2rem, 5vw, 4.5rem)', lineHeight: 1.02, fontWeight: 400, letterSpacing: '-0.05em' }}
-              >
+              <p className="type-h2">
                 “{copy.quotes[activeIndex]}”
               </p>
             </motion.blockquote>
@@ -1290,14 +1227,14 @@ export function HomePageV2FinalCtaSection() {
       <div className="relative mx-auto max-w-5xl px-6 text-center sm:px-8">
         <motion.h2
           {...editorialFade}
-          style={{ fontSize: 'clamp(3rem, 7vw, 6.5rem)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.05em' }}
+          className="type-h1"
         >
           {copy.title}
         </motion.h2>
         <motion.p
           {...editorialFade}
           transition={{ ...editorialFade.transition, delay: 0.08 }}
-          className="mx-auto mt-7 max-w-3xl text-[1.08rem] leading-relaxed text-[#f2eeec]/76 sm:text-[1.16rem]"
+          className="type-body-lg mx-auto mt-7 max-w-3xl text-[#f2eeec]/76"
         >
           {copy.body}
         </motion.p>

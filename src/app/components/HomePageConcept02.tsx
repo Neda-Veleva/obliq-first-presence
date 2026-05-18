@@ -47,33 +47,33 @@ const copyByLocale: Record<
 > = {
   bg: {
     hero: {
-      eyebrow: 'Homepage concept 02',
-      title: 'Editorial Presence',
-      body: 'Кожа, светлина и тишина, режисирани като wellness кампания. OBLIQ като усещане, не като стандартна клиника.',
+      eyebrow: 'Концепция начална страница 02',
+      title: 'Редакционно присъствие',
+      body: 'Кожа, светлина и тишина, режисирани като уелнес кампания. OBLIQ. като усещане, не като стандартна клиника.',
       primary: 'Заяви консултация',
-      secondary: 'Подходът на OBLIQ',
-      note: 'skin in soft daylight',
+      secondary: 'Подходът на OBLIQ.',
+      note: 'кожа в мека дневна светлина',
     },
-    pause: 'Beauty that feels like balance.',
+    pause: 'Красота, която се усеща като баланс.',
     composition: {
       line: 'Естествена кожа. Тих контур. Светлина, която остава.',
       body: 'Визуален свят от близост, въздух и мека прецизност. По-малко обяснения, повече усещане.',
-      details: ['soft focus', 'natural skin', 'quiet precision'],
+      details: ['мек фокус', 'естествена кожа', 'тиха прецизност'],
     },
     approach: {
-      eyebrow: 'The OBLIQ approach',
+      eyebrow: 'Подходът на OBLIQ.',
       title: 'Не променяме лицето. Подреждаме светлината, баланса и усещането в кожата.',
       layers: [
         {
-          title: 'Skin first',
+          title: 'Първо кожата',
           body: 'Планът започва с качеството на кожата и завършва с резултат, който изглежда естествено.',
         },
         {
-          title: 'Measured care',
+          title: 'Премерена грижа',
           body: 'Всяка намеса е малка, прецизна и съобразена с лицето, не с тенденция.',
         },
         {
-          title: 'Long view',
+          title: 'Дълъг поглед',
           body: 'Грижата е мислена като състояние във времето, а не като кратък визуален ефект.',
         },
       ],
@@ -83,13 +83,13 @@ const copyByLocale: Record<
       captions: ['мека дневна светлина', 'спокойни материали', 'лично присъствие'],
     },
     trust: {
-      eyebrow: 'Trust, reimagined',
+      eyebrow: 'Доверие, преосмислено',
       title: 'Доверието не трябва да звучи силно.',
       quote: '“Изглеждам по-свежа, но никой не може да каже защо.”',
       fragments: ['без натиск', 'много фино', 'естествен резултат', 'спокойна консултация'],
     },
     cta: {
-      title: 'Your skin, in its best light.',
+      title: 'Твоята кожа в най-добрата си светлина.',
       body: 'Спокойна среща, прецизен план и грижа, която остава близо до естественото.',
       primary: 'Запази консултация',
     },
@@ -98,9 +98,9 @@ const copyByLocale: Record<
     hero: {
       eyebrow: 'Homepage concept 02',
       title: 'Editorial Presence',
-      body: 'Skin, light and stillness directed like a wellness campaign. OBLIQ as a feeling, not a standard clinic.',
+      body: 'Skin, light and stillness directed like a wellness campaign. OBLIQ. as a feeling, not a standard clinic.',
       primary: 'Request a consultation',
-      secondary: 'The OBLIQ approach',
+      secondary: 'The OBLIQ. approach',
       note: 'skin in soft daylight',
     },
     pause: 'Beauty that feels like balance.',
@@ -110,7 +110,7 @@ const copyByLocale: Record<
       details: ['soft focus', 'natural skin', 'quiet precision'],
     },
     approach: {
-      eyebrow: 'The OBLIQ approach',
+      eyebrow: 'The OBLIQ. approach',
       title: 'We do not change the face. We refine light, balance and comfort in the skin.',
       layers: [
         {
@@ -147,9 +147,9 @@ const copyByLocale: Record<
     hero: {
       eyebrow: 'Homepage concept 02',
       title: 'Editorial Presence',
-      body: 'Кожа, свет и тишина, выстроенные как wellness кампания. OBLIQ как ощущение, а не стандартная клиника.',
+      body: 'Кожа, свет и тишина, выстроенные как wellness кампания. OBLIQ. как ощущение, а не стандартная клиника.',
       primary: 'Запросить консультацию',
-      secondary: 'Подход OBLIQ',
+      secondary: 'Подход OBLIQ.',
       note: 'skin in soft daylight',
     },
     pause: 'Beauty that feels like balance.',
@@ -159,7 +159,7 @@ const copyByLocale: Record<
       details: ['soft focus', 'natural skin', 'quiet precision'],
     },
     approach: {
-      eyebrow: 'The OBLIQ approach',
+      eyebrow: 'The OBLIQ. approach',
       title: 'Мы не меняем лицо. Мы уточняем свет, баланс и комфорт в коже.',
       layers: [
         {
@@ -324,8 +324,8 @@ function EditorialCompositionSection() {
 
         <motion.div {...reveal} className="absolute left-0 top-0 h-[37rem] w-[68%] overflow-hidden rounded-[3.25rem] shadow-[0_44px_100px_-64px_rgba(56,50,44,0.5)] sm:w-[55%]">
           <ImageWithFallback
-            src="/doctor-portrait-1.png"
-            alt="OBLIQ editorial portrait"
+            src="/doctor-portrait-test.png"
+            alt="OBLIQ. editorial portrait"
             className="h-full w-full object-cover object-[50%_28%]"
           />
         </motion.div>
@@ -444,6 +444,12 @@ function AtmosphereSection() {
           ['/clinic-space/consultation-wide.jpg', 'Consultation space'],
           ['/clinic-space/treatment-room-forma.jpg', 'Treatment room'],
           ['/clinic-space/consultation-detail.jpg', 'Consultation detail'],
+          ['/clinic-space/treatment-room-front.jpg', 'Bright treatment room'],
+          ['/clinic-space/treatment-room-device.jpg', 'Treatment device room'],
+          ['/clinic-space/treatment-room-desk.jpg', 'Treatment room desk'],
+          ['/clinic-space/treatment-room-mirror.png', 'Treatment room mirror'],
+          ['/clinic-space/treatment-room-sink.png', 'Treatment room sink'],
+          ['/clinic-space/clinic-lounge-view.jpg', 'Clinic lounge view'],
         ].map(([src, alt], index) => (
           <motion.figure
             key={src}

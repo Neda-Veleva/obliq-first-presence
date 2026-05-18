@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { ConsultationFooter } from './ConsultationFooter';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { SiteHeader } from './SiteHeader';
+import { approachExperienceByLocale } from './ObliqApproachPage';
 import { useLocale, type Locale } from '../i18n';
 
 const copyByLocale: Record<
@@ -20,11 +21,6 @@ const copyByLocale: Record<
       body: string;
       fragments: string[];
     };
-    treatments: {
-      eyebrow: string;
-      title: string;
-      items: { title: string; line: string; image: string; align: 'left' | 'right' }[];
-    };
     trust: {
       statements: string[];
       numbers: { value: string; label: string }[];
@@ -38,48 +34,24 @@ const copyByLocale: Record<
 > = {
   bg: {
     hero: {
-      eyebrow: 'Homepage concept 03',
-      title: 'Beauty, redefined quietly.',
-      note: 'advanced beauty experience from the future',
+      eyebrow: 'Концепция начална страница 03',
+      title: 'Красота, предефинирана тихо.',
+      note: 'усъвършенствано естетично преживяване от бъдещето',
       cta: 'влез в преживяването',
     },
-    transition: 'Precision meets emotion.',
+    transition: 'Прецизността среща емоцията.',
     composition: {
-      title: 'Skin as a living surface.',
-      fragments: ['texture', 'light', 'temperature', 'silence', 'depth'],
+      title: 'Кожата като жива повърхност.',
+      fragments: ['текстура', 'светлина', 'температура', 'тишина', 'дълбочина'],
     },
     philosophy: {
-      title: 'Not correction. Refinement.',
+      title: 'Не корекция. Усъвършенстване.',
       body:
-        'OBLIQ мисли лицето като архитектура от светлина, кожа и присъствие. Намесата е тиха. Резултатът е усещане за подреденост, което не се обяснява.',
-      fragments: ['less noise', 'more presence', 'human precision'],
-    },
-    treatments: {
-      eyebrow: 'Treatments as experience',
-      title: 'Всяка терапия започва като атмосфера.',
-      items: [
-        {
-          title: 'Skin quality',
-          line: 'Повърхност, която изглежда по-жива, без да губи естествената си памет.',
-          image: '/hero-exosome-treatment.png',
-          align: 'left',
-        },
-        {
-          title: 'Facial balance',
-          line: 'Фин контур, който се усеща като спокойствие, не като промяна.',
-          image: '/facial-focus-face.jpg',
-          align: 'right',
-        },
-        {
-          title: 'Regenerative light',
-          line: 'Протоколи, създадени за плътност, мекота и дългосрочно присъствие.',
-          image: '/section-2-clinical-closeup.png',
-          align: 'left',
-        },
-      ],
+        'OBLIQ. мисли лицето като архитектура от светлина, кожа и присъствие. Намесата е тиха. Резултатът е усещане за подреденост, което не се обяснява.',
+      fragments: ['по-малко шум', 'повече присъствие', 'човешка прецизност'],
     },
     trust: {
-      statements: ['quiet confidence', 'natural results', 'felt understood', 'no visual noise'],
+      statements: ['тиха увереност', 'естествени резултати', 'усещане за разбиране', 'без визуален шум'],
       numbers: [
         { value: '01', label: 'личен ритъм' },
         { value: '02', label: 'медицинска мярка' },
@@ -87,11 +59,11 @@ const copyByLocale: Record<
       ],
     },
     space: {
-      title: 'Light. Material. Silence.',
-      captions: ['soft threshold', 'tactile calm', 'sculpted room', 'private light'],
+      title: 'Светлина. Материя. Тишина.',
+      captions: ['мек праг', 'осезаем покой', 'скулптурирано пространство', 'лична светлина'],
     },
     final: {
-      title: 'Your skin, without noise.',
+      title: 'Твоята кожа, без шум.',
       body: 'Една спокойна среща. Един прецизен план. Красота, която не търси внимание.',
       cta: 'заяви консултация',
     },
@@ -111,32 +83,8 @@ const copyByLocale: Record<
     philosophy: {
       title: 'Not correction. Refinement.',
       body:
-        'OBLIQ treats the face as an architecture of light, skin and presence. The intervention is quiet. The result is a sense of order that does not need to explain itself.',
+        'OBLIQ. treats the face as an architecture of light, skin and presence. The intervention is quiet. The result is a sense of order that does not need to explain itself.',
       fragments: ['less noise', 'more presence', 'human precision'],
-    },
-    treatments: {
-      eyebrow: 'Treatments as experience',
-      title: 'Every treatment begins as atmosphere.',
-      items: [
-        {
-          title: 'Skin quality',
-          line: 'A surface that feels more alive without losing its natural memory.',
-          image: '/hero-exosome-treatment.png',
-          align: 'left',
-        },
-        {
-          title: 'Facial balance',
-          line: 'A subtle contour that reads as calm, not alteration.',
-          image: '/facial-focus-face.jpg',
-          align: 'right',
-        },
-        {
-          title: 'Regenerative light',
-          line: 'Protocols designed for density, softness and lasting presence.',
-          image: '/section-2-clinical-closeup.png',
-          align: 'left',
-        },
-      ],
     },
     trust: {
       statements: ['quiet confidence', 'natural results', 'felt understood', 'no visual noise'],
@@ -171,32 +119,8 @@ const copyByLocale: Record<
     philosophy: {
       title: 'Not correction. Refinement.',
       body:
-        'OBLIQ воспринимает лицо как архитектуру света, кожи и присутствия. Вмешательство остается тихим. Результат ощущается как порядок, которому не нужны объяснения.',
+        'OBLIQ. воспринимает лицо как архитектуру света, кожи и присутствия. Вмешательство остается тихим. Результат ощущается как порядок, которому не нужны объяснения.',
       fragments: ['less noise', 'more presence', 'human precision'],
-    },
-    treatments: {
-      eyebrow: 'Treatments as experience',
-      title: 'Каждая терапия начинается как атмосфера.',
-      items: [
-        {
-          title: 'Skin quality',
-          line: 'Поверхность, которая выглядит живее, не теряя своей естественной памяти.',
-          image: '/hero-exosome-treatment.png',
-          align: 'left',
-        },
-        {
-          title: 'Facial balance',
-          line: 'Тонкий контур, который считывается как спокойствие, а не изменение.',
-          image: '/facial-focus-face.jpg',
-          align: 'right',
-        },
-        {
-          title: 'Regenerative light',
-          line: 'Протоколы для плотности, мягкости и длительного присутствия.',
-          image: '/section-2-clinical-closeup.png',
-          align: 'left',
-        },
-      ],
     },
     trust: {
       statements: ['quiet confidence', 'natural results', 'felt understood', 'no visual noise'],
@@ -318,7 +242,7 @@ function HeroSection() {
         className="absolute right-[7%] top-[14%] hidden h-[44vh] w-[22vw] min-w-[14rem] overflow-hidden rounded-[48%_52%_46%_54%/58%_40%_60%_42%] opacity-85 shadow-[0_50px_120px_-70px_rgba(0,0,0,0.8)] md:block"
       >
         <ImageWithFallback
-          src="/doctor-portrait-1.png"
+          src="/doctor-portrait-test.png"
           alt=""
           className="h-full w-full object-cover object-[52%_18%] grayscale-[0.16] saturate-[0.76]"
         />
@@ -340,7 +264,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[68rem] text-[clamp(4.25rem,12vw,13.8rem)] font-extralight leading-[0.78] tracking-[0.02em]"
+            className="max-w-[60rem] text-[clamp(3.35rem,9.5vw,10.8rem)] font-extralight leading-[0.84] tracking-[0.02em]"
           >
             {copy.title}
           </motion.h1>
@@ -365,7 +289,7 @@ function TransitionSection() {
       <Grain />
       <motion.p
         {...reveal}
-        className="relative mx-auto max-w-[82rem] text-center text-[clamp(4rem,10vw,11.5rem)] font-extralight leading-[0.82] tracking-[0.01em] text-[#38322C]"
+        className="relative mx-auto max-w-[68rem] text-center text-[clamp(3.1rem,7.8vw,8.8rem)] font-extralight leading-[0.88] tracking-[0.01em] text-[#38322C]"
       >
         {copyByLocale[locale].transition}
       </motion.p>
@@ -414,7 +338,7 @@ function SkinCompositionSection() {
       <div className="relative mx-auto min-h-[55rem] max-w-[1560px]">
         <motion.h2
           {...reveal}
-          className="absolute left-[12%] top-[34%] z-20 max-w-[38rem] text-[clamp(3.5rem,8vw,9rem)] font-extralight leading-[0.82] tracking-[0.015em]"
+          className="absolute left-[12%] top-[34%] z-20 max-w-[33rem] text-[clamp(2.8rem,6.4vw,7rem)] font-extralight leading-[0.88] tracking-[0.015em]"
         >
           {copy.title}
         </motion.h2>
@@ -472,7 +396,7 @@ function PhilosophySection() {
       <div className="relative mx-auto grid min-h-[42rem] max-w-[1450px] gap-12 lg:grid-cols-[1.15fr_0.85fr]">
         <motion.h2
           {...reveal}
-          className="max-w-[48rem] text-[clamp(4rem,9vw,10.4rem)] font-extralight leading-[0.82] tracking-[0.01em]"
+          className="max-w-[41rem] text-[clamp(3.05rem,7vw,7.8rem)] font-extralight leading-[0.88] tracking-[0.01em]"
         >
           {copy.title}
         </motion.h2>
@@ -495,7 +419,20 @@ function PhilosophySection() {
 
 function TreatmentsSection() {
   const { locale } = useLocale();
-  const copy = copyByLocale[locale].treatments;
+  const copy = approachExperienceByLocale[locale];
+  const articlesRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: articlesRef,
+    offset: ['start end', 'end start'],
+  });
+
+  // Raw scroll progress often stalls short of 1 before the user "feels" done —
+  // keep the first ~78% 1:1 (responsive like before), then gently catch up.
+  const lineProgress = useTransform(scrollYProgress, (x) => {
+    const v = Math.min(1, Math.max(0, x));
+    if (v <= 0.78) return v;
+    return Math.min(1, 0.78 + (v - 0.78) * (0.22 / 0.14));
+  });
 
   return (
     <section className="relative overflow-hidden bg-[#F2EEEC] py-24 text-[#38322C] sm:py-32 lg:py-40">
@@ -505,49 +442,79 @@ function TreatmentsSection() {
         </motion.p>
         <motion.h2
           {...reveal}
-          className="mt-7 max-w-[64rem] text-[clamp(3.6rem,8vw,9.5rem)] font-extralight leading-[0.84] tracking-[0.01em]"
+          className="mt-7 max-w-[54rem] text-[clamp(1.65rem,3.6vw,4rem)] font-normal leading-[1.12] tracking-[0.01em]"
         >
           {copy.title}
         </motion.h2>
+        <motion.p
+          {...reveal}
+          transition={{ ...reveal.transition, delay: 0.06 }}
+          className="mt-10 max-w-[42rem] text-[1.05rem] leading-relaxed text-[#635C54] sm:text-[1.12rem]"
+        >
+          {copy.body}
+        </motion.p>
       </div>
 
-      <div className="mt-20 space-y-28 sm:mt-28 lg:space-y-36">
-        {copy.items.map((item, index) => (
-          <motion.article
-            key={item.title}
-            {...reveal}
-            transition={{ ...reveal.transition, delay: index * 0.08 }}
-            className={`relative mx-auto min-h-[34rem] max-w-[1560px] px-5 sm:px-8 lg:px-12 ${
-              item.align === 'right' ? 'text-right' : 'text-left'
-            }`}
-          >
-            <div
-              className={`relative h-[34rem] overflow-hidden rounded-[46%_54%_42%_58%/56%_40%_60%_44%] shadow-[0_58px_140px_-88px_rgba(56,50,44,0.78)] sm:h-[42rem] ${
-                item.align === 'right'
-                  ? 'ml-auto w-[86%] lg:w-[58%]'
-                  : 'mr-auto w-[88%] lg:w-[64%]'
+      <div
+        ref={articlesRef}
+        className="relative mx-auto mt-20 max-w-[1560px] px-5 pb-12 sm:px-8 md:pb-16 lg:px-12"
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 left-5 top-0 z-10 hidden w-3 sm:left-8 md:block lg:left-12"
+        >
+          <div className="relative h-full w-full">
+            <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#38322C]/16" />
+            <motion.div
+              className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 origin-top bg-[#977460] will-change-transform"
+              style={{ scaleY: lineProgress }}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-28 sm:mt-0 sm:space-y-36 md:pl-10 lg:pl-12">
+        {copy.moments.map((moment, index) => {
+          const align = index % 2 === 0 ? 'left' : 'right';
+          return (
+            <motion.article
+              key={moment.title}
+              {...reveal}
+              transition={{ ...reveal.transition, delay: index * 0.08 }}
+              className={`relative mx-auto min-h-[28rem] max-w-[1560px] px-5 sm:px-8 lg:px-12 ${
+                align === 'right' ? 'text-right' : 'text-left'
               }`}
             >
-              <ImageWithFallback
-                src={item.image}
-                alt=""
-                className="h-full w-full object-cover opacity-90 saturate-[0.72]"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(56,50,44,0.05)_0%,rgba(56,50,44,0.58)_100%)]" />
-            </div>
-            <div
-              className={`relative z-10 -mt-24 max-w-[38rem] ${
-                item.align === 'right' ? 'mr-auto lg:ml-[8%]' : 'ml-auto lg:mr-[8%]'
-              }`}
-            >
-              <span className="text-[0.62rem] uppercase tracking-[0.36em] text-[#977460]">0{index + 1}</span>
-              <h3 className="mt-5 text-[clamp(3.25rem,7vw,8rem)] font-extralight leading-[0.84] tracking-[0.01em] text-[#38322C]">
-                {item.title}
-              </h3>
-              <p className="mt-7 text-[1.05rem] leading-relaxed text-[#635C54]">{item.line}</p>
-            </div>
-          </motion.article>
-        ))}
+              <div
+                className={`relative mx-auto aspect-square w-[86%] max-w-[20.5rem] overflow-hidden rounded-full shadow-[0_58px_140px_-88px_rgba(56,50,44,0.78)] md:aspect-auto md:h-[32rem] md:max-w-none md:rounded-[50%] ${
+                  align === 'right'
+                    ? 'md:ml-auto md:w-[86%] lg:w-[58%]'
+                    : 'md:mr-auto md:w-[88%] lg:w-[64%]'
+                }`}
+              >
+                <ImageWithFallback
+                  src={moment.image}
+                  alt={moment.alt}
+                  className="h-full w-full object-cover object-top opacity-90 saturate-[0.72]"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(45,40,36,0.62)_0%,rgba(56,50,44,0.22)_48%,rgba(242,238,236,0.81)_100%)]" />
+              </div>
+              <div
+                className={`relative z-10 -mt-14 max-w-[38rem] sm:-mt-[4.5rem] md:-mt-20 lg:-mt-24 ${
+                  align === 'right' ? 'mr-auto lg:ml-[8%]' : 'ml-auto lg:mr-[8%]'
+                }`}
+              >
+                <span className="text-[0.65rem] uppercase tracking-[0.34em] text-[#6E5342]">
+                  {moment.eyebrow}
+                </span>
+                <h3 className="mt-5 text-[clamp(1.25rem,2.85vw,3.2rem)] font-normal leading-[1.15] tracking-[0.01em] text-[#38322C]">
+                  {moment.title}
+                </h3>
+                <p className="mt-7 text-[1.05rem] leading-relaxed text-[#635C54]">{moment.body}</p>
+              </div>
+            </motion.article>
+          );
+        })}
+        </div>
       </div>
     </section>
   );
@@ -567,7 +534,7 @@ function TrustSection() {
             key={statement}
             {...reveal}
             transition={{ ...reveal.transition, delay: index * 0.08 }}
-            className={`absolute max-w-[34rem] text-[clamp(2.7rem,6vw,7rem)] font-extralight leading-[0.86] tracking-[0.01em] ${
+            className={`absolute max-w-[30rem] text-[clamp(2.15rem,4.8vw,5.4rem)] font-extralight leading-[0.92] tracking-[0.01em] ${
               index === 0
                 ? 'left-0 top-[6%] text-[#F2EEEC]'
                 : index === 1
@@ -601,7 +568,15 @@ function SpaceSection() {
     '/clinic-space/consultation-wide.jpg',
     '/clinic-space/treatment-room-forma.jpg',
     '/clinic-space/consultation-detail.jpg',
+    '/clinic-space/treatment-room-front.jpg',
+    '/clinic-space/treatment-room-device.jpg',
+    '/clinic-space/treatment-room-desk.jpg',
+    '/clinic-space/treatment-room-mirror.png',
+    '/clinic-space/treatment-room-sink.png',
+    '/clinic-space/clinic-lounge-view.jpg',
   ];
+  const featuredImages = images.slice(0, 4);
+  const additionalImages = images.slice(4);
 
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(180deg,#F2EEEC_0%,#D8CDC0_100%)] px-5 py-28 text-[#38322C] sm:px-8 lg:px-12 lg:py-40">
@@ -609,12 +584,12 @@ function SpaceSection() {
       <div className="relative mx-auto min-h-[62rem] max-w-[1520px]">
         <motion.h2
           {...reveal}
-          className="absolute left-0 top-0 z-20 max-w-[50rem] text-[clamp(4rem,9vw,10rem)] font-extralight leading-[0.82] tracking-[0.01em]"
+          className="absolute left-0 top-0 z-20 max-w-[42rem] text-[clamp(3.05rem,7vw,7.6rem)] font-extralight leading-[0.88] tracking-[0.01em]"
         >
           {copy.title}
         </motion.h2>
 
-        {images.map((image, index) => (
+        {featuredImages.map((image, index) => (
           <motion.figure
             key={image}
             {...reveal}
@@ -631,7 +606,22 @@ function SpaceSection() {
           >
             <ImageWithFallback src={image} alt="" className="h-full w-full object-cover saturate-[0.72]" />
             <figcaption className="absolute bottom-6 left-6 text-[0.62rem] uppercase tracking-[0.28em] text-[#F2EEEC]/78">
-              {copy.captions[index]}
+              {copy.captions[index % copy.captions.length]}
+            </figcaption>
+          </motion.figure>
+        ))}
+      </div>
+      <div className="relative mx-auto mt-6 grid max-w-[1520px] gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {additionalImages.map((image, index) => (
+          <motion.figure
+            key={image}
+            {...reveal}
+            transition={{ ...reveal.transition, delay: 0.2 + index * 0.05 }}
+            className="relative h-[22rem] overflow-hidden rounded-[2rem] shadow-[0_32px_90px_-70px_rgba(56,50,44,0.72)]"
+          >
+            <ImageWithFallback src={image} alt="" className="h-full w-full object-cover saturate-[0.72]" />
+            <figcaption className="absolute bottom-6 left-6 text-[0.62rem] uppercase tracking-[0.28em] text-[#F2EEEC]/78">
+              {copy.captions[(index + featuredImages.length) % copy.captions.length]}
             </figcaption>
           </motion.figure>
         ))}
@@ -662,7 +652,7 @@ function FinalSection() {
       <Grain />
 
       <motion.div {...reveal} className="relative mx-auto w-full max-w-[1480px] pb-[9vh]">
-        <h2 className="max-w-[78rem] text-[clamp(4.4rem,11vw,13rem)] font-extralight leading-[0.78] tracking-[0.01em]">
+        <h2 className="max-w-[64rem] text-[clamp(3.3rem,8.6vw,10rem)] font-extralight leading-[0.84] tracking-[0.01em]">
           {copy.title}
         </h2>
         <div className="mt-12 flex max-w-[58rem] flex-col gap-8 md:ml-auto md:flex-row md:items-end md:justify-between">

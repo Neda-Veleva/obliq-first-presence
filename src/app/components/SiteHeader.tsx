@@ -61,7 +61,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       image: '/doctor-portrait.png',
       imageAlt: 'Екип на клиниката',
       links: [
-        { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
+        { href: '/the-obliq-approach', label: 'Подходът на OBLIQ.' },
         { href: '#founder', label: 'Лекар основател' },
         { href: '#results', label: 'Отзиви и преди / след' },
         { href: '/skin-journal', label: 'Skin Journal' },
@@ -122,7 +122,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       image: '/doctor-portrait.png',
       imageAlt: 'Clinic team',
       links: [
-        { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
+        { href: '/the-obliq-approach', label: 'The OBLIQ. approach' },
         { href: '#founder', label: 'Founder doctor' },
         { href: '#results', label: 'Reviews and before / after' },
         { href: '/skin-journal', label: 'Skin Journal' },
@@ -183,7 +183,7 @@ const megaCategoriesByLocale: Record<Locale, MegaCategory[]> = {
       image: '/doctor-portrait.png',
       imageAlt: 'Команда клиники',
       links: [
-        { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
+        { href: '/the-obliq-approach', label: 'Подход OBLIQ.' },
         { href: '#founder', label: 'Врач-основатель' },
         { href: '#results', label: 'Отзывы и до / после' },
         { href: '/skin-journal', label: 'Skin Journal' },
@@ -215,9 +215,11 @@ const featuredPagesByLocale: Record<Locale, PageLink[]> = {
     { href: '/homepage-concept-02', label: 'Editorial Presence 02' },
     { href: '/homepage-concept-03', label: 'Future Human 03' },
     { href: '/homepage-v4', label: 'Начало V4' },
-    { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
+    { href: '/the-obliq-approach', label: 'Подходът на OBLIQ.' },
     { href: '/conditions', label: 'Състояния' },
     { href: '/procedures', label: 'терапии' },
+    { href: '/procedures-v2', label: 'терапии V2' },
+    { href: '/procedures-v3', label: 'терапии V3' },
     { href: '/skin-journal', label: 'Skin Journal' },
     { href: '/contact', label: 'Контакт' },
     { href: '/contact-v2', label: 'Контакт V2' },
@@ -230,9 +232,11 @@ const featuredPagesByLocale: Record<Locale, PageLink[]> = {
     { href: '/homepage-concept-02', label: 'Editorial Presence 02' },
     { href: '/homepage-concept-03', label: 'Future Human 03' },
     { href: '/homepage-v4', label: 'Home V4' },
-    { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
+    { href: '/the-obliq-approach', label: 'The OBLIQ. approach' },
     { href: '/conditions', label: 'Conditions' },
     { href: '/procedures', label: 'Procedures' },
+    { href: '/procedures-v2', label: 'Procedures V2' },
+    { href: '/procedures-v3', label: 'Procedures V3' },
     { href: '/skin-journal', label: 'Skin Journal' },
     { href: '/contact', label: 'Contact' },
     { href: '/contact-v2', label: 'Contact V2' },
@@ -245,9 +249,11 @@ const featuredPagesByLocale: Record<Locale, PageLink[]> = {
     { href: '/homepage-concept-02', label: 'Editorial Presence 02' },
     { href: '/homepage-concept-03', label: 'Future Human 03' },
     { href: '/homepage-v4', label: 'Главная V4' },
-    { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
+    { href: '/the-obliq-approach', label: 'Подход OBLIQ.' },
     { href: '/conditions', label: 'Состояния' },
     { href: '/procedures', label: 'Процедуры' },
+    { href: '/procedures-v2', label: 'Процедуры V2' },
+    { href: '/procedures-v3', label: 'Процедуры V3' },
     { href: '/skin-journal', label: 'Skin Journal' },
     { href: '/contact', label: 'Контакт' },
     { href: '/contact-v2', label: 'Контакт V2' },
@@ -674,18 +680,10 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
 
                 <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:col-span-5 lg:px-0">
                   <div className="flex flex-1 flex-col px-5 py-7 sm:px-8 sm:py-9 lg:max-w-xl lg:py-10">
-                    <h2
-                      className="text-balance text-[#38322C]"
-                      style={{
-                        fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                        fontSize: 'clamp(1.65rem, 3.2vw, 2.35rem)',
-                        fontWeight: 400,
-                        lineHeight: 1.15,
-                      }}
-                    >
+                    <h2 className="type-h4 text-balance text-[#38322C]">
                       {activeMega.label}
                     </h2>
-                    <p className="mt-4 max-w-md text-[0.9375rem] leading-relaxed text-[#635C54]/88">
+                    <p className="type-body mt-4 max-w-md text-[#635C54]/88">
                       {activeMega.description}
                     </p>
                     <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">

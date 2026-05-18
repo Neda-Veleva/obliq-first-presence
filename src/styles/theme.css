@@ -145,47 +145,119 @@ html {
     font-family: 'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  h1, h2, h3 {
-    font-family: 'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-
   /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
+   * Default typography — Obliq scale from `typography-obliq.css` (--type-* tokens).
+   * Tailwind utilities still override these when applied.
+   * Semantic HTML maps to scale roles; use `.type-h1` … `.type-body-lg` etc. when the tag must differ from the visual role.
+   * Links and plain `<button>` keep separate rules below (not using heading/body tokens).
+   */
 
   html {
     font-size: var(--font-size);
   }
 
-  h1 {
-    font-size: 5rem;
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .type-h1,
+  .type-h2,
+  .type-h3,
+  .type-h4,
+  .type-h5,
+  .type-h6 {
+    font-family: 'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: var(--font-weight-normal);
   }
 
-  h2 {
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  h1,
+  .type-h1 {
+    font-size: var(--type-h1-size);
+    line-height: var(--type-h1-line-height);
+    letter-spacing: var(--type-h1-letter-spacing);
   }
 
-  h3 {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  h2,
+  .type-h2 {
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-line-height);
+    letter-spacing: var(--type-h2-letter-spacing);
   }
 
-  h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  h3,
+  .type-h3 {
+    font-size: var(--type-h3-size);
+    line-height: var(--type-h3-line-height);
+    letter-spacing: var(--type-h3-letter-spacing);
+  }
+
+  h4,
+  .type-h4 {
+    font-size: var(--type-h4-size);
+    line-height: var(--type-h4-line-height);
+    letter-spacing: var(--type-h4-letter-spacing);
+  }
+
+  h5,
+  .type-h5 {
+    font-size: var(--type-h5-size);
+    line-height: var(--type-h5-line-height);
+    letter-spacing: var(--type-h5-letter-spacing);
+  }
+
+  h6,
+  .type-h6 {
+    font-size: var(--type-h6-size);
+    line-height: var(--type-h6-line-height);
+    letter-spacing: var(--type-h6-letter-spacing);
+  }
+
+  p,
+  .type-body {
+    font-size: var(--type-paragraph-size);
+    line-height: var(--type-paragraph-line-height);
+    letter-spacing: var(--type-paragraph-letter-spacing);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .type-body-lg {
+    font-size: var(--type-paragraph-large-size);
+    line-height: var(--type-paragraph-large-line-height);
+    letter-spacing: var(--type-paragraph-large-letter-spacing);
+    font-weight: var(--font-weight-normal);
+  }
+
+  small,
+  .type-body-sm {
+    font-size: var(--type-paragraph-small-size);
+    line-height: var(--type-paragraph-small-line-height);
+    letter-spacing: var(--type-paragraph-small-letter-spacing);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .type-eyebrow {
+    font-size: var(--type-eyebrow-size);
+    line-height: var(--type-eyebrow-line-height);
+    letter-spacing: var(--type-eyebrow-letter-spacing);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .type-caption {
+    font-size: var(--type-caption-size);
+    line-height: var(--type-caption-line-height);
+    letter-spacing: var(--type-caption-letter-spacing);
+    font-weight: var(--font-weight-normal);
   }
 
   label {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-family: inherit;
+    font-size: var(--type-paragraph-size);
+    line-height: var(--type-paragraph-line-height);
+    letter-spacing: var(--type-paragraph-letter-spacing);
+    font-weight: var(--font-weight-normal);
   }
 
   button {
@@ -197,13 +269,17 @@ html {
 
   input {
     font-family: inherit;
-    font-size: var(--text-base);
+    font-size: var(--type-paragraph-size);
+    line-height: var(--type-paragraph-line-height);
+    letter-spacing: var(--type-paragraph-letter-spacing);
     font-weight: var(--font-weight-normal);
-    line-height: 1.5;
   }
 
   textarea,
   select {
     font-family: inherit;
+    font-size: var(--type-paragraph-size);
+    line-height: var(--type-paragraph-line-height);
+    letter-spacing: var(--type-paragraph-letter-spacing);
   }
 }

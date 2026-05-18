@@ -24,17 +24,29 @@ type HeroAction = {
 
 export type HeroMediaSide = 'left' | 'right';
 
+type MirrorVideoBounds = {
+  left: string;
+  top: string;
+  width: string;
+  height: string;
+};
+
 type CinematicHeroProps = {
   id?: string;
   eyebrow?: string;
   title: string;
   subtitle: string;
   videoSrc: string;
+  mediaFrame?: 'ellipse' | 'mirror';
+  mirrorImageSrc?: string;
+  mirrorAspectClassName?: string;
+  mirrorClassName?: string;
+  mirrorVideoBounds?: MirrorVideoBounds;
   fullHeight?: boolean;
   mediaSide?: HeroMediaSide;
   primaryAction: HeroAction;
   secondaryAction?: HeroAction;
-  backgroundGradient?: string;
+  backgroundColor?: string;
   backgroundClassName?: string;
   className?: string;
 };
@@ -118,7 +130,7 @@ function VideoEllipse({ src }: { src: string }) {
   return (
     <motion.div {...editorialFade} className="relative mx-auto w-full max-w-[46rem] pt-6 xl:max-w-[50rem]">
       <div
-        className="relative aspect-[1.12/1] rounded-[50%] border border-[#F2EEEC]/14 bg-[linear-gradient(180deg,rgba(242,238,236,0.12)_0%,rgba(242,238,236,0.05)_100%)] p-[0.8rem] shadow-[0_0_0_1px_rgba(242,238,236,0.05),0_34px_80px_-42px_rgba(56,50,44,0.72),inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-18px_32px_rgba(255,255,255,0.04)] backdrop-blur-[14px] sm:aspect-[1.38/1] sm:p-[0.95rem]"
+        className="relative aspect-[1.12/1] rounded-[50%] border border-[#F2EEEC]/14 bg-[#F2EEEC]/10 p-[0.8rem] shadow-[0_0_0_1px_rgba(242,238,236,0.05),0_34px_80px_-42px_rgba(56,50,44,0.72),inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-18px_32px_rgba(255,255,255,0.04)] backdrop-blur-[14px] sm:aspect-[1.38/1] sm:p-[0.95rem]"
         onMouseEnter={replayVideoOnHover}
       >
         <div className="relative h-full w-full overflow-hidden rounded-[50%] bg-[#F2EEEC]/6">
@@ -126,7 +138,6 @@ function VideoEllipse({ src }: { src: string }) {
             ref={videoRef}
             autoPlay
             muted
-            defaultMuted
             playsInline
             preload="auto"
             aria-hidden="true"
@@ -136,9 +147,66 @@ function VideoEllipse({ src }: { src: string }) {
           >
             <source src={src} type="video/mp4" />
           </video>
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(56,50,44,0.14)_0%,rgba(56,50,44,0.68)_100%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[#38322C]/38" />
           <div className="pointer-events-none absolute inset-0 rounded-[50%] border border-[#F2EEEC]/18 shadow-[inset_0_1px_0_rgba(242,238,236,0.18)]" />
         </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function VideoMirror({
+  src,
+  imageSrc = '/hero-mirror.png',
+  aspectClassName = 'aspect-[1000/920]',
+  className,
+  videoBounds = {
+    left: '1%',
+    top: '3%',
+    width: '97%',
+    height: '73%',
+  },
+}: {
+  src: string;
+  imageSrc?: string;
+  aspectClassName?: string;
+  className?: string;
+  videoBounds?: MirrorVideoBounds;
+}) {
+  const { videoRef, freezeVideoOnLastFrame, replayVideoOnHover } = useHeroVideoPlayback();
+
+  return (
+    <motion.div
+      {...editorialFade}
+      className={cn('relative mx-auto w-full max-w-[42rem] lg:w-full lg:max-w-[54rem] xl:w-full', className)}
+    >
+      <div className={cn('relative w-full', aspectClassName)} onMouseEnter={replayVideoOnHover}>
+        <div
+          className="absolute overflow-hidden rounded-[50%] bg-[#38322C]"
+          style={videoBounds}
+        >
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            disablePictureInPicture
+            onEnded={freezeVideoOnLastFrame}
+            className="pointer-events-none h-full w-full object-cover object-center"
+          >
+            <source src={src} type="video/mp4" />
+          </video>
+          <div className="pointer-events-none absolute inset-0 bg-[#38322C]/22" />
+        </div>
+
+        <img
+          src={imageSrc}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain"
+        />
       </div>
     </motion.div>
   );
@@ -163,7 +231,7 @@ function HeroLink({ action }: { action: HeroAction }) {
       target={action.external ? '_blank' : undefined}
       rel={action.external ? 'noopener noreferrer' : undefined}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[0.78rem] uppercase tracking-[0.22em] transition-[transform,background-color,color,border-color] duration-300',
+        'inline-flex w-full max-w-full items-center justify-center gap-2 rounded-full px-5 py-4 text-[0.72rem] uppercase tracking-[0.18em] transition-[transform,background-color,color,border-color] duration-300 sm:w-auto sm:px-6 sm:text-[0.78rem] sm:tracking-[0.22em]',
         action.secondary
           ? 'border border-[#F2EEEC]/18 bg-[#F2EEEC]/8 text-[#F2EEEC] backdrop-blur-md hover:bg-[#F2EEEC]/12'
           : 'bg-[#F2EEEC] text-[#38322C] shadow-[0_20px_30px_-20px_rgba(242,238,236,0.7)] hover:-translate-y-0.5',
@@ -182,11 +250,16 @@ export function CinematicHero({
   title,
   subtitle,
   videoSrc,
+  mediaFrame = 'ellipse',
+  mirrorImageSrc,
+  mirrorAspectClassName,
+  mirrorClassName,
+  mirrorVideoBounds,
   fullHeight = false,
   mediaSide = 'right',
   primaryAction,
   secondaryAction,
-  backgroundGradient = 'linear-gradient(180deg,#38322C 0%,#635C54 76%,#8C8E77 100%)',
+  backgroundColor = '#38322C',
   backgroundClassName = 'bg-[#38322C]',
   className,
 }: CinematicHeroProps) {
@@ -199,7 +272,7 @@ export function CinematicHero({
         backgroundClassName,
         className,
       )}
-      style={{ backgroundImage: backgroundGradient }}
+      style={{ backgroundColor }}
     >
       <AtmosphereOrbs
         orbs={[
@@ -216,38 +289,38 @@ export function CinematicHero({
             mediaSide === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row',
           )}
         >
-          <motion.div
-            {...editorialFade}
-            className="max-w-[34rem] lg:basis-[42%] lg:flex-none"
+            <motion.div
+              {...editorialFade}
+            className="w-full min-w-0 max-w-[34rem] lg:basis-[42%] lg:flex-none"
           >
             {eyebrow ? (
-              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#D8CDC0]">{eyebrow}</p>
+              <p className="type-eyebrow text-[#D8CDC0]">{eyebrow}</p>
             ) : null}
 
-            <h1
-              className="mt-6 text-[#F2EEEC]"
-              style={{
-                fontSize: '5rem',
-                lineHeight: 0.92,
-                fontWeight: 400,
-                letterSpacing: '-0.05em',
-              }}
-            >
-              {title}
-            </h1>
+            <h1 className="type-h1 mt-6 text-[#F2EEEC]">{title}</h1>
 
-            <p className="mt-6 max-w-[30rem] text-[1.08rem] leading-relaxed text-[#F2EEEC]/76 sm:text-[1.18rem]">
+            <p className="type-body-lg mt-6 max-w-[30rem] text-[#F2EEEC]/76">
               {subtitle}
             </p>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-10 flex w-full max-w-full flex-col gap-4 sm:flex-row">
               <HeroLink action={primaryAction} />
               {secondaryAction ? <HeroLink action={{ ...secondaryAction, secondary: true }} /> : null}
             </div>
           </motion.div>
 
           <div className="w-full lg:basis-[58%] lg:flex-none">
-            <VideoEllipse src={videoSrc} />
+            {mediaFrame === 'mirror' ? (
+              <VideoMirror
+                src={videoSrc}
+                imageSrc={mirrorImageSrc}
+                aspectClassName={mirrorAspectClassName}
+                className={mirrorClassName}
+                videoBounds={mirrorVideoBounds}
+              />
+            ) : (
+              <VideoEllipse src={videoSrc} />
+            )}
           </div>
         </div>
       </div>
@@ -271,28 +344,19 @@ export function SectionHeading({
   return (
     <motion.div {...editorialFade} className={cn('max-w-3xl', className)}>
       <p
-        className={cn(
-          'text-[0.72rem] uppercase tracking-[0.28em]',
-          invert ? 'text-[#BAB0A8]' : 'text-[#876856]',
-        )}
+        className={cn('type-eyebrow', invert ? 'text-[#BAB0A8]' : 'text-[#876856]')}
       >
         {eyebrow}
       </p>
       <h2
-        className={cn('mt-5', invert ? 'text-[#F2EEEC]' : 'text-[#38322C]')}
-        style={{
-          fontSize: 'clamp(2.2rem, 4.2vw, 4.2rem)',
-          lineHeight: 1.02,
-          fontWeight: 400,
-          letterSpacing: '-0.04em',
-        }}
+        className={cn('type-h2 mt-5', invert ? 'text-[#F2EEEC]' : 'text-[#38322C]')}
       >
         {title}
       </h2>
       {body ? (
         <p
           className={cn(
-            'mt-5 max-w-2xl text-[1.04rem] leading-relaxed',
+            'type-body mt-5 max-w-2xl',
             invert ? 'text-[#F2EEEC]/74' : 'text-[#635C54]',
           )}
         >

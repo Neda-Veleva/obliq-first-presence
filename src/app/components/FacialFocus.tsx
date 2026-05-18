@@ -230,16 +230,8 @@ export function FacialFocus() {
           <p className="mb-4 text-[0.65rem] font-light uppercase tracking-[0.42em] text-[#876856]/80">
             {copy.eyebrow}
           </p>
-          <h2
-            className="mb-5 font-extralight leading-[1.12] text-[#38322C]/92"
-            style={{ fontSize: 'clamp(1.85rem, 4.2vw, 2.65rem)' }}
-          >
-            {copy.title}
-          </h2>
-          <p
-            className="mx-auto max-w-xl text-balance font-light leading-relaxed text-[#635C54]/95"
-            style={{ fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)' }}
-          >
+          <h2 className="type-h4 mb-5 font-extralight text-[#38322C]/92">{copy.title}</h2>
+          <p className="type-body-sm mx-auto max-w-xl text-balance font-light leading-relaxed text-[#635C54]/95">
             {copy.body}
           </p>
         </header>

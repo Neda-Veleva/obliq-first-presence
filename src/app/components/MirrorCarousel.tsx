@@ -338,20 +338,11 @@ export function MirrorCarousel() {
               >
                 <h2
                   id="zones-intro-title"
-                  className="max-w-[12ch] text-[#38322C]"
-                  style={{
-                    fontSize: 'clamp(2.25rem, 5vw, 4.6rem)',
-                    lineHeight: 0.94,
-                    fontWeight: 430,
-                    letterSpacing: '-0.035em',
-                  }}
+                  className="type-h1 max-w-[12ch] text-[#38322C]"
                 >
                   {activeSlide.title}
                 </h2>
-                <p
-                  className="mt-5 max-w-[34rem] text-[#635C54]"
-                  style={{ fontSize: 'clamp(1rem, 1.4vw, 1.125rem)', lineHeight: 1.72 }}
-                >
+                <p className="type-body-lg mt-5 max-w-[34rem] text-[#635C54]">
                   {activeSlide.description}
                 </p>
               </motion.div>

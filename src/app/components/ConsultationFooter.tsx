@@ -1,5 +1,4 @@
 import { motion } from 'motion/react';
-import { Facebook, Instagram } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { BrandLogo } from './BrandLogo';
 import { useLocale, type Locale } from '../i18n';
@@ -31,7 +30,7 @@ const footerCopy: Record<
     proceduresLabel: 'Терапии',
     contactLabel: 'Контакт',
     socialLabel: 'Социални мрежи',
-    address: 'ул. „Стефан Стамболов“ 6, ет. 2, София',
+    address: 'ул. „Стефан Стамболов“ 6, ет. 2,\nгр. София',
     rights: 'Всички права запазени.',
     privacy: 'Политика за поверителност',
     terms: 'Дисклеймър и общи условия',
@@ -39,7 +38,7 @@ const footerCopy: Record<
     medicalNote: 'Медицински услуги се предоставят след индивидуална оценка.',
     menuLinks: [
       { href: '/#top', label: 'Начало' },
-      { href: '/the-obliq-approach', label: 'Подходът на OBLIQ' },
+      { href: '/the-obliq-approach', label: 'Подходът на OBLIQ.' },
       { href: '/procedures', label: 'Терапии' },
       { href: '/conditions', label: 'Състояния' },
       { href: '/#results', label: 'Отзиви' },
@@ -69,7 +68,7 @@ const footerCopy: Record<
     proceduresLabel: 'Therapies',
     contactLabel: 'Contact',
     socialLabel: 'Social',
-    address: 'ул. „Стефан Стамболов“ 6, ет. 2, София',
+    address: '6 Stefan Stambolov St., floor 2,\nSofia, Bulgaria',
     rights: 'All rights reserved.',
     privacy: 'Privacy policy',
     terms: 'Disclaimer and terms',
@@ -77,7 +76,7 @@ const footerCopy: Record<
     medicalNote: 'Medical services are provided after an individual assessment.',
     menuLinks: [
       { href: '/#top', label: 'Home' },
-      { href: '/the-obliq-approach', label: 'The OBLIQ approach' },
+      { href: '/the-obliq-approach', label: 'The OBLIQ. approach' },
       { href: '/procedures', label: 'Therapies' },
       { href: '/conditions', label: 'Conditions' },
       { href: '/#results', label: 'Reviews' },
@@ -107,7 +106,7 @@ const footerCopy: Record<
     proceduresLabel: 'Терапии',
     contactLabel: 'Контакт',
     socialLabel: 'Социальные сети',
-    address: 'ул. „Стефан Стамболов“ 6, ет. 2, София',
+    address: 'ул. «Стефан Стамболов» 6, эт. 2,\nг. София',
     rights: 'Все права защищены.',
     privacy: 'Политика конфиденциальности',
     terms: 'Дисклеймер и условия',
@@ -115,7 +114,7 @@ const footerCopy: Record<
     medicalNote: 'Медицинские услуги предоставляются после индивидуальной оценки.',
     menuLinks: [
       { href: '/#top', label: 'Главная' },
-      { href: '/the-obliq-approach', label: 'Подход OBLIQ' },
+      { href: '/the-obliq-approach', label: 'Подход OBLIQ.' },
       { href: '/procedures', label: 'Терапии' },
       { href: '/conditions', label: 'Состояния' },
       { href: '/#results', label: 'Отзывы' },
@@ -191,7 +190,7 @@ export function ConsultationFooter() {
             />
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-10">
+          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10">
             <div className="space-y-4 sm:col-span-2 xl:col-span-1">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.clinicLabel}
@@ -219,7 +218,7 @@ export function ConsultationFooter() {
               </ul>
             </nav>
 
-            <nav aria-label="Терапии" className="space-y-4 sm:col-span-2 lg:col-span-1 xl:col-span-1">
+            {/* <nav aria-label="Терапии" className="space-y-4 sm:col-span-2 lg:col-span-1 xl:col-span-1">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.proceduresLabel}
               </p>
@@ -235,7 +234,7 @@ export function ConsultationFooter() {
                   </li>
                 ))}
               </ul>
-            </nav>
+            </nav> */}
 
             <div className="space-y-4">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
@@ -250,13 +249,11 @@ export function ConsultationFooter() {
                 ))}
               </address>
               <p className="text-[0.9375rem] text-[#F2EEEC]/80">
-                <a href="tel:0898910588" className="transition-colors hover:text-[#F2EEEC]">
-                  0898910588
-                </a>
+                <a href="tel:+359898910588" className="transition-colors hover:text-[#F2EEEC]">+359 - 898 - 910 - 588</a>
               </p>
             </div>
 
-            <div className="space-y-5">
+            {/* <div className="space-y-5">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.28em] text-[#BAB0A8]">
                 {copy.socialLabel}
               </p>
@@ -268,7 +265,13 @@ export function ConsultationFooter() {
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F2EEEC]/20 text-[#F2EEEC]/85 transition-[color,background-color,border-color] hover:border-[#F2EEEC]/40 hover:bg-[#F2EEEC]/10 hover:text-[#F2EEEC]"
                   aria-label="Instagram"
                 >
-                  <Instagram className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.5} />
+                  <img
+                    src="/social/instagram.png"
+                    alt=""
+                    className="h-[1.125rem] w-[1.125rem] object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </a>
                 <a
                   href="https://facebook.com"
@@ -277,10 +280,16 @@ export function ConsultationFooter() {
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F2EEEC]/20 text-[#F2EEEC]/85 transition-[color,background-color,border-color] hover:border-[#F2EEEC]/40 hover:bg-[#F2EEEC]/10 hover:text-[#F2EEEC]"
                   aria-label="Facebook"
                 >
-                  <Facebook className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.5} />
+                  <img
+                    src="/social/facebook.png"
+                    alt=""
+                    className="h-[1.125rem] w-[1.125rem] object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

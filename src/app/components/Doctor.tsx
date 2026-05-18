@@ -88,24 +88,18 @@ export function Doctor() {
           viewport={{ once: true }}
           className="flex flex-col justify-center px-8 md:px-16 lg:px-20 py-20"
         >
-          <p className="mb-8 tracking-[0.3em] text-[#BAB0A8]" style={{ fontSize: '0.75rem' }}>
-            {copy.eyebrow}
-          </p>
+          <p className="type-eyebrow mb-8 text-[#BAB0A8]">{copy.eyebrow}</p>
 
-          <h2 className="mb-6 tracking-tight" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.1, fontWeight: 400 }}>
-            {copy.name}
-          </h2>
+          <h2 className="type-h2 mb-6">{copy.name}</h2>
 
-          <div className="max-w-lg space-y-6 text-[#F2EEEC]/74" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+          <div className="type-body-lg max-w-lg space-y-6 text-[#F2EEEC]/74">
             <p>
               {copy.body}
             </p>
           </div>
 
           <div className="mt-12 border-t border-[#BAB0A8]/16 pt-8">
-            <p className="text-[#BAB0A8]" style={{ fontSize: '0.875rem' }}>
-              {copy.credential}
-            </p>
+            <p className="type-body-sm text-[#BAB0A8]">{copy.credential}</p>
           </div>
         </motion.div>
       </div>

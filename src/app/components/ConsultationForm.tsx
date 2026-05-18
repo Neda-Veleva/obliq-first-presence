@@ -99,20 +99,8 @@ export function ConsultationForm() {
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.35em] text-[#876856]">
                 {copy.eyebrow}
               </p>
-              <h2
-                className="text-balance text-[#38322C]"
-                style={{
-                  fontFamily: "'Matt', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                  fontSize: 'clamp(2rem, 4.5vw, 3.25rem)',
-                  fontWeight: 400,
-                  lineHeight: 1.12,
-                }}
-              >
-                {copy.title}
-              </h2>
-              <p className="max-w-md text-[1.0625rem] leading-relaxed text-[#635C54]">
-                {copy.body}
-              </p>
+              <h2 className="type-h2 text-balance text-[#38322C]">{copy.title}</h2>
+              <p className="type-body max-w-md text-[#635C54]">{copy.body}</p>
             </div>
 
             <div>

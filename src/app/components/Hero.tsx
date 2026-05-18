@@ -55,12 +55,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1 className="mb-6 text-[#F2EEEC] tracking-tight uppercase" style={{ fontSize: '5rem', lineHeight: 0.95, fontWeight: 400, letterSpacing: '-0.03em' }}>
+          <h1 className="type-h1 mb-6 uppercase text-[#F2EEEC]">
             {copy.headline[0]}
             <br />
             {copy.headline[1]}
           </h1>
-          <p className="ml-auto max-w-md uppercase text-[#F2EEEC]/70" style={{ fontSize: '1.125rem', lineHeight: 1.6 }}>
+          <p className="type-body ml-auto max-w-md uppercase text-[#F2EEEC]/70">
             {copy.byline}
           </p>
         </motion.div>

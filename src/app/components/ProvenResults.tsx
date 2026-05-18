@@ -90,16 +90,10 @@ export function ProvenResults() {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
           >
-            <h2
-              className="mb-6 max-w-lg tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.1, fontWeight: 400 }}
-            >
+            <h2 className="type-h2 mb-6 max-w-lg">
               {copy.title}
             </h2>
-            <p
-              className="mb-10 max-w-lg text-pretty text-[#635C54]"
-              style={{ fontSize: '1.125rem', lineHeight: 1.7 }}
-            >
+            <p className="type-body-lg mb-10 max-w-lg text-pretty text-[#635C54]">
               {copy.body}
             </p>
             <div className="space-y-4 md:space-y-6">
@@ -109,7 +103,7 @@ export function ProvenResults() {
                   strokeWidth={1.5}
                 />
                 <div>
-                  <p className="mb-1.5 font-medium" style={{ fontSize: '1.125rem' }}>
+                  <p className="type-body-lg mb-1.5 font-medium">
                     {copy.satisfactionTitle}
                   </p>
                   <p className="text-sm text-[#635C54]">
@@ -123,7 +117,7 @@ export function ProvenResults() {
                   strokeWidth={1.5}
                 />
                 <div>
-                  <p className="mb-1.5 font-medium" style={{ fontSize: '1.125rem' }}>
+                  <p className="type-body-lg mb-1.5 font-medium">
                     {copy.longevityTitle}
                   </p>
                   <p className="text-sm text-[#635C54]">

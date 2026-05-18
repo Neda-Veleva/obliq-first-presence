@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
+import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ConsultationFooter } from './ConsultationFooter';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import {
@@ -7,6 +8,7 @@ import {
   CinematicHero,
   SectionHeading,
   editorialFade,
+  useHeroVideoPlayback,
 } from './PremiumPagePrimitives';
 import { SiteHeader } from './SiteHeader';
 import { useLocale, type Locale } from '../i18n';
@@ -31,7 +33,7 @@ const journeyMoments = [
     eyebrow: 'Консултация',
     title: 'Първата среща започва със слушане.',
     body: 'Всяка консултация е замислена като спокоен разговор, а не като търговски момент. Притесненията, навиците, предишните терапии и естетичните цели се разбират в контекст, за да започне планът с нюанс, а не с предположения.',
-    image: '/doctor-portrait-1.png',
+    image: '/doctor-portrait-bg.jpg',
     alt: 'Лекар в спокойна консултативна атмосфера',
   },
   {
@@ -52,10 +54,18 @@ const journeyMoments = [
     eyebrow: 'Проследяване',
     title: 'Грижата продължава и след самия час.',
     body: 'Проследяването е част от преживяването, а не допълнение. Реакцията на кожата, ритъмът на терапиите и бъдещата поддръжка се разглеждат със същата прецизност, както и първоначалната консултация.',
-    image: '/precision-art-hero.png',
+    image: '/mirror-carousel/face.png',
     alt: 'Премиум атмосфера в естетична дерматология',
   },
 ] as const;
+
+type JourneyMoment = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  image: string;
+  alt: string;
+};
 
 const atmosphereFrames = [
   { src: '/clinic-space/reception.jpg', alt: 'Изисканата рецепция в OBLIQ', className: 'md:col-span-2 md:row-span-2' },
@@ -63,6 +73,12 @@ const atmosphereFrames = [
   { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Технология и мека светлина в процедурната стая', className: 'md:col-span-1 md:row-span-1' },
   { src: '/clinic-space/consultation-wide.jpg', alt: 'Консултативен кабинет с дневна светлина', className: 'md:col-span-1 md:row-span-2' },
   { src: '/clinic-space/treatment-room-shelves.jpg', alt: 'Топли материали и премерено осветление', className: 'md:col-span-2 md:row-span-1' },
+  { src: '/clinic-space/treatment-room-front.jpg', alt: 'Светла процедурна стая с естетичен стол', className: 'md:col-span-1 md:row-span-1' },
+  { src: '/clinic-space/treatment-room-device.jpg', alt: 'Процедурна стая с апаратура и дневна светлина', className: 'md:col-span-1 md:row-span-1' },
+  { src: '/clinic-space/treatment-room-desk.jpg', alt: 'Процедурна стая с работен кът и мека светлина', className: 'md:col-span-2 md:row-span-1' },
+  { src: '/clinic-space/treatment-room-mirror.png', alt: 'Процедурна зона с огледало и топли материали', className: 'md:col-span-1 md:row-span-2' },
+  { src: '/clinic-space/treatment-room-sink.png', alt: 'Процедурна стая с мивка и минималистичен интериор', className: 'md:col-span-1 md:row-span-1' },
+  { src: '/clinic-space/clinic-lounge-view.jpg', alt: 'Поглед към зоната за почивка и процедурната стая', className: 'md:col-span-2 md:row-span-1' },
 ] as const;
 
 const expertiseBlocks = [
@@ -83,11 +99,13 @@ const expertiseBlocks = [
 const approachCopy = {
   bg: {
     hero: {
+      eyebrow: 'Методология',
       title: 'Подходът на OBLIQ',
       subtitle:
         'Различен подход към естетичната дерматология. Фокусиран върху естествено изглеждащи резултати, здраве на кожата, персонална грижа и съвременно разбиране за естетичната медицина.',
       primaryLabel: 'Заяви консултация',
       secondaryLabel: 'Посети OBLIQ',
+      markers: ['Кожа', 'Мярка', 'Ритъм'],
     },
     philosophy: {
       eyebrow: 'Философия',
@@ -123,11 +141,13 @@ const approachCopy = {
   },
   en: {
     hero: {
+      eyebrow: 'Methodology',
       title: 'The OBLIQ approach',
       subtitle:
         'A different approach to aesthetic dermatology. Focused on natural-looking results, skin health, personal care and a contemporary understanding of aesthetic medicine.',
       primaryLabel: 'Request a consultation',
       secondaryLabel: 'Visit OBLIQ',
+      markers: ['Skin', 'Measure', 'Rhythm'],
     },
     philosophy: {
       eyebrow: 'Philosophy',
@@ -162,7 +182,7 @@ const approachCopy = {
           title: 'The first meeting begins with listening.',
           body:
             'Every consultation is shaped as a calm conversation, not a sales moment. Concerns, habits, previous therapies and aesthetic goals are understood in context, so the plan begins with nuance rather than assumptions.',
-          image: '/doctor-portrait-1.png',
+          image: '/doctor-portrait-test.png',
           alt: 'Doctor in a calm consultation atmosphere',
         },
         {
@@ -201,6 +221,12 @@ const approachCopy = {
         { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Technology and soft light in the treatment room', className: 'md:col-span-1 md:row-span-1' },
         { src: '/clinic-space/consultation-wide.jpg', alt: 'Consultation room in daylight', className: 'md:col-span-1 md:row-span-2' },
         { src: '/clinic-space/treatment-room-shelves.jpg', alt: 'Warm materials and calm lighting', className: 'md:col-span-2 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-front.jpg', alt: 'Bright treatment room with aesthetic chair', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-device.jpg', alt: 'Treatment room with technology and daylight', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-desk.jpg', alt: 'Treatment room with a quiet work area', className: 'md:col-span-2 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-mirror.png', alt: 'Treatment area with mirror and warm materials', className: 'md:col-span-1 md:row-span-2' },
+        { src: '/clinic-space/treatment-room-sink.png', alt: 'Minimal treatment room with sink and soft light', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/clinic-lounge-view.jpg', alt: 'View toward the lounge and treatment area', className: 'md:col-span-2 md:row-span-1' },
       ],
     },
     science: {
@@ -234,11 +260,13 @@ const approachCopy = {
   },
   ru: {
     hero: {
+      eyebrow: 'Методология',
       title: 'Подход OBLIQ',
       subtitle:
         'Другой подход к эстетической дерматологии. Фокусирован на естественном результате, здоровье кожи, персональной уходе и современном понимании эстетической медицины.',
       primaryLabel: 'Запросить консультацию',
       secondaryLabel: 'Посетить OBLIQ',
+      markers: ['Кожа', 'Мера', 'Ритм'],
     },
     philosophy: {
       eyebrow: 'Философия',
@@ -273,7 +301,7 @@ const approachCopy = {
           title: 'Первая встреча начинается со слушания.',
           body:
             'Каждая консультация задумана как спокойный разговор, а не коммерческий момент. Запросы, привычки, предыдущие терапии и эстетические цели рассматриваются в контексте.',
-          image: '/doctor-portrait-1.png',
+          image: '/doctor-portrait-test.png',
           alt: 'Врач в спокойной консультационной атмосфере',
         },
         {
@@ -312,6 +340,12 @@ const approachCopy = {
         { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Технология и мягкий свет в процедурной комнате', className: 'md:col-span-1 md:row-span-1' },
         { src: '/clinic-space/consultation-wide.jpg', alt: 'Консультационный кабинет при дневном свете', className: 'md:col-span-1 md:row-span-2' },
         { src: '/clinic-space/treatment-room-shelves.jpg', alt: 'Теплые материалы и спокойный свет', className: 'md:col-span-2 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-front.jpg', alt: 'Светлая процедурная комната с эстетическим креслом', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-device.jpg', alt: 'Процедурная комната с технологией и дневным светом', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-desk.jpg', alt: 'Процедурная комната с рабочей зоной', className: 'md:col-span-2 md:row-span-1' },
+        { src: '/clinic-space/treatment-room-mirror.png', alt: 'Процедурная зона с зеркалом и теплыми материалами', className: 'md:col-span-1 md:row-span-2' },
+        { src: '/clinic-space/treatment-room-sink.png', alt: 'Минималистичная процедурная комната с раковиной', className: 'md:col-span-1 md:row-span-1' },
+        { src: '/clinic-space/clinic-lounge-view.jpg', alt: 'Вид на зону отдыха и процедурное пространство', className: 'md:col-span-2 md:row-span-1' },
       ],
     },
     science: {
@@ -345,9 +379,137 @@ const approachCopy = {
   },
 } satisfies Record<Locale, unknown>;
 
-function PhilosophySection() {
+/** Shared copy: patient journey / experience (e.g. homepage concept treatments block). */
+export const approachExperienceByLocale: Record<
+  Locale,
+  { eyebrow: string; title: string; body: string; moments: readonly JourneyMoment[] }
+> = {
+  bg: approachCopy.bg.experience,
+  en: approachCopy.en.experience,
+  ru: approachCopy.ru.experience,
+};
+
+function ApproachHero() {
+  const { locale, localizeHref } = useLocale();
+  const copy = approachCopy[locale].hero;
+  const { videoRef, freezeVideoOnLastFrame, replayVideoOnHover } = useHeroVideoPlayback();
+
+  return (
+    <section
+      id="approach-top"
+      className="relative min-h-[100svh] overflow-hidden bg-[#221F1B] text-[#F2EEEC]"
+      onMouseEnter={replayVideoOnHover}
+    >
+      <div className="absolute inset-0">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          defaultMuted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          disablePictureInPicture
+          onEnded={freezeVideoOnLastFrame}
+          className="h-full w-full object-cover object-center opacity-[0.82]"
+        >
+          <source src="/obliq-approach-hero.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_26%,rgba(242,238,236,0.18),transparent_28%),linear-gradient(90deg,rgba(34,31,27,0.94)_0%,rgba(34,31,27,0.70)_38%,rgba(34,31,27,0.20)_70%,rgba(34,31,27,0.48)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(180deg,rgba(34,31,27,0)_0%,rgba(34,31,27,0.86)_100%)]" />
+      </div>
+
+      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col px-5 pb-8 pt-28 sm:px-8 lg:px-8 lg:pb-10 lg:pt-32">
+        <motion.div
+          {...editorialFade}
+          className="grid flex-1 gap-10 lg:grid-cols-[minmax(0,0.74fr)_minmax(12rem,0.26fr)]"
+        >
+          <div className="flex max-w-5xl flex-col justify-end pb-8 lg:pb-14">
+            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#D8CDC0]">
+              {copy.eyebrow}
+            </p>
+            <h1 className="type-h1 mt-6 max-w-[54rem] text-[#F2EEEC]">
+              {copy.title}
+            </h1>
+          </div>
+
+          <div className="flex flex-col justify-end border-t border-[#F2EEEC]/18 pb-20 pt-6 lg:border-l lg:border-t-0 lg:pb-24 lg:pl-8">
+            <div className="flex gap-3 lg:flex-col">
+              {copy.markers.map((marker, index) => (
+                <div key={marker} className="flex items-center gap-3 text-[#F2EEEC]/78">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#D8CDC0]" />
+                  <span className="text-[0.68rem] uppercase tracking-[0.24em]">
+                    {String(index + 1).padStart(2, '0')} {marker}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className="type-body-lg mt-8 max-w-sm text-[#F2EEEC]/76">
+              {copy.subtitle}
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <a
+                href={localizeHref('/#contact')}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F2EEEC] px-6 py-4 text-[0.76rem] uppercase tracking-[0.22em] text-[#38322C] transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                {copy.primaryLabel}
+                <ArrowRight className="h-4 w-4" strokeWidth={1.6} />
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function PhilosophySection({ variant = 'ambient' }: { variant?: 'ambient' | 'editorial' }) {
   const { locale } = useLocale();
   const copy = approachCopy[locale].philosophy;
+
+  if (variant === 'editorial') {
+    return (
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#D8CDC0_0%,#F2EEEC_48%,#BAB0A8_100%)] px-5 py-24 text-[#38322C] sm:px-8 sm:py-32 lg:px-12 lg:py-40">
+        <div className="absolute inset-0 opacity-35">
+          <ImageWithFallback
+            src="/facial-focus-face.jpg"
+            alt=""
+            className="h-full w-full object-cover object-[50%_35%] mix-blend-soft-light"
+          />
+        </div>
+        <div className="absolute inset-0 bg-[#F2EEEC]/64" />
+        <div className="relative mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <motion.div {...editorialFade} className="lg:sticky lg:top-32">
+            <p className="text-[0.68rem] uppercase tracking-[0.32em] text-[#876856]">{copy.eyebrow}</p>
+            <h2 className="mt-8 max-w-[43rem] text-5xl font-normal leading-[1.02] text-[#38322C] sm:text-7xl">
+              {copy.title}
+            </h2>
+          </motion.div>
+
+          <div className="space-y-16 pt-4 lg:pt-28">
+            {copy.blocks.map((block, index) => (
+              <motion.div
+                key={block.title}
+                {...editorialFade}
+                transition={{ ...editorialFade.transition, delay: index * 0.08 }}
+                className="grid gap-6 border-t border-[#635C54]/18 pt-8 sm:grid-cols-[8rem_1fr]"
+              >
+                <span className="text-[0.72rem] uppercase tracking-[0.28em] text-[#977460]">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 className="text-2xl font-normal text-[#38322C] sm:text-3xl">{block.title}</h3>
+                  <p className="mt-4 max-w-[30rem] text-[1rem] leading-relaxed text-[#635C54]">{block.body}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(180deg,#F2EEEC_0%,#D8CDC0_100%)] py-24 lg:py-32">
@@ -365,15 +527,7 @@ function PhilosophySection() {
             <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#876856]">
               {copy.eyebrow}
             </p>
-            <h2
-              className="mt-5 max-w-xl text-[#38322C]"
-              style={{
-                fontSize: 'clamp(2.6rem, 5vw, 5rem)',
-                lineHeight: 0.98,
-                fontWeight: 400,
-                letterSpacing: '-0.05em',
-              }}
-            >
+            <h2 className="type-h2 mt-5 max-w-xl text-[#38322C]">
               {copy.title}
             </h2>
           </motion.div>
@@ -399,7 +553,96 @@ function PhilosophySection() {
   );
 }
 
-function ExperienceSection() {
+function ExperienceLayeredPanel({
+  moment,
+  index,
+  total,
+  progress,
+  cardHeight,
+  revealedIndex,
+  onReveal,
+  panelRef,
+}: {
+  moment: JourneyMoment;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+  cardHeight?: number;
+  revealedIndex: number | null;
+  onReveal: (index: number) => void;
+  panelRef: (node: HTMLElement | null) => void;
+}) {
+  const start = index * 0.18;
+  const settle = Math.min(start + 0.12, 1);
+  const restingY = index * 82;
+  const entryY = index === 0 ? restingY : 600 + (index - 1) * 72;
+  const y = useTransform(progress, [Math.max(start - 0.04, 0), settle], [entryY, restingY]);
+  const zIndex = useTransform(progress, (value) => {
+    if (index === 0) return 1;
+
+    return value < start ? total - index : index + 1;
+  });
+
+  const revealOffset = revealedIndex !== null && index > revealedIndex ? (cardHeight ?? 520) + 24 : 0;
+
+  return (
+    <motion.div
+      style={{ y, zIndex, height: cardHeight }}
+      className="absolute left-1/2 top-0 min-h-[31rem] w-[calc(100vw-3rem)] max-w-[74rem] -translate-x-1/2"
+    >
+      <motion.article
+        ref={panelRef}
+        animate={{ y: revealOffset }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        className="h-full min-h-[31rem] overflow-hidden rounded-[1.55rem] border border-[#D8CDC0] bg-[#F8F4F1] shadow-[0_30px_80px_-52px_rgba(56,50,44,0.48)]"
+        data-experience-card
+      >
+        <div
+          className="grid min-h-[31rem] grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
+          style={cardHeight ? { height: cardHeight } : undefined}
+        >
+          <div className="relative overflow-hidden bg-[#D8CDC0]">
+            <ImageWithFallback
+              src={moment.image}
+              alt={moment.alt}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(56,50,44,0.08)_0%,rgba(242,238,236,0.02)_100%)]" />
+            <button
+              type="button"
+              className="absolute left-6 top-5 inline-flex items-center overflow-hidden rounded-full border border-[#F2EEEC]/28 bg-[#38322C]/42 text-[0.68rem] uppercase tracking-[0.24em] text-[#F2EEEC] backdrop-blur-md transition-colors duration-200 hover:bg-[#38322C]/62 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F2EEEC]/80"
+              aria-label={`Покажи стъпка ${String(index + 1).padStart(2, '0')}: ${moment.eyebrow}`}
+              onClick={() => onReveal(index)}
+            >
+              <span className="border-r border-[#F2EEEC]/24 px-4 py-2">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span className="px-4 py-2">
+                {moment.eyebrow}
+              </span>
+            </button>
+          </div>
+
+          <div
+            className="flex min-h-full flex-col justify-center px-10 py-12 lg:px-14"
+            data-experience-card-content
+          >
+            <div data-experience-card-copy>
+              <h3 className="type-h4 max-w-xl text-[#38322C]">
+                {moment.title}
+              </h3>
+              <p className="type-body mt-6 max-w-xl text-[#635C54]">
+                {moment.body}
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.article>
+    </motion.div>
+  );
+}
+
+function ClassicExperienceSection() {
   const { locale } = useLocale();
   const copy = approachCopy[locale].experience;
 
@@ -444,23 +687,186 @@ function ExperienceSection() {
                 <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#876856]">
                   {moment.eyebrow}
                 </p>
-                <h3
-                  className="mt-4 max-w-xl text-[#38322C]"
-                  style={{
-                    fontSize: 'clamp(2rem, 3.6vw, 3.4rem)',
-                    lineHeight: 1,
-                    fontWeight: 400,
-                    letterSpacing: '-0.04em',
-                  }}
-                >
+                <h3 className="type-h3 mt-4 max-w-xl text-[#38322C]">
                   {moment.title}
                 </h3>
-                <p className="mt-5 max-w-xl text-[1.02rem] leading-relaxed text-[#635C54]">
+                <p className="type-body mt-5 max-w-xl text-[#635C54]">
                   {moment.body}
                 </p>
               </div>
             </motion.article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StackedExperienceSection() {
+  const { locale } = useLocale();
+  const copy = approachCopy[locale].experience;
+  const ref = useRef<HTMLDivElement | null>(null);
+  const panelRefs = useRef<(HTMLElement | null)[]>([]);
+  const revealScrollYRef = useRef(0);
+  const revealProgressRef = useRef<number | null>(null);
+  const [cardHeight, setCardHeight] = useState<number>();
+  const [revealedIndex, setRevealedIndex] = useState<number | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start 18%', 'end end'],
+  });
+  const stackOffset = 82;
+  const stackHeight = cardHeight ? cardHeight + stackOffset * (copy.moments.length - 1) : undefined;
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    if (
+      revealedIndex !== null
+      && revealProgressRef.current !== null
+      && Math.abs(latest - revealProgressRef.current) > 0.002
+    ) {
+      setRevealedIndex(null);
+      revealProgressRef.current = null;
+    }
+  });
+
+  useLayoutEffect(() => {
+    const measureCards = () => {
+      const maxHeight = panelRefs.current.reduce((max, panel) => {
+        if (!panel) return max;
+
+        const copy = panel.querySelector<HTMLElement>('[data-experience-card-copy]');
+        const height = Math.max(
+          520,
+          (copy?.scrollHeight ?? 0) + 120,
+        );
+
+        return Math.max(max, Math.ceil(height));
+      }, 0);
+
+      if (maxHeight > 0) {
+        setCardHeight((current) => (current === maxHeight ? current : maxHeight));
+      }
+    };
+
+    measureCards();
+
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', measureCards);
+      return () => window.removeEventListener('resize', measureCards);
+    }
+
+    const resizeObserver = new ResizeObserver(measureCards);
+    panelRefs.current.forEach((panel) => {
+      if (panel) resizeObserver.observe(panel);
+    });
+    window.addEventListener('resize', measureCards);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', measureCards);
+    };
+  }, [locale, copy.moments.length]);
+
+  useEffect(() => {
+    if (revealedIndex === null) return undefined;
+
+    const closeOnScroll = () => {
+      if (Math.abs(window.scrollY - revealScrollYRef.current) > 8) {
+        setRevealedIndex(null);
+      }
+    };
+
+    window.addEventListener('scroll', closeOnScroll, { passive: true });
+    return () => window.removeEventListener('scroll', closeOnScroll);
+  }, [revealedIndex]);
+
+  return (
+    <section className="relative bg-[#F2EEEC] py-24 lg:py-32">
+      <AtmosphereOrbs
+        orbs={[
+          { className: 'left-[10%] top-[8%] h-40 w-72 bg-[#D8CDC0]/50' },
+          { className: 'right-[-4%] top-[26%] h-72 w-72 bg-[#ACB2CA]/14' },
+          { className: 'bottom-[10%] left-[30%] h-56 w-[28rem] bg-[#8C8E77]/10' },
+        ]}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-8">
+        <SectionHeading
+          eyebrow={copy.eyebrow}
+          title={copy.title}
+          body={copy.body}
+          className="lg:max-w-3xl"
+        />
+
+        <div className="mt-16 space-y-8 lg:hidden">
+          {copy.moments.map((moment, index) => (
+            <motion.article
+              key={moment.title}
+              {...editorialFade}
+              transition={{ ...editorialFade.transition, delay: index * 0.06 }}
+              className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14"
+            >
+              <div className={index % 2 === 1 ? 'lg:order-2' : undefined}>
+                <div className="overflow-hidden rounded-[2rem] border border-[#BAB0A8]/18 bg-[#D8CDC0]/30 p-3 shadow-[0_28px_70px_-44px_rgba(56,50,44,0.34)]">
+                  <div className="overflow-hidden rounded-[1.5rem]">
+                    <ImageWithFallback
+                      src={moment.image}
+                      alt={moment.alt}
+                      className="h-[23rem] w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className={index % 2 === 1 ? 'lg:order-1' : undefined}>
+                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#876856]">
+                  {moment.eyebrow}
+                </p>
+                <h3 className="type-h3 mt-4 max-w-xl text-[#38322C]">
+                  {moment.title}
+                </h3>
+                <p className="type-body mt-5 max-w-xl text-[#635C54]">
+                  {moment.body}
+                </p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+
+      <div
+        ref={ref}
+        className="relative mt-16 hidden lg:block lg:min-h-[420vh]"
+        onWheel={() => setRevealedIndex(null)}
+        onTouchMove={() => setRevealedIndex(null)}
+      >
+        <div className="sticky top-24 h-[calc(100vh-6rem)] overflow-hidden">
+          <div
+            className="relative left-1/2 top-0 min-h-[38rem] w-screen -translate-x-1/2"
+            style={stackHeight ? { height: stackHeight } : undefined}
+          >
+            {copy.moments.map((moment, index) => (
+              <ExperienceLayeredPanel
+                key={moment.title}
+                moment={moment}
+                index={index}
+                total={copy.moments.length}
+                progress={scrollYProgress}
+                cardHeight={cardHeight}
+                revealedIndex={revealedIndex}
+                onReveal={(nextIndex) => {
+                  revealScrollYRef.current = window.scrollY;
+                  revealProgressRef.current = scrollYProgress.get();
+                  setRevealedIndex((currentIndex) => (
+                    currentIndex === nextIndex ? null : nextIndex
+                  ));
+                }}
+                panelRef={(node) => {
+                  panelRefs.current[index] = node;
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -574,15 +980,7 @@ function FinalCtaSection() {
           <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#BAB0A8]">
             {copy.eyebrow}
           </p>
-          <h2
-            className="mx-auto mt-5 max-w-3xl text-[#F2EEEC]"
-            style={{
-              fontSize: 'clamp(2.2rem, 4.5vw, 4.3rem)',
-              lineHeight: 1,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
-          >
+          <h2 className="type-h2 mx-auto mt-5 max-w-3xl text-[#F2EEEC]">
             {copy.title}
           </h2>
           <a
@@ -613,13 +1011,32 @@ export function ObliqApproachPage() {
           title={copy.title}
           subtitle={copy.subtitle}
           videoSrc="/obliq-approach-hero.mp4"
-          backgroundGradient="linear-gradient(180deg,#38322C 0%,#635C54 76%,#8C8E77 100%)"
+          backgroundColor="#38322C"
           primaryAction={{ href: '/#contact', label: copy.primaryLabel }}
           secondaryAction={{ href: '/contact', label: copy.secondaryLabel }}
         />
         <PhilosophySection />
-        <ExperienceSection />
-        <AtmosphereSection />
+        <ClassicExperienceSection />
+        {/* <AtmosphereSection /> */}
+        <ScienceSection />
+        <FinalCtaSection />
+      </main>
+
+      <ConsultationFooter />
+    </div>
+  );
+}
+
+export function TheObliqApproachPage() {
+  return (
+    <div className="min-h-screen bg-[#F2EEEC] text-[#38322C]">
+      <SiteHeader />
+
+      <main>
+        <ApproachHero />
+        <PhilosophySection variant="editorial" />
+        <StackedExperienceSection />
+        {/* <AtmosphereSection /> */}
         <ScienceSection />
         <FinalCtaSection />
       </main>

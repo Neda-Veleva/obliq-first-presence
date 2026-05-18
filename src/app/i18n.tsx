@@ -10,13 +10,17 @@ export type RouteKey =
   | 'homeV4'
   | 'homeConcept02'
   | 'homeConcept03'
-  | 'approach'
+  | 'approachV1'
+  | 'approachV2'
   | 'brandColors'
+  | 'typographySystem'
   | 'contact'
   | 'contactV2'
   | 'contactV3'
   | 'conditions'
   | 'procedures'
+  | 'proceduresV2'
+  | 'proceduresV3'
   | 'journal';
 
 export type LocalizedRoute = {
@@ -46,13 +50,17 @@ const routePaths: Record<RouteKey, string> = {
   homeV4: '/homepage-v4',
   homeConcept02: '/homepage-concept-02',
   homeConcept03: '/homepage-concept-03',
-  approach: '/the-obliq-approach',
+  approachV1: '/the-obliq-approach-v1',
+  approachV2: '/the-obliq-approach-v2',
   brandColors: '/brand-colors',
+  typographySystem: '/obliq-typography-system',
   contact: '/contact',
   contactV2: '/contact-v2',
   contactV3: '/contact-v3',
   conditions: '/conditions',
   procedures: '/procedures',
+  proceduresV2: '/procedures-v2',
+  proceduresV3: '/procedures-v3',
   journal: '/skin-journal',
 };
 
@@ -66,15 +74,21 @@ const routeAliases: Record<string, RouteKey> = {
   '/homepage-editorial-presence-02': 'homeConcept02',
   '/homepage-concept-03': 'homeConcept03',
   '/homepage-future-human': 'homeConcept03',
-  '/approach': 'approach',
-  '/the-obliq-approach': 'approach',
+  '/approach': 'approachV1',
+  '/the-obliq-approach-v1': 'approachV1',
+  '/the-obliq-approach': 'approachV2',
+  '/the-obliq-approach-v2': 'approachV2',
   '/brand-colors': 'brandColors',
   '/obliq-color-system': 'brandColors',
+  '/typography-system': 'typographySystem',
+  '/obliq-typography-system': 'typographySystem',
   '/contact': 'contact',
   '/contact-v2': 'contactV2',
   '/contact-v3': 'contactV3',
   '/conditions': 'conditions',
   '/procedures': 'procedures',
+  '/procedures-v2': 'proceduresV2',
+  '/procedures-v3': 'proceduresV3',
   '/journal': 'journal',
   '/skin-journal': 'journal',
 };

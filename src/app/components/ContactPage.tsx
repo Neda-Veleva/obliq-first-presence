@@ -4,21 +4,22 @@ import {
   ArrowRight,
   Clock3,
   ExternalLink,
-  Facebook,
-  Instagram,
   Mail,
   MapPinned,
   MoveRight,
   Phone,
   Star,
-  Youtube,
 } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { ConsultationFooter } from './ConsultationFooter';
 import { SiteHeader } from './SiteHeader';
 import { useLocale, type Locale } from '../i18n';
 
-const clinicAddress = 'ул. „Стефан Стамболов“ 6, ет. 2, София';
+const clinicAddressByLocale: Record<Locale, string> = {
+  bg: 'ул. „Стефан Стамболов“ 6, ет. 2,\nгр. София',
+  en: '6 Stefan Stambolov St., floor 2,\nSofia, Bulgaria',
+  ru: 'ул. «Стефан Стамболов» 6, эт. 2,\nг. София',
+};
 const mapsQuery = 'Medical Center OBLIQ, ul. Stefan Stambolov 6, Sofia';
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
 const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
@@ -43,16 +44,16 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: MapPinned,
       label: 'Адрес',
-      value: clinicAddress,
+      value: clinicAddressByLocale.bg,
       actionLabel: 'Отвори в Google Maps',
       href: mapsUrl,
     },
     {
       icon: Phone,
       label: 'Телефон',
-      value: '0898910588',
+      value: '+359 - 898 - 910 - 588',
       actionLabel: 'Запази час',
-      href: 'tel:0898910588',
+      href: 'tel:+359898910588',
     },
     {
       icon: Mail,
@@ -64,7 +65,7 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: Clock3,
       label: 'Работно време',
-      value: 'Понеделник – Петък · 10:00 – 18:00',
+      value: 'Понеделник – Петък · 10:00 – 19:00',
       secondaryValue: 'С предварително запазен час',
     },
   ],
@@ -72,16 +73,16 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: MapPinned,
       label: 'Address',
-      value: clinicAddress,
+      value: clinicAddressByLocale.en,
       actionLabel: 'Open in Google Maps',
       href: mapsUrl,
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '0898910588',
+      value: '+359 - 898 - 910 - 588',
       actionLabel: 'Book appointment',
-      href: 'tel:0898910588',
+      href: 'tel:+359898910588',
     },
     {
       icon: Mail,
@@ -93,7 +94,7 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: Clock3,
       label: 'Working hours',
-      value: 'Monday – Friday · 10:00 – 18:00',
+      value: 'Monday – Friday · 10:00 – 19:00',
       secondaryValue: 'By appointment',
     },
   ],
@@ -101,16 +102,16 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: MapPinned,
       label: 'Адрес',
-      value: clinicAddress,
+      value: clinicAddressByLocale.ru,
       actionLabel: 'Открыть в Google Maps',
       href: mapsUrl,
     },
     {
       icon: Phone,
       label: 'Телефон',
-      value: '0898910588',
+      value: '+359 - 898 - 910 - 588',
       actionLabel: 'Записаться',
-      href: 'tel:0898910588',
+      href: 'tel:+359898910588',
     },
     {
       icon: Mail,
@@ -122,7 +123,7 @@ const contactDetailsByLocale: Record<Locale, ContactDetail[]> = {
     {
       icon: Clock3,
       label: 'Часы работы',
-      value: 'Понедельник – Пятница · 10:00 – 18:00',
+      value: 'Понедельник – Пятница · 10:00 – 19:00',
       secondaryValue: 'По предварительной записи',
     },
   ],
@@ -145,7 +146,6 @@ const contactCopy: Record<
     socialEyebrow: string;
     socialTitle: string;
     socialBody: string;
-    socialProfileStatus: string;
     reviewsEyebrow: string;
     reviewsTitle: string;
     reviewsBody: string;
@@ -183,7 +183,6 @@ const contactCopy: Record<
     socialTitle: 'Останете близо до OBLIQ.',
     socialBody:
       'Следвайте ни за атмосфера от клиниката, експертно съдържание и моменти от ежедневната грижа.',
-    socialProfileStatus: 'Профил в подготовка',
     reviewsEyebrow: 'Google reviews',
     reviewsTitle: 'Доверие, споделено от нашите пациенти.',
     reviewsBody: 'Реални впечатления от хора, които са преминали през своя път на грижа с OBLIQ.',
@@ -200,7 +199,7 @@ const contactCopy: Record<
     footerHome: 'Начало',
     footerContact: 'Контакти',
     footerConsultation: 'Консултация',
-    footerAddress: clinicAddress,
+    footerAddress: clinicAddressByLocale.bg,
   },
   en: {
     heroTitle: 'Visit OBLIQ.',
@@ -219,7 +218,6 @@ const contactCopy: Record<
     socialEyebrow: 'Social presence',
     socialTitle: 'Stay close to OBLIQ.',
     socialBody: 'Follow us for clinic atmosphere, expert content and moments from everyday care.',
-    socialProfileStatus: 'Profile in preparation',
     reviewsEyebrow: 'Google reviews',
     reviewsTitle: 'Trust shared by our patients.',
     reviewsBody: 'Real impressions from people who have experienced their care journey with OBLIQ.',
@@ -236,7 +234,7 @@ const contactCopy: Record<
     footerHome: 'Home',
     footerContact: 'Contact',
     footerConsultation: 'Consultation',
-    footerAddress: clinicAddress,
+    footerAddress: clinicAddressByLocale.en,
   },
   ru: {
     heroTitle: 'Посетите OBLIQ.',
@@ -255,7 +253,6 @@ const contactCopy: Record<
     socialEyebrow: 'Social presence',
     socialTitle: 'Оставайтесь ближе к OBLIQ.',
     socialBody: 'Следите за атмосферой клиники, экспертным содержанием и моментами ежедневной заботы.',
-    socialProfileStatus: 'Профиль готовится',
     reviewsEyebrow: 'Google reviews',
     reviewsTitle: 'Доверие, которым делятся наши пациенты.',
     reviewsBody: 'Реальные впечатления людей, прошедших свой путь заботы с OBLIQ.',
@@ -272,7 +269,7 @@ const contactCopy: Record<
     footerHome: 'Главная',
     footerContact: 'Контакты',
     footerConsultation: 'Консультация',
-    footerAddress: clinicAddress,
+    footerAddress: clinicAddressByLocale.ru,
   },
 };
 
@@ -284,81 +281,91 @@ const ellipseDesktopClasses = [
 ] as const;
 
 type SocialCardData = {
-  icon: typeof Instagram;
+  iconSrc: string;
   title: string;
   description: string;
   eyebrow: string;
   accent: string;
+  status: string;
 };
 
 const socialCardsByLocale: Record<Locale, SocialCardData[]> = {
   bg: [
     {
-      icon: Instagram,
+      iconSrc: '/social/instagram.png',
       title: 'Instagram',
       description: 'Визуални истории, терапии и атмосфера.',
       eyebrow: 'Editorial moments',
       accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
+      status: 'Профил в подготовка',
     },
     {
-      icon: Facebook,
+      iconSrc: '/social/facebook.png',
       title: 'Facebook',
       description: 'Новини, полезна информация и актуални съобщения.',
       eyebrow: 'Clinic updates',
       accent: 'linear-gradient(90deg, #ACB2CA 0%, #BAB0A8 100%)',
+      status: 'Профил в подготовка',
     },
     {
-      icon: Youtube,
+      iconSrc: '/social/youtube.png',
       title: 'YouTube',
       description: 'Видео присъствие и експертни насоки, когато каналът е активен.',
       eyebrow: 'Long-form care',
       accent: 'linear-gradient(90deg, #8C8E77 0%, #977460 100%)',
+      status: 'Канал в подготовка',
     },
   ],
   en: [
     {
-      icon: Instagram,
+      iconSrc: '/social/instagram.png',
       title: 'Instagram',
       description: 'Visual stories, therapies and atmosphere.',
       eyebrow: 'Editorial moments',
       accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
+      status: 'Profile in preparation',
     },
     {
-      icon: Facebook,
+      iconSrc: '/social/facebook.png',
       title: 'Facebook',
       description: 'News, useful information and current updates.',
       eyebrow: 'Clinic updates',
       accent: 'linear-gradient(90deg, #ACB2CA 0%, #BAB0A8 100%)',
+      status: 'Profile in preparation',
     },
     {
-      icon: Youtube,
+      iconSrc: '/social/youtube.png',
       title: 'YouTube',
       description: 'Video presence and expert guidance when the channel is active.',
       eyebrow: 'Long-form care',
       accent: 'linear-gradient(90deg, #8C8E77 0%, #977460 100%)',
+      status: 'Channel in preparation',
     },
   ],
   ru: [
     {
-      icon: Instagram,
+      iconSrc: '/social/instagram.png',
       title: 'Instagram',
       description: 'Визуальные истории, терапии и атмосфера.',
       eyebrow: 'Editorial moments',
       accent: 'linear-gradient(90deg, #977460 0%, #8C8E77 100%)',
+      status: 'Профиль готовится',
     },
     {
-      icon: Facebook,
+      iconSrc: '/social/facebook.png',
       title: 'Facebook',
       description: 'Новости, полезная информация и актуальные сообщения.',
       eyebrow: 'Clinic updates',
       accent: 'linear-gradient(90deg, #ACB2CA 0%, #BAB0A8 100%)',
+      status: 'Профиль готовится',
     },
     {
-      icon: Youtube,
+      iconSrc: '/social/youtube.png',
       title: 'YouTube',
       description: 'Видео и экспертные рекомендации, когда канал активен.',
       eyebrow: 'Long-form care',
       accent: 'linear-gradient(90deg, #8C8E77 0%, #977460 100%)',
+      status: 'Канал готовится',
     },
   ],
 };
@@ -473,7 +480,7 @@ function HeroVisual() {
       className="relative mx-auto w-full max-w-[46rem] pt-6 xl:max-w-[50rem]"
     >
       <div
-        className="relative aspect-[1.12/1] rounded-[50%] border border-[#F2EEEC]/14 bg-[linear-gradient(180deg,rgba(242,238,236,0.12)_0%,rgba(242,238,236,0.05)_100%)] p-[0.8rem] shadow-[0_0_0_1px_rgba(242,238,236,0.05),0_34px_80px_-42px_rgba(56,50,44,0.72),inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-18px_32px_rgba(255,255,255,0.04)] backdrop-blur-[14px] sm:aspect-[1.38/1] sm:p-[0.95rem]"
+        className="relative aspect-[1.12/1] rounded-[50%] border border-[#F2EEEC]/14 bg-[#F2EEEC]/10 p-[0.8rem] shadow-[0_0_0_1px_rgba(242,238,236,0.05),0_34px_80px_-42px_rgba(56,50,44,0.72),inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-18px_32px_rgba(255,255,255,0.04)] backdrop-blur-[14px] sm:aspect-[1.38/1] sm:p-[0.95rem]"
         onMouseEnter={replayVideoOnHover}
       >
         <div className="relative h-full w-full overflow-hidden rounded-[50%] bg-[#F2EEEC]/6">
@@ -490,7 +497,7 @@ function HeroVisual() {
           >
             <source src="/contact-hero-clip.mp4" type="video/mp4" />
           </video>
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(56,50,44,0.1)_0%,rgba(56,50,44,0.62)_100%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[#38322C]/36" />
           <div className="pointer-events-none absolute inset-0 rounded-[50%] border border-[#F2EEEC]/18 shadow-[inset_0_1px_0_rgba(242,238,236,0.18)]" />
         </div>
       </div>
@@ -518,18 +525,10 @@ function ContactInfoCard() {
         <p className="text-[0.72rem] uppercase tracking-[0.26em] text-[#BAB0A8]">
           {copy.infoEyebrow}
         </p>
-        <h2
-          className="mt-4 max-w-sm text-[#F2EEEC]"
-          style={{
-            fontSize: 'clamp(2rem, 3.8vw, 3.35rem)',
-            lineHeight: 1.04,
-            fontWeight: 400,
-            letterSpacing: '-0.03em',
-          }}
-        >
+        <h2 className="type-h3 mt-4 max-w-sm text-[#F2EEEC]">
           {copy.infoTitle}
         </h2>
-        <p className="mt-5 max-w-md text-[1rem] leading-relaxed text-[#F2EEEC]/72">
+        <p className="type-body mt-5 max-w-md text-[#F2EEEC]/72">
           {copy.infoBody}
         </p>
 
@@ -629,7 +628,7 @@ function ContactDetailEllipses() {
                   >
                     {detail.label}
                   </p>
-                  <p className="mt-2 max-w-[14.5rem] text-[1rem] leading-relaxed text-[#F2EEEC]/94">
+                  <p className="mt-2 max-w-[14.5rem] whitespace-pre-line text-[1rem] leading-relaxed text-[#F2EEEC]/94">
                     {detail.value}
                   </p>
                   {'secondaryValue' in detail && detail.secondaryValue ? (
@@ -739,7 +738,7 @@ function ContactDetailEllipses() {
                   <p className={`text-[0.68rem] uppercase tracking-[0.24em] ${isActive ? 'text-[#F2EEEC]/92' : 'text-[#F2EEEC]/62'}`}>
                     {detail.label}
                   </p>
-                  <p className="mt-2 text-[1rem] leading-relaxed text-[#F2EEEC]/94">{detail.value}</p>
+                  <p className="mt-2 whitespace-pre-line text-[1rem] leading-relaxed text-[#F2EEEC]/94">{detail.value}</p>
                   {'secondaryValue' in detail && detail.secondaryValue ? (
                     <p className="mt-1 text-[0.88rem] leading-relaxed text-[#F2EEEC]/62">
                       {detail.secondaryValue}
@@ -802,7 +801,7 @@ function MapPanel() {
     >
       <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(242,238,236,0.1)_0%,rgba(216,205,192,0.4)_100%)]" />
       <iframe
-        title="OBLIQ Google Maps"
+        title="OBLIQ. Google Maps"
         src={mapsEmbedUrl}
         className="pointer-events-none absolute inset-0 h-full w-full"
         loading="lazy"
@@ -822,7 +821,7 @@ function MapPanel() {
             transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: 'easeOut' }}
           />
           <span className="absolute inset-0 rounded-full border border-[#F2EEEC]/16" />
-          <BrandLogo alt="OBLIQ pin" inverted className="relative z-10 w-12" />
+          <BrandLogo alt="OBLIQ. pin" inverted className="relative z-10 w-12" />
         </div>  
       </motion.div>
 
@@ -853,17 +852,17 @@ function MapPanel() {
 }
 
 function SocialCard({
-  icon: Icon,
+  iconSrc,
   title,
   description,
   eyebrow,
   accent,
   status,
-}: SocialCardData & { status: string }) {
+}: SocialCardData) {
   return (
     <motion.div
       {...editorialFade}
-      className="relative flex h-full flex-col justify-between overflow-hidden rounded-[1.9rem] border border-[#BAB0A8]/18 bg-[#F2EEEC] p-7 shadow-[0_30px_70px_-48px_rgba(56,50,44,0.35)]"
+      className="relative flex h-full min-h-[16rem] flex-col justify-between overflow-hidden rounded-[1.9rem] border border-[#BAB0A8]/18 bg-[#F2EEEC] p-7 shadow-[0_30px_70px_-48px_rgba(56,50,44,0.35)]"
     >
       <div
         aria-hidden
@@ -876,17 +875,23 @@ function SocialCard({
         <p className="text-[0.7rem] uppercase tracking-[0.24em] text-[#876856]">{eyebrow}</p>
         <div className="mt-5 flex items-center gap-4">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[linear-gradient(180deg,#D8CDC0_0%,#F2EEEC_100%)] text-[#38322C] shadow-[0_18px_24px_-20px_rgba(56,50,44,0.4)]">
-            <Icon className="h-6 w-6" strokeWidth={1.55} />
+            <img
+              src={iconSrc}
+              alt=""
+              className="h-6 w-6 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
-          <h3
-            className="text-[#38322C]"
-            style={{ fontSize: 'clamp(1.35rem, 2vw, 1.7rem)', lineHeight: 1.1, fontWeight: 400 }}
-          >
+          <h3 className="type-h5 text-[#38322C]">
             {title}
           </h3>
         </div>
-        <p className="mt-6 max-w-sm text-[1rem] leading-relaxed text-[#635C54]">{description}</p>
+        <p className="type-body mt-6 max-w-sm text-[#635C54]">{description}</p>
       </div>
+      <p className="relative mt-8 text-[0.68rem] uppercase tracking-[0.22em] text-[#876856]">
+        {status}
+      </p>
     </motion.div>
   );
 }
@@ -943,25 +948,17 @@ export function ContactHeroSection() {
   return (
     <section
       id="contact-top"
-      className="relative overflow-hidden bg-[linear-gradient(180deg,#38322C_0%,#635C54_76%,#8C8E77_100%)] pt-28 text-[#F2EEEC] sm:pt-32"
+      className="relative overflow-hidden bg-[#8C8E77] pt-28 text-[#F2EEEC] sm:pt-32"
     >
       {/* <LayeredOrbs /> */}
 
       <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:px-8 lg:pb-24 lg:pt-16">
         <div className="grid items-center gap-16 lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.2fr)] lg:gap-12 xl:gap-18">
           <motion.div {...editorialFade} className="max-w-[34rem]">
-            <h1
-              className="mt-6 text-[#F2EEEC]"
-              style={{
-                fontSize: '5rem',
-                lineHeight: 0.92,
-                fontWeight: 400,
-                letterSpacing: '-0.05em',
-              }}
-            >
+            <h1 className="type-h1 mt-6 text-[#F2EEEC]">
               {copy.heroTitle}
             </h1>
-            <p className="mt-6 max-w-xl text-[1.12rem] leading-relaxed text-[#F2EEEC]/76 sm:text-[1.18rem]">
+            <p className="type-body-lg mt-6 max-w-xl text-[#F2EEEC]/76">
               {copy.heroBody}
             </p>
 
@@ -1059,25 +1056,17 @@ export function ContactPage() {
               <p className="text-[0.74rem] uppercase tracking-[0.26em] text-[#876856]">
                 {copy.socialEyebrow}
               </p>
-              <h2
-                className="mt-5 text-[#38322C]"
-                style={{
-                  fontSize: 'clamp(2.2rem, 4vw, 4rem)',
-                  lineHeight: 1.02,
-                  fontWeight: 400,
-                  letterSpacing: '-0.04em',
-                }}
-              >
+              <h2 className="type-h2 mt-5 text-[#38322C]">
                 {copy.socialTitle}
               </h2>
-              <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-[#635C54]">
+              <p className="type-body mt-5 max-w-xl text-[#635C54]">
                 {copy.socialBody}
               </p>
             </motion.div>
 
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
               {socialCards.map((card) => (
-                <SocialCard key={card.title} {...card} status={copy.socialProfileStatus} />
+                <SocialCard key={card.title} {...card} />
               ))}
             </div>
           </div>
@@ -1098,18 +1087,10 @@ export function ContactPage() {
               <p className="text-[0.74rem] uppercase tracking-[0.26em] text-[#BAB0A8]">
                 {copy.reviewsEyebrow}
               </p>
-              <h2
-                className="mt-5 text-[#F2EEEC]"
-                style={{
-                  fontSize: 'clamp(2.3rem, 4.2vw, 4rem)',
-                  lineHeight: 1.02,
-                  fontWeight: 400,
-                  letterSpacing: '-0.04em',
-                }}
-              >
+              <h2 className="type-h2 mt-5 text-[#F2EEEC]">
                 {copy.reviewsTitle}
               </h2>
-              <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-[#F2EEEC]/74">
+              <p className="type-body mt-5 max-w-2xl text-[#F2EEEC]/74">
                 {copy.reviewsBody}
               </p>
               <p className="mt-4 inline-flex rounded-full border border-[#BAB0A8]/18 bg-[#F2EEEC]/8 px-4 py-2 text-[0.72rem] uppercase tracking-[0.2em] text-[#BAB0A8] backdrop-blur-md">
@@ -1156,18 +1137,10 @@ export function ContactPage() {
                   <p className="text-[0.74rem] uppercase tracking-[0.26em] text-[#876856]">
                     {copy.finalEyebrow}
                   </p>
-                  <h2
-                    className="mt-5 text-[#38322C]"
-                    style={{
-                      fontSize: 'clamp(2.2rem, 4vw, 4rem)',
-                      lineHeight: 1.02,
-                      fontWeight: 400,
-                      letterSpacing: '-0.04em',
-                    }}
-                  >
+                  <h2 className="type-h2 mt-5 text-[#38322C]">
                     {copy.finalTitle}
                   </h2>
-                  <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-[#635C54]">
+                  <p className="type-body mt-5 max-w-xl text-[#635C54]">
                     {copy.finalBody}
                   </p>
                 </div>
@@ -1180,7 +1153,7 @@ export function ContactPage() {
                     {copy.finalBooking}
                   </a>
                   <a
-                    href="tel:0898910588"
+                    href="tel:+359898910588"
                     className="inline-flex items-center justify-center rounded-full border border-[#38322C]/12 bg-[#F2EEEC]/72 px-6 py-4 text-[0.8rem] uppercase tracking-[0.2em] text-[#38322C] backdrop-blur-md transition-colors hover:bg-[#F2EEEC]"
                   >
                     {copy.finalPhone}

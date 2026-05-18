@@ -68,18 +68,18 @@ const editorialPresenceCopy: Record<
       body:
         'Спокойна естетика с мека светлина и естествено присъствие.',
       primary: 'Заяви консултация',
-      secondary: 'Подходът на OBLIQ',
+      secondary: 'Подходът на OBLIQ.',
     },
     pause: 'Красота, която се усеща като баланс.',
     composition: {
       eyebrow: 'Присъствие в пластове',
-      title: 'OBLIQ комуникира чрез композиция, текстура и внимателно режисирана близост.',
+      title: 'OBLIQ. комуникира чрез композиция, текстура и внимателно режисирана близост.',
       body:
         'Вместо стандартни карти, образите носят усещане за качество на кожата, мек контур и естествена светлина.',
       notes: ['мек фокус', 'тиха прецизност', 'естествена кожа'],
     },
     approach: {
-      eyebrow: 'Подходът на OBLIQ',
+      eyebrow: 'Подходът на OBLIQ.',
       title: 'Модерна естетика, която не променя идентичността. Само връща яснота, баланс и добро усещане в кожата.',
       layers: [
         {
@@ -153,18 +153,18 @@ const editorialPresenceCopy: Record<
       body:
         'Aesthetic dermatology presented like a calm luxury wellness campaign. Less explanation. More atmosphere, confidence and soft daylight.',
       primary: 'Request a consultation',
-      secondary: 'The OBLIQ approach',
+      secondary: 'The OBLIQ. approach',
     },
     pause: 'Feel good in your skin.',
     composition: {
       eyebrow: 'Presence in layers',
-      title: 'OBLIQ communicates through composition, texture and carefully directed closeness.',
+      title: 'OBLIQ. communicates through composition, texture and carefully directed closeness.',
       body:
         'Instead of standard cards, the imagery carries the feeling of skin quality, soft contour and natural light.',
       notes: ['soft focus', 'quiet precision', 'natural skin'],
     },
     approach: {
-      eyebrow: 'The OBLIQ approach',
+      eyebrow: 'The OBLIQ. approach',
       title: 'A modern aesthetic that does not change identity. It simply brings back clarity, balance and comfort in your skin.',
       layers: [
         {
@@ -234,18 +234,18 @@ const editorialPresenceCopy: Record<
       body:
         'Эстетическая дерматология, поданная как спокойная luxury wellness кампания. Меньше объяснений. Больше атмосферы, уверенности и мягкого дневного света.',
       primary: 'Запросить консультацию',
-      secondary: 'Подход OBLIQ',
+      secondary: 'Подход OBLIQ.',
     },
     pause: 'Feel good in your skin.',
     composition: {
       eyebrow: 'Presence in layers',
-      title: 'OBLIQ говорит через композицию, текстуру и тщательно выстроенную близость.',
+      title: 'OBLIQ. говорит через композицию, текстуру и тщательно выстроенную близость.',
       body:
         'Вместо стандартных карточек атмосферу передают изображения, качество кожи, мягкий контур и естественный свет.',
       notes: ['soft focus', 'quiet precision', 'natural skin'],
     },
     approach: {
-      eyebrow: 'The OBLIQ approach',
+      eyebrow: 'The OBLIQ. approach',
       title: 'Современная эстетика, которая не меняет идентичность. Она возвращает ясность, баланс и комфорт в собственной коже.',
       layers: [
         {
@@ -374,12 +374,12 @@ function HeroSection() {
           defaultMuted
           playsInline
           preload="auto"
-          className="absolute left-0 top-0 h-full w-full object-cover object-[42%_center] opacity-[0.94] lg:w-[50%]"
+          className="absolute left-0 top-0 h-full w-full object-cover object-[42%_center] opacity-[0.94]"
         >
-          <source src="/journal-hero.mp4" type="video/mp4" />
+          <source src="/journal-hero-3.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(56,50,44,0.22)_0%,rgba(56,50,44,0.1)_22%,rgba(244,240,236,0.08)_34%,rgba(244,240,236,0.3)_42%,rgba(244,240,236,0.62)_50%,rgba(244,240,236,0.9)_60%,rgba(244,240,236,0.98)_100%)]" />
-        <div className="absolute inset-y-0 right-[42%] w-[24%] bg-[linear-gradient(90deg,rgba(244,240,236,0)_0%,rgba(244,240,236,0.1)_18%,rgba(244,240,236,0.42)_48%,rgba(244,240,236,0.78)_72%,rgba(244,240,236,0.98)_100%)] blur-[28px]" />
+        <div className="absolute inset-y-0 right-[30%] w-[24%] bg-[linear-gradient(90deg,rgba(244,240,236,0)_0%,rgba(244,240,236,0.1)_18%,rgba(244,240,236,0.42)_48%,rgba(244,240,236,0.78)_72%,rgba(244,240,236,0.98)_100%)] blur-[28px]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(244,240,236,0.22)_0%,rgba(244,240,236,0.02)_22%,rgba(56,50,44,0.08)_72%,rgba(56,50,44,0.22)_100%)]" />
       </div>
 
@@ -402,19 +402,11 @@ function HeroSection() {
             <p className="text-[0.66rem] uppercase tracking-[0.34em] text-[#876856]">
               {copy.eyebrow}
             </p>
-            <h1
-              className="mt-4 max-w-[18rem] text-[#38322C]"
-              style={{
-                fontSize: 'clamp(1.2rem, 1.8vw, 1.55rem)',
-                lineHeight: 1.06,
-                fontWeight: 400,
-                letterSpacing: '-0.04em',
-              }}
-            >
+            <h1 className="type-h6 mt-4 max-w-[18rem] text-[#38322C]">
               {copy.title}
             </h1>
 
-            <p className="mt-7 max-w-[22rem] text-[0.98rem] leading-relaxed text-[#635C54] sm:text-[1.04rem]">
+            <p className="type-body mt-7 max-w-[22rem] text-[#635C54]">
               {copy.body}
             </p>
 
@@ -447,13 +439,7 @@ function PauseSection() {
       <div className="mx-auto max-w-6xl">
         <motion.p
           {...editorialFade}
-          className="max-w-4xl text-[#38322C]"
-          style={{
-            fontSize: 'clamp(2.7rem, 7vw, 6.6rem)',
-            lineHeight: 0.96,
-            fontWeight: 400,
-            letterSpacing: '-0.06em',
-          }}
+          className="type-h1 max-w-4xl text-[#38322C]"
         >
           {pause}
         </motion.p>
@@ -482,7 +468,7 @@ function EditorialCompositionSection() {
         >
           <div className="absolute left-[4%] top-0 h-[72%] w-[62%] overflow-hidden rounded-[2.75rem] shadow-[0_38px_90px_-50px_rgba(56,50,44,0.45)]">
             <ImageWithFallback
-              src="/doctor-portrait-1.png"
+              src="/doctor-portrait-test.png"
               alt="Editorial portrait"
               className="h-full w-full object-cover object-center"
             />
@@ -515,20 +501,14 @@ function EditorialCompositionSection() {
           <motion.h2
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.05 }}
-            className="mt-6 max-w-[28rem] text-[#38322C]"
-            style={{
-              fontSize: 'clamp(2.35rem, 5vw, 4.6rem)',
-              lineHeight: 0.98,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
+            className="type-h2 mt-6 max-w-[28rem] text-[#38322C]"
           >
             {copy.title}
           </motion.h2>
           <motion.p
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.12 }}
-            className="mt-6 max-w-[24rem] text-[1rem] leading-relaxed text-[#635C54]"
+            className="type-body mt-6 max-w-[24rem] text-[#635C54]"
           >
             {copy.body}
           </motion.p>
@@ -562,15 +542,7 @@ function ApproachSection() {
           <p className="text-[0.72rem] uppercase tracking-[0.3em] text-[#876856]">
             {copy.eyebrow}
           </p>
-          <h2
-            className="mt-6 text-[#38322C]"
-            style={{
-              fontSize: 'clamp(2.8rem, 5.5vw, 3.4rem)',
-              lineHeight: 0.94,
-              fontWeight: 400,
-              letterSpacing: '-0.055em',
-            }}
-          >
+          <h2 className="type-h3 mt-6 text-[#38322C]">
             {copy.title}
           </h2>
         </motion.div>
@@ -586,7 +558,7 @@ function ApproachSection() {
               <p className="text-[0.8rem] uppercase tracking-[0.24em] text-[#876856]">
                 {layer.title}
               </p>
-              <p className="mt-3 text-[1rem] leading-relaxed text-[#635C54]">{layer.body}</p>
+              <p className="type-body mt-3 text-[#635C54]">{layer.body}</p>
             </motion.div>
           ))}
         </div>
@@ -665,20 +637,14 @@ export function HomePageV3PhilosophyVideoSection() {
           <motion.h2
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.05 }}
-            className="mt-6 text-[#38322C]"
-            style={{
-              fontSize: 'clamp(2.5rem, 5vw, 2.8rem)',
-              lineHeight: 0.96,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
+            className="type-h3 mt-6 text-[#38322C]"
           >
             {copy.title}
           </motion.h2>
           <motion.p
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.12 }}
-            className="mt-6 text-[1rem] leading-relaxed text-[#635C54]"
+            className="type-body mt-6 text-[#635C54]"
           >
             {copy.body}
           </motion.p>
@@ -732,6 +698,12 @@ export function HomePageV3AtmosphereSection() {
     { src: '/clinic-space/consultation-wide.jpg', alt: 'Consultation room', className: 'lg:translate-y-16' },
     { src: '/clinic-space/treatment-room-forma.jpg', alt: 'Treatment room', className: 'lg:-translate-y-6' },
     { src: '/clinic-space/consultation-detail.jpg', alt: 'Interior detail', className: 'lg:translate-y-14' },
+    { src: '/clinic-space/treatment-room-front.jpg', alt: 'Bright treatment room', className: 'lg:translate-y-4' },
+    { src: '/clinic-space/treatment-room-device.jpg', alt: 'Treatment room with device', className: 'lg:translate-y-12' },
+    { src: '/clinic-space/treatment-room-desk.jpg', alt: 'Treatment room desk', className: 'lg:-translate-y-4' },
+    { src: '/clinic-space/treatment-room-mirror.png', alt: 'Treatment room mirror', className: 'lg:translate-y-10' },
+    { src: '/clinic-space/treatment-room-sink.png', alt: 'Treatment room sink', className: 'lg:-translate-y-2' },
+    { src: '/clinic-space/clinic-lounge-view.jpg', alt: 'Clinic lounge view', className: 'lg:translate-y-8' },
   ];
 
   return (
@@ -742,17 +714,7 @@ export function HomePageV3AtmosphereSection() {
           <p className="text-[0.72rem] uppercase tracking-[0.3em] text-[#BAB0A8]">
             {copy.eyebrow}
           </p>
-          <h2
-            className="mt-6 text-[#F2EEEC]"
-            style={{
-              fontSize: 'clamp(2.8rem, 5.6vw, 5.2rem)',
-              lineHeight: 0.96,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
-          >
-            {copy.title}
-          </h2>
+          <h2 className="type-h1 mt-6 text-[#F2EEEC]">{copy.title}</h2>
         </motion.div>
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -771,7 +733,7 @@ export function HomePageV3AtmosphereSection() {
                 />
               </div>
               <figcaption className="pt-4 text-[0.78rem] uppercase tracking-[0.24em] text-[#D8CDC0]/74">
-                {copy.captions[index]}
+                {copy.captions[index % copy.captions.length]}
               </figcaption>
             </motion.figure>
           ))}
@@ -798,26 +760,14 @@ function TrustSection() {
           <motion.h2
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.06 }}
-            className="mt-6 max-w-[26rem] text-[#38322C]"
-            style={{
-              fontSize: 'clamp(2.8rem, 5.4vw, 5rem)',
-              lineHeight: 0.96,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
+            className="type-h1 mt-6 max-w-[26rem] text-[#38322C]"
           >
             {copy.title}
           </motion.h2>
           <motion.blockquote
             {...editorialFade}
             transition={{ ...editorialFade.transition, delay: 0.12 }}
-            className="mt-10 max-w-[38rem] text-[#38322C]"
-            style={{
-              fontSize: 'clamp(1.8rem, 3.6vw, 3.5rem)',
-              lineHeight: 1.04,
-              fontWeight: 400,
-              letterSpacing: '-0.04em',
-            }}
+            className="type-h2 mt-10 max-w-[38rem] text-[#38322C]"
           >
             {copy.quote}
           </motion.blockquote>
@@ -868,18 +818,10 @@ function FinalCtaSection() {
           {...editorialFade}
           className="rounded-[2.5rem] border border-[#F2EEEC]/12 bg-[#F2EEEC]/8 px-6 py-14 text-center shadow-[0_40px_90px_-50px_rgba(0,0,0,0.6)] backdrop-blur-2xl sm:px-10 sm:py-18 lg:px-16 lg:py-22"
         >
-          <h2
-            className="mx-auto max-w-3xl text-[#F2EEEC]"
-            style={{
-              fontSize: 'clamp(2.6rem, 5.8vw, 5.6rem)',
-              lineHeight: 0.94,
-              fontWeight: 400,
-              letterSpacing: '-0.05em',
-            }}
-          >
+          <h2 className="type-h1 mx-auto max-w-3xl text-[#F2EEEC]">
             {copy.title}
           </h2>
-          <p className="mx-auto mt-6 max-w-[34rem] text-[1rem] leading-relaxed text-[#F2EEEC]/74 sm:text-[1.08rem]">
+          <p className="type-body mx-auto mt-6 max-w-[34rem] text-[#F2EEEC]/74">
             {copy.body}
           </p>
           <div className="mt-10 flex justify-center">
@@ -905,18 +847,10 @@ function FooterTransitionSection() {
             <p className="text-[0.72rem] uppercase tracking-[0.3em] text-[#876856]">
               {copy.eyebrow}
             </p>
-            <h3
-              className="mt-4 text-[#38322C]"
-              style={{
-                fontSize: 'clamp(1.9rem, 3.2vw, 3rem)',
-                lineHeight: 0.98,
-                fontWeight: 400,
-                letterSpacing: '-0.04em',
-              }}
-            >
+            <h3 className="type-h2 mt-4 text-[#38322C]">
               {copy.title}
             </h3>
-            <p className="mt-4 max-w-[22rem] text-[0.98rem] leading-relaxed text-[#635C54]">
+            <p className="type-body mt-4 max-w-[22rem] text-[#635C54]">
               {copy.body}
             </p>
           </motion.div>

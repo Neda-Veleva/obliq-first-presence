@@ -5,15 +5,15 @@ import { useHeroVideoPlayback } from './PremiumPagePrimitives';
 const heroCopy: Record<Locale, { headline: [string, string]; byline: string }> = {
   bg: {
     headline: ['истинската красота', 'идва отвътре.'],
-    byline: 'by dr. mihaylov',
+    byline: 'by dr. mihaylov, PhD',
   },
   en: {
     headline: ['true beauty', 'comes from within.'],
-    byline: 'by dr. mihaylov',
+    byline: 'by dr. mihaylov, PhD',
   },
   ru: {
     headline: ['истинная красота', 'идет изнутри.'],
-    byline: 'by dr. mihaylov',
+    byline: 'by dr. mihaylov, PhD',
   },
 };
 

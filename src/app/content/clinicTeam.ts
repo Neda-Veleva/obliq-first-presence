@@ -14,7 +14,7 @@ export const clinicTeamByLocale: Record<Locale, ClinicTeamMember[]> = {
       role: 'Управител и лекар-специалист по кожни и венерически болести',
       blurb:
         'д-р Михаил Михайлов, дм – лекар-специалист по кожни и венерически болести и управител на медицински център ОБЛИК, който съчетава клинична прецизност, съвременна естетична дерматология и индивидуален подход към всеки пациент.',
-      image: 'doctor-portrait-test.png',
+      image: '/doctor-portrait-test.png',
     },
     {
       name: 'д-р Евгения Дамеска-Стойковска',
@@ -47,11 +47,11 @@ export const clinicTeamByLocale: Record<Locale, ClinicTeamMember[]> = {
   ],
   en: [
     {
-      name: 'Dr. Mihail Mihaylov, DM',
+      name: 'Dr. Mihail Mihaylov, PhD',
       role: 'MEDICAL DIRECTOR · DERMATOLOGY AND VENEREOLOGY',
       blurb:
-        'Dr. Mihail Mihaylov, DM — specialist in dermatology and venereology and medical director of OBLIQ Medical Centre, combining clinical precision, contemporary aesthetic dermatology and an individualized approach to every patient.',
-      image: 'doctor-portrait-test.png',
+        'Dr. Mihail Mihaylov, PhD — specialist in dermatology and venereology and medical director of OBLIQ Medical Centre, combining clinical precision, contemporary aesthetic dermatology and an individualized approach to every patient.',
+      image: '/doctor-portrait-test.png',
     },
     {
       name: 'Dr. Evgeniya Dameska-Stoykovska',
@@ -88,7 +88,7 @@ export const clinicTeamByLocale: Record<Locale, ClinicTeamMember[]> = {
       role: 'РУКОВОДИТЕЛЬ · ВРАЧ-ДЕРМАТОВЕНЕРОЛОГ',
       blurb:
         'д-р Михаил Михайлов, дм — врач-специалист по кожным и венерическим болезням и руководитель медицинского центра OBLIQ, сочетающий клиническую точность, современную эстетическую дерматологию и индивидуальный подход к каждому пациенту.',
-      image: 'doctor-portrait-test.png',
+      image: '/doctor-portrait-test.png',
     },
     {
       name: 'д-р Евгения Дамеска-Стойковска',

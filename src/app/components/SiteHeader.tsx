@@ -497,13 +497,13 @@ export function SiteHeader({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
                 </span>
 
                 <span
-                  className="w-full text-right text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-[#F2EEEC]/78 sm:text-[11px] lg:text-[12px]"
+                  className="w-full text-right text-[10px] font-medium leading-none tracking-[0.24em] text-[#F2EEEC]/78 sm:text-[11px] lg:text-[12px]"
                   style={{
                     color: isLight ? 'rgba(99, 92, 84, 0.82)' : undefined,
                     textShadow: isLight ? 'none' : '0 2px 14px rgba(0,0,0,0.2)',
                   }}
                 >
-                  BY DR. MIHAYLOV
+                  BY DR. MIHAYLOV, PhD
                 </span>
               </span>
             </a>

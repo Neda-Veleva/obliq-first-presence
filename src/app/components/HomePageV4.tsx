@@ -25,15 +25,15 @@ import { clinicTeamByLocale } from '../content/clinicTeam';
 const heroCopy: Record<Locale, { headline: [string, string]; byline: string }> = {
   bg: {
     headline: ['истинската красота', 'идва отвътре.'],
-    byline: 'by dr. mihaylov',
+    byline: 'BY DR. MIHAYLOV, PhD',
   },
   en: {
     headline: ['true beauty', 'comes from within.'],
-    byline: 'by dr. mihaylov',
+    byline: 'BY DR. MIHAYLOV, PhD',
   },
   ru: {
     headline: ['истинная красота', 'идет изнутри.'],
-    byline: 'by dr. mihaylov',
+    byline: 'BY DR. MIHAYLOV, PhD',
   },
 };
 
@@ -409,7 +409,7 @@ function HeroSection() {
             <br />
             {copy.headline[1]}
           </h1>
-          <p className="type-body ml-auto max-w-md uppercase text-[#F2EEEC]/70">
+          <p className="type-body ml-auto max-w-md text-[#F2EEEC]/70">
             {copy.byline}
           </p>
         </motion.div>
